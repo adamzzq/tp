@@ -50,6 +50,7 @@ public class Parser {
         return IntStream.rangeClosed(1, matcher.groupCount())
                 .mapToObj(i -> matcher.group(i).trim())
                 .filter(s -> !s.isEmpty())
+                .peek(s -> logger.fine("Split input: " + s))
                 .toArray(String[]::new);
     }
 }
