@@ -34,8 +34,19 @@ the command `Create order -menu 01`, `add -item 001` and `complete`.
 
 ![Sequence Diagram](images\ArchitectureSequanceDiagram.png)
 
+### Logic Component
+The logic component consists of classes that handle the logic of the application. The logic component is divided into
+`MainLogic` and `SubLogic` which consists of `OrderLogic` and `MenuLogic`.
+
+* [**`MainLogic`**](#model-component): A class to handle the first level commands, and pass the user input to corresponding
+classes for analysis and execution.
+* [**`OrderLogic`**](#model-component) and [**`MenuLogic`**](#model-component): A class to handle the second level commands,
+and pass the user input to corresponding classes for analysis and execution.
+
 ### Model Component
 The model consists of classes describing the objects used in this application.
+The general structure is that menu and order are separate, but they both work with `menuItem(s)`, which 
+represent food items on the menu.
 
 * [**`ItemManager`**](#model-component): An interface containing methods representing operations common to **`Menu`** 
   and **`Order`**. <br><br />
@@ -49,9 +60,35 @@ The model consists of classes describing the objects used in this application.
 * [**`SetMenu`**](#model-component): An enumeration representing the different types of set menus available, examples of
   which includes *breakfast*, *lunch*, *dinner*.
 
+The *Class Diagram* below shows how the model components interact with each other, including interactions such as 
+dependencies, associations and inheritance.
+
+![Class Diagram](images/modelcomponent.png)
+
 ## Implementation
 
-### 
+### `MainLogic`
+Generally, the main logic works as follows:
+1. User enters an input which is received in the *ui* and parsed by the `Parser`.
+2. The `Parser` classifies the command based on `CommandType`.
+3. If it is a first level command, `execute` is called on the corresponding class.
+4. If it is not a first level command, the command will be pass to `SubLogic` to handle.
+
+**Create Order** <br>
+`Mainlogic` takes user input and crate an `Order` class and pass it to `OrderLogic` to execute the command.
+
+### `OrderLogic`
+Generally, the order logic works as follows: 
+1. User enters an input which is received in the *ui* and parsed by the `Parser`. 
+2. The `Parser` classifies the command based on `CommandType`
+3. Within `OrderLogic`, `execute` is called on the corresponding class
+4. Control is passed to other sections of the code
+
+**View Menu** <br>
+Within the construct of the order logic, the menu can be accessed for viewing in order to select items from 
+available menus. This is carried out with the `view menu` command.
+
+
 
 
 ## Product scope
