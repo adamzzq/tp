@@ -48,7 +48,7 @@ public class Parser {
         Pattern matchedPattern = Pattern.compile(token.getCommandRegex());
         Matcher matcher = matchedPattern.matcher(input);
         boolean hasMatched = matcher.matches();
-        assert hasMatched : "Input does not match the token";  // Ensures input matches the token
+        assert hasMatched == true : "Input does not match the token";  // Ensures input matches the token
 
         return IntStream.rangeClosed(1, matcher.groupCount())
                 .mapToObj(i -> matcher.group(i).trim())
