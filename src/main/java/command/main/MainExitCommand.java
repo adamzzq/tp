@@ -1,4 +1,4 @@
-package command;
+package command.main;
 public class MainExitCommand implements MainCommand {
 
     public static boolean execute(boolean isExit) {

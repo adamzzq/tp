@@ -1,4 +1,4 @@
-package command;
+package command.order;
 
 public class OrderHelpCommand implements OrderCommand {
     public static void execute() {

@@ -1,5 +1,6 @@
-package command;
+package command.order;
 
+import command.main.MainCommand;
 import model.Menu;
 
 public class OrderViewMenuCommand implements MainCommand {

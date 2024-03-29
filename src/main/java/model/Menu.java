@@ -17,7 +17,6 @@ public class Menu implements ItemManager {
     private static final Logger logr = Logger.getLogger("MenuLogger");
     private static final ArrayList<Menu> menuList = new ArrayList<>();
     private final ArrayList<MenuItem> menuItemList = new ArrayList<>();
-    
     private final String menuID;
 
     public Menu(String menuID) {
@@ -115,6 +114,10 @@ public class Menu implements ItemManager {
 
     public static int getMenuNum() {
         return menuList.size();
+    }
+
+    public int getSize() {
+        return menuItemList.size();
     }
 
     public static ArrayList<Menu> getMenuList() {

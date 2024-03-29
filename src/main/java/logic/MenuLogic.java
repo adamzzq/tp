@@ -1,8 +1,11 @@
 package logic;
 
-import command.MenuAddCommand;
-import command.MenuHelpCommand;
-import command.OrderHelpCommand;
+import command.menu.MenuViewMenuListCommand;
+import command.menu.MenuAddCommand;
+import command.menu.MenuCompleteCommand;
+import command.menu.MenuDeleteCommand;
+import command.menu.MenuExitCommand;
+import command.menu.MenuHelpCommand;
 import model.Menu;
 import ui.CommandType;
 import ui.Parser;
@@ -10,8 +13,6 @@ import ui.Parser;
 import java.util.Optional;
 import java.util.Scanner;
 
-
-//import static ui.CommandType.HELP;
 
 public class MenuLogic {
     public static Optional<Menu> createNewMenu(Scanner input) {
@@ -33,22 +34,23 @@ public class MenuLogic {
                 newMenu = MenuAddCommand.execute(newMenu, inputText);
                 break;
             case DELETE_ITEM:
-                //newMenu = MenuDeleteCommand.execute(newMenu, inputText);
+                newMenu = MenuDeleteCommand.execute(newMenu, inputText);
                 break;
             case VIEW_MENU_LIST:
-                //MenuViewMenuListCommand.execute();
+                MenuViewMenuListCommand.execute();
                 break;
             case COMPLETE_MENU:
-                //isComplete = MenuCompleteCommand.execute(newMenu);
+                isComplete = MenuCompleteCommand.execute(newMenu);
                 break;
-            //case HELP:
-                //MenuHelpCommand.execute();
+            case HELP:
+                MenuHelpCommand.execute();
+                break;
             case EXIT:
-                //MenuExitcommand.execute(newMenu);
+                MenuExitCommand.execute(newMenu);
                 return Optional.empty();
             default:
                 System.out.println("Invalid command");
-                OrderHelpCommand.execute();
+                MenuHelpCommand.execute();
             }
         }
         return Optional.of(newMenu);
