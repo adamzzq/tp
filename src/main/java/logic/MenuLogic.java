@@ -1,7 +1,11 @@
 package logic;
 
-import command.menu.*;
-import command.order.OrderHelpCommand;
+import command.menu.MenuViewMenuListCommand;
+import command.menu.MenuAddCommand;
+import command.menu.MenuCompleteCommand;
+import command.menu.MenuDeleteCommand;
+import command.menu.MenuExitCommand;
+import command.menu.MenuHelpCommand;
 import model.Menu;
 import ui.CommandType;
 import ui.Parser;
@@ -44,7 +48,7 @@ public class MenuLogic {
                 return Optional.empty();
             default:
                 System.out.println("Invalid command");
-                OrderHelpCommand.execute();
+                MenuHelpCommand.execute();
             }
         }
         return Optional.of(newMenu);
