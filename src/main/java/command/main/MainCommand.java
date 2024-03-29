@@ -1,4 +1,4 @@
-package command;
+package command.main;
 
 public interface MainCommand {
 
