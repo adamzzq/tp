@@ -1,7 +1,7 @@
 package command;
 
 
-public class MainHelpCommand implements MainCommand{
+public class MainHelpCommand implements MainCommand {
 
     public static void execute() {
         System.out.println("Here are the list of available commands:");

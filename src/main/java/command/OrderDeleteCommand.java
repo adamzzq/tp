@@ -4,7 +4,6 @@ import model.Menu;
 import model.Order;
 import ui.Parser;
 
-
 public class OrderDeleteCommand implements OrderCommand {
     /**
      * Executes the command to remove an item from an order.

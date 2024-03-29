@@ -14,7 +14,7 @@ import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 
-public class OrderAddCommand implements OrderCommand{
+public class OrderAddCommand implements OrderCommand {
     private static final Logger logr = Logger.getLogger("OrderAddCommandLogger");
     /**
      * Executes the command to add a specified quantity of an item to an order.

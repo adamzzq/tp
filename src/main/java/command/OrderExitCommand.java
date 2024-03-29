@@ -2,7 +2,7 @@ package command;
 
 import model.Order;
 
-public class OrderExitCommand implements OrderCommand{
+public class OrderExitCommand implements OrderCommand {
     /**
      * Executes the command to exit the order.
      *
@@ -10,5 +10,6 @@ public class OrderExitCommand implements OrderCommand{
      */
     public static void execute(Order order) {
         System.out.println("Order " + order.getID() + " cancelled");
+        System.out.println("Order not created");
     }
 }
