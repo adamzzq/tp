@@ -1,11 +1,17 @@
 package ui;
 
+import java.util.logging.Logger;
+
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.IntStream;
 
 public class Parser {
+    private static final Logger logger = Logger.getLogger(Parser.class.getName());
+    private static final String ANALYZE_INPUT = "analyzeInput";
+    private static final String SPLIT_INPUT = "splitInput";
+
     /**
      * Analyzes the given input and returns the corresponding token.
      *
@@ -14,10 +20,16 @@ public class Parser {
      * @throws IllegalArgumentException If the input is invalid.
      */
     public static CommandType analyzeInput(String input) throws IllegalArgumentException {
+        logger.entering(Parser.class.getName(), ANALYZE_INPUT, input);
+
         return Arrays.stream(CommandType.values())
                 .filter(token -> input.matches(token.getCommandRegex()))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Invalid input"));
+                .orElseThrow(() -> {
+                    logger.throwing(Parser.class.getName(),
+                            ANALYZE_INPUT, new IllegalArgumentException("Invalid input"));
+                    return new IllegalArgumentException("Invalid input");
+                });
     }
 
     /**
@@ -28,13 +40,20 @@ public class Parser {
      * @return The split input containing the arguments required for the command.
      */
     public static String[] splitInput(CommandType token, String input) {
+        logger.entering(Parser.class.getName(),
+                SPLIT_INPUT, new Object[]{token, input});
+
+        assert token != null : "Token cannot be null";  // Ensures command type token is not null
+
         Pattern matchedPattern = Pattern.compile(token.getCommandRegex());
         Matcher matcher = matchedPattern.matcher(input);
-        matcher.matches();
+        boolean hasMatched = matcher.matches();
+        assert hasMatched == true : "Input does not match the token";  // Ensures input matches the token
 
         return IntStream.rangeClosed(1, matcher.groupCount())
                 .mapToObj(i -> matcher.group(i).trim())
                 .filter(s -> !s.isEmpty())
+                .peek(s -> logger.fine("Split input into: " + s))
                 .toArray(String[]::new);
     }
 }

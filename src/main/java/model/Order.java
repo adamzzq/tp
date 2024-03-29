@@ -14,38 +14,38 @@ public class Order implements ItemManager {
     private final ArrayList<MenuItem> orderItemList = new ArrayList<>();
 
     public Order() {
-        this.orderID = "ORDER" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+        this.orderID = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
     }
 
     @Override
-    public void add(MenuItem item) {
+    public boolean add(MenuItem item) {
         this.orderItemList.add(item);
-    }
-
-    /**
-     * Removes an item from the order list by its index
-     * @param index the index of the item to be removed
-     */
-    @Override
-    public void remove(int index) {
-        try {
-            this.orderItemList.remove(index - 1);
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Invalid index");
-        }
+        return true;
     }
 
     /**
      * Removes all items from the order list by its id
-     * @param id the id of the item to be removed
+     * @param itemID the id of the item to be removed
      */
     @Override
-    public void remove(String id) {
-        this.orderItemList.removeIf(x -> x.getID().equals(id));
+    public boolean remove(String itemID) {
+        return this.orderItemList.removeIf(x -> x.getID().equals(itemID));
+    }
+
+    public boolean remove(MenuItem item) {
+        return this.orderItemList.remove(item);
+    }
+
+    public int getItemCount(String itemID) {
+        return (int) this.orderItemList.stream().filter(x -> x.getID().equals(itemID)).count();
     }
 
     public String getID() {
         return orderID;
+    }
+
+    public int getSize() {
+        return this.orderItemList.size();
     }
 
     public double getTotalPrice() {
@@ -61,6 +61,14 @@ public class Order implements ItemManager {
     //TODO: Implement getReceipt method with discount
     public String getReceipt(double discount) {
         return null;
+    }
+
+    /**
+     * Returns a brief summary of the order
+     * @return the orderID and the total price of the order
+     */
+    public String getOrderSummary() {
+        return this.orderID + " {Total Price: " + this.getTotalPrice() + "}";
     }
 
     @Override
