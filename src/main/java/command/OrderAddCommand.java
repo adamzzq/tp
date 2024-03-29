@@ -15,7 +15,8 @@ import java.util.logging.Logger;
 
 
 public class OrderAddCommand implements OrderCommand {
-    private static final Logger logr = Logger.getLogger("OrderAddCommandLogger");
+    private static final String LOGGER_NAME = "OrderAddCommandLogger";
+    private static final Logger logr = Logger.getLogger(LOGGER_NAME);
     /**
      * Executes the command to add a specified quantity of an item to an order.
      *
@@ -54,7 +55,7 @@ public class OrderAddCommand implements OrderCommand {
         logr.addHandler(ch);
 
         try {
-            FileHandler fh = new FileHandler("OrderAddCommandLogger.log");
+            FileHandler fh = new FileHandler(LOGGER_NAME + ".log");
             fh.setLevel(Level.FINE);
             logr.addHandler(fh);
         } catch (IOException e) {
