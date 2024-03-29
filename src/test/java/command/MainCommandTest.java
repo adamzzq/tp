@@ -1,6 +1,10 @@
 package command;
 
-import logic.MainLogic;
+import command.main.MainExitCommand;
+import command.main.MainHelpCommand;
+import command.main.MainViewOrderCommand;
+import command.main.MainViewOrdersSummaryCommand;
+import command.main.MainCreateOrderCommand;
 import model.Menu;
 import model.Order;
 import org.junit.jupiter.api.Test;
