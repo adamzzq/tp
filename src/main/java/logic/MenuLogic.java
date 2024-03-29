@@ -11,7 +11,7 @@ import java.util.Optional;
 import java.util.Scanner;
 
 
-import static ui.CommandType.HELP;
+//import static ui.CommandType.HELP;
 
 public class MenuLogic {
     public static Optional<Menu> createNewMenu(Scanner input) {
@@ -41,7 +41,7 @@ public class MenuLogic {
             case COMPLETE_MENU:
                 //isComplete = MenuCompleteCommand.execute(newMenu);
                 break;
-            case HELP:
+            //case HELP:
                 //MenuHelpCommand.execute();
             case EXIT:
                 //MenuExitcommand.execute(newMenu);
