@@ -12,9 +12,6 @@ public class MainViewOrderCommand implements MainCommand {
         ordersList.stream()
                 .filter(order -> order.getID().equals(orderID))
                 .findAny()
-                .ifPresentOrElse(
-                        System.out::println,
-                        () -> System.out.println("Order not found")
-                );
+                .ifPresentOrElse(System.out::println, () -> System.out.println("Order not found"));
     }
 }

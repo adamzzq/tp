@@ -51,13 +51,11 @@ public class MainLogic {
                 MainHelpCommand.execute();
                 break;
             case CREATE_ORDER:
-                //TODO: put all this into the method to maintain same level of abstraction
                 //GOTO sub-menu to add/remove menuItems, inputText is passed to detect menu selected
-                Optional<Menu> menuSelected = MainCreateOrderCommand.execute(input, inputText, menusList);
+                Optional<Menu> menuSelected = MainCreateOrderCommand.execute(inputText, menusList);
                 menuSelected.flatMap(menu -> OrderLogic.createNewOrder(input, menu)).ifPresent(ordersList::add);
                 break;
             case VIEW_ORDER:
-                //TODO: put all this into the method to maintain same level of abstraction
                 MainViewOrderCommand.execute(ordersList, inputText);
                 break;
             case VIEW_ALL_ORDERS:

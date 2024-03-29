@@ -5,11 +5,10 @@ import ui.Parser;
 
 import java.util.ArrayList;
 import java.util.Optional;
-import java.util.Scanner;
 
 public class MainCreateOrderCommand implements MainCommand {
 
-    public static Optional<Menu> execute(Scanner input, String inputText, ArrayList<Menu> menusList) {
+    public static Optional<Menu> execute(String inputText, ArrayList<Menu> menusList) {
         try {
             String[] indexString = Parser.splitInput(Parser.analyzeInput(inputText), inputText);
             String menuID = indexString[0];
