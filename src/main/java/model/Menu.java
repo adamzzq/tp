@@ -16,7 +16,6 @@ import static model.SetMenu.Dinner;
 public class Menu implements ItemManager {
     private static final Logger logr = Logger.getLogger("MenuLogger");
     private final ArrayList<MenuItem> menuItemList = new ArrayList<>();
-    private static final ArrayList<Menu> menuList = new ArrayList<>();
     private final String menuID;
 
     public Menu(String menuID) {
@@ -110,13 +109,5 @@ public class Menu implements ItemManager {
         } catch (java.io.IOException e) {
             logr.log(Level.SEVERE, "File logger not working.",e);
         }
-    }
-
-    public static int getMenuNum() {
-        return menuList.size();
-    }
-
-    public static ArrayList<Menu> getMenuList() {
-        return menuList;
     }
 }
