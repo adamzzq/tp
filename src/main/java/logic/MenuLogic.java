@@ -33,18 +33,18 @@ public class MenuLogic {
                 newMenu = MenuAddCommand.execute(newMenu, inputText);
                 break;
             case DELETE_ITEM:
-                newMenu = MenuDeleteCommand.execute(newMenu, inputText);
+                //newMenu = MenuDeleteCommand.execute(newMenu, inputText);
                 break;
             case VIEW_MENU_LIST:
-                MenuViewMenuListCommand.execute();
+                //MenuViewMenuListCommand.execute();
                 break;
             case COMPLETE_MENU:
-                isComplete = MenuCompleteCommand.execute(newMenu);
+                //isComplete = MenuCompleteCommand.execute(newMenu);
                 break;
             case HELP:
-                MenuHelpCommand.execute();
+                //MenuHelpCommand.execute();
             case EXIT:
-                MenuExitcommand.execute(newMenu);
+                //MenuExitcommand.execute(newMenu);
                 return Optional.empty();
             default:
                 System.out.println("Invalid command");
