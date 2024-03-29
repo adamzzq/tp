@@ -10,5 +10,6 @@ public class OrderExitCommand implements OrderCommand{
      */
     public static void execute(Order order) {
         System.out.println("Order " + order.getID() + " cancelled");
+        System.out.println("Order not created");
     }
 }

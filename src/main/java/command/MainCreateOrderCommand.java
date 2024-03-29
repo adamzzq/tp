@@ -11,18 +11,15 @@ import java.util.Scanner;
 
 public class MainCreateOrderCommand implements MainCommand{
 
-    public static Optional<Order> execute(Scanner input, String inputText, ArrayList<Menu> menusList) {
-        Menu menu;
+    public static Optional<Menu> execute(Scanner input, String inputText, ArrayList<Menu> menusList) {
         try {
             String[] indexString = Parser.splitInput(Parser.analyzeInput(inputText), inputText);
             String menuID = indexString[0];
-            menu = menusList.stream().findAny().filter(x -> x.getID()
-                                                             .equals(menuID))
-                                                             .orElseThrow(IndexOutOfBoundsException::new);
+            return Optional.of(menusList.get(Integer.parseInt(menuID) - 1));
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Menu does not exist");
-            return Optional.empty();
+            System.out.println("Order not created");
         }
-        return OrderLogic.createNewOrder(input, menu);
+        return Optional.empty();
     }
 }
