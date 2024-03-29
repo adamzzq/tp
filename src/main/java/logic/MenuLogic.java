@@ -10,7 +10,7 @@ import ui.Parser;
 import java.util.Optional;
 import java.util.Scanner;
 
-import static model.Menu.menuList;
+
 import static ui.CommandType.HELP;
 
 public class MenuLogic {
