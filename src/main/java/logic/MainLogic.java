@@ -71,10 +71,10 @@ public class MainLogic {
     private static void initMenu(ArrayList<Menu> menusList) {
         MenuItem dish01 = new MenuItem("001", "Chicken Rice", 3.50);
         MenuItem dish02 = new MenuItem("002", "Nasi Lemak", 3.00);
-        MenuItem dish03 = new MenuItem("0O3", "Hokkien Mee", 4.00);
+        MenuItem dish03 = new MenuItem("003", "Hokkien Mee", 4.00);
         MenuItem dish04 = new MenuItem("004", "Mee Siam", 3.50);
         MenuItem dish05 = new MenuItem("005", "Fishball Noodles", 3.00);
-        MenuItem dish06 = new MenuItem("0O6", "Chicken Curry Rice", 5.00);
+        MenuItem dish06 = new MenuItem("006", "Chicken Curry Rice", 5.00);
         MenuItem dish07 = new MenuItem("007", "Seafood Fried Rice", 5.50);
         MenuItem dish08 = new MenuItem("008", "Roasted delight set", 6.50);
         MenuItem dish09 = new MenuItem("009", "Hotplate beef set", 7.00);
