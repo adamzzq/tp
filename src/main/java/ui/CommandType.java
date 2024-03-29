@@ -19,9 +19,7 @@ public enum CommandType {
 
     // edit menu commands
     VIEW_MENU("(?i)view menu"),
-    ADD_MENU("(?i)add\\s*-menu"),
-    VIEW_MENU_LIST("(?i)view menu list"),
-    COMPLETE_MENU("(?i)complete\\s*");
+    ADD_MENU("(?i)add\\s*-menu");
 
     private final String commandRegex;
     CommandType(String commandRegex) {
