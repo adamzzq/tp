@@ -35,11 +35,11 @@ the command `Create order -menu 01`, `add -item 001` and `complete`.
 ![Sequence Diagram](images\ArchitectureSequanceDiagram.png)
 
 ### UI Component
-The parser component is responsible for parsing user input into commands that can be executed by the logic component.
+The UI component is responsible for parsing user input into commands that can be executed by the logic component.
 There is a `analyzeInput` method in the `Parser` class that interprets the user input and classifies 
-it into a `CommandType` enum.
+it into a `CommandType` enum.<br>
 The `splitInput` method is used to split the user input into an array of strings, according to the command type.
-The array contains any arguments that are needed to execute the command.
+It returns an array containing any arguments that are needed to execute the command.
 
 ### Logic Component
 The logic component consists of classes that handle the logic of the application. The logic component is divided into
