@@ -1,4 +1,4 @@
-package command;
+package command.menu;
 
 public class MenuHelpCommand implements MenuCommand {
     public static void execute() {

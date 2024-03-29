@@ -1,4 +1,4 @@
-package command;
+package command.menu;
 
 import model.Menu;
 import model.MenuItem;

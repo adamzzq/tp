@@ -1,4 +1,4 @@
-package command;
+package command.menu;
 
 public interface MenuCommand {
 }

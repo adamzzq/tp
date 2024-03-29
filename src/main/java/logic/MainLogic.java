@@ -1,10 +1,10 @@
 package logic;
 
-import command.MainCreateOrderCommand;
-import command.MainExitCommand;
-import command.MainHelpCommand;
-import command.MainViewOrderCommand;
-import command.MainViewOrdersSummaryCommand;
+import command.main.MainCreateOrderCommand;
+import command.main.MainExitCommand;
+import command.main.MainHelpCommand;
+import command.main.MainViewOrderCommand;
+import command.main.MainViewOrdersSummaryCommand;
 
 import model.Menu;
 import model.MenuItem;

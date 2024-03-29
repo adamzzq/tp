@@ -1,12 +1,12 @@
 package logic;
 
-import command.OrderViewItemsCommand;
+import command.order.OrderViewItemsCommand;
 import command.OrderAddCommand;
-import command.OrderCompleteCommand;
-import command.OrderDeleteCommand;
-import command.OrderExitCommand;
-import command.OrderHelpCommand;
-import command.OrderViewMenuCommand;
+import command.order.OrderCompleteCommand;
+import command.order.OrderDeleteCommand;
+import command.order.OrderExitCommand;
+import command.order.OrderHelpCommand;
+import command.order.OrderViewMenuCommand;
 
 import model.Menu;
 import model.Order;

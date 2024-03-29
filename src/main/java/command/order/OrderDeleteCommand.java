@@ -1,4 +1,4 @@
-package command;
+package command.order;
 
 import model.Menu;
 import model.Order;

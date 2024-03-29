@@ -1,17 +1,13 @@
 package logic;
 
-import command.MenuAddCommand;
-import command.MenuHelpCommand;
-import command.OrderHelpCommand;
+import command.menu.*;
+import command.order.OrderHelpCommand;
 import model.Menu;
 import ui.CommandType;
 import ui.Parser;
 
 import java.util.Optional;
 import java.util.Scanner;
-
-import static model.Menu.menuList;
-import static ui.CommandType.HELP;
 
 public class MenuLogic {
     public static Optional<Menu> createNewMenu(Scanner input) {
@@ -44,7 +40,7 @@ public class MenuLogic {
             case HELP:
                 MenuHelpCommand.execute();
             case EXIT:
-                MenuExitcommand.execute(newMenu);
+                MenuExitCommand.execute(newMenu);
                 return Optional.empty();
             default:
                 System.out.println("Invalid command");

@@ -116,6 +116,10 @@ public class Menu implements ItemManager {
         return menuList.size();
     }
 
+    public int getSize() {
+        return menuItemList.size();
+    }
+
     public static ArrayList<Menu> getMenuList() {
         return menuList;
     }
