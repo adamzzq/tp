@@ -2,7 +2,7 @@ package command;
 
 import model.Order;
 
-public class OrderViewItemsCommand implements OrderCommand{
+public class OrderViewItemsCommand implements OrderCommand {
     /**
      * Executes the command to list all the items in an order.
      *

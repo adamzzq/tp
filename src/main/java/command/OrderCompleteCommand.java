@@ -2,7 +2,7 @@ package command;
 
 import model.Order;
 
-public class OrderCompleteCommand implements OrderCommand{
+public class OrderCompleteCommand implements OrderCommand {
     /**
      * Executes the command to complete an order.
      *

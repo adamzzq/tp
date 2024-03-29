@@ -58,9 +58,7 @@ public class MainLogic {
                 break;
             case VIEW_ORDER:
                 //TODO: put all this into the method to maintain same level of abstraction
-                Optional<Order> checkedOrder = MainViewOrderCommand.execute(ordersList, inputText);
-                checkedOrder.ifPresentOrElse(System.out::println,
-                                            () -> System.out.println("Order not found"));
+                MainViewOrderCommand.execute(ordersList, inputText);
                 break;
             case VIEW_ALL_ORDERS:
                 MainViewOrdersSummaryCommand.execute(ordersList);
