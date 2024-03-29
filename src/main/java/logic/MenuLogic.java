@@ -13,6 +13,7 @@ import ui.Parser;
 import java.util.Optional;
 import java.util.Scanner;
 
+
 public class MenuLogic {
     public static Optional<Menu> createNewMenu(Scanner input) {
         Menu newMenu = new Menu(String.valueOf(Menu.getMenuNum()));
@@ -45,6 +46,7 @@ public class MenuLogic {
                 MenuHelpCommand.execute();
             case EXIT:
                 MenuExitCommand.execute(newMenu);
+
                 return Optional.empty();
             default:
                 System.out.println("Invalid command");
