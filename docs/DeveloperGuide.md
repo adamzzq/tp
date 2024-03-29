@@ -87,6 +87,16 @@ Generally, the main logic works as follows:
 **Create Order** <br>
 `Mainlogic` takes user input and crate an `Order` class and pass it to `OrderLogic` to execute the command.
 
+**View Order by ID** <br>
+`Mainlogic` takes in the command and the order ID, execute the `view order` command by calling a static method<br>
+in `ViewOrderCommand` class.
+
+**View all orders** <br>
+`Mainlogic` takes in the command and calls the `ViewOrdersSummaryCommand` class to execute the command<br>    
+by querying the orderList.
+
+**View Receipt** <br>
+`Mainlogic` takes in the command and calls the `ViewReceiptCommand` class to execute the command
 ### `OrderLogic`
 Generally, the order logic works as follows: 
 1. User enters an input which is received in the *ui* and parsed by the `Parser`. 
