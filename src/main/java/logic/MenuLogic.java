@@ -44,9 +44,9 @@ public class MenuLogic {
                 break;
             case HELP:
                 MenuHelpCommand.execute();
+                break;
             case EXIT:
                 MenuExitCommand.execute(newMenu);
-
                 return Optional.empty();
             default:
                 System.out.println("Invalid command");
