@@ -5,6 +5,7 @@ import command.main.MainExitCommand;
 import command.main.MainHelpCommand;
 import command.main.MainViewOrderCommand;
 import command.main.MainViewOrdersSummaryCommand;
+import command.main.MainEditMenuCommand;
 
 import model.Menu;
 import model.MenuItem;
@@ -60,6 +61,15 @@ public class MainLogic {
                 break;
             case VIEW_ALL_ORDERS:
                 MainViewOrdersSummaryCommand.execute(ordersList);
+                break;
+            case CREATE_MENU:
+                MenuLogic.modifyMenu(input, null, menusList.toArray().length)
+                        .ifPresentOrElse(menusList::add, () -> System.out.println("Menu not created"));
+                break;
+            case EDIT_MENU:
+                Optional<Menu> menuToEdit = MainEditMenuCommand.execute(commandType, inputText, menusList);
+                menuToEdit.ifPresentOrElse(menu -> MenuLogic.modifyMenu(input, menu, menusList.toArray().length),
+                        () -> System.out.println("Menu ID not found"));
                 break;
             default:
                 System.out.println("Invalid command");
