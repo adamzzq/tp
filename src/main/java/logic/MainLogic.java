@@ -67,7 +67,7 @@ public class MainLogic {
                         .ifPresentOrElse(menusList::add, () -> System.out.println("Menu not created"));
                 break;
             case EDIT_MENU:
-                Optional<Menu> menuToEdit = MainEditMenuCommand.execute(commandType, inputText, menusList);
+                Optional<Menu> menuToEdit = MainEditMenuCommand.execute(inputText, menusList);
                 menuToEdit.ifPresentOrElse(menu -> MenuLogic.modifyMenu(input, menu, menusList.toArray().length),
                         () -> System.out.println("Menu ID not found"));
                 break;
