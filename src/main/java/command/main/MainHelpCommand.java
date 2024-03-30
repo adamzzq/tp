@@ -13,6 +13,8 @@ public class MainHelpCommand implements MainCommand {
         System.out.println("\tedit -order <order_id>: Navigates to the order interface to perform sub-commands " +
                 "for editing an order.");
          */
-        System.out.println("\tbye: Quits the program");
+        System.out.println("\tcreate menu: Creates a new menu.");
+        System.out.println("\tedit -menu <menu_id>: Modify the specified menu's items in the menu interface.");
+        System.out.println("\tbye: Quits the program.");
     }
 }

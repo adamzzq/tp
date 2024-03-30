@@ -5,6 +5,7 @@ import command.main.MainHelpCommand;
 import command.main.MainViewOrderCommand;
 import command.main.MainViewOrdersSummaryCommand;
 import command.main.MainCreateOrderCommand;
+import command.main.MainEditMenuCommand;
 import model.Menu;
 import model.Order;
 import org.junit.jupiter.api.Test;
@@ -12,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -34,7 +36,9 @@ public class MainCommandTest {
                 "\tcreate order -menu <menu_id>: Creates a new order using the specified menu.\n" +
                 "\tview -order -all: Shows a brief summary of all the created orders.\n" +
                 "\tview -order <order_id>: Shows all the contents of a specified order.\n" +
-                "\tbye: Quits the program\n";
+                "\tcreate menu: Creates a new menu.\n" +
+                "\tedit -menu <menu_id>: Modify the specified menu's items in the menu interface.\n" +
+                "\tbye: Quits the program.\n";
 
         assertEquals(expectedOutput, outputContent.toString().replace("\r", ""));
     }
@@ -75,5 +79,15 @@ public class MainCommandTest {
         String expectedOutput = "Menu does not exist\n" + "Order not created\n";
 
         assertEquals(expectedOutput, outputContent.toString().replace("\r", ""));
+    }
+
+    @Test
+    public void testMainEditMenuCommand_invalidMenu() {
+        Menu testMenu = new Menu("01");
+        ArrayList<Menu> testMenuList = new ArrayList<>();
+        testMenuList.add(testMenu);
+        Optional<Menu> menuToEdit = MainEditMenuCommand.execute("edit -menu 00", testMenuList);
+
+        assertTrue(menuToEdit.isEmpty());
     }
 }
