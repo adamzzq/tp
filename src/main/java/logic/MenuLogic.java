@@ -15,10 +15,10 @@ import java.util.Scanner;
 
 
 public class MenuLogic {
-    public static Optional<Menu> createNewMenu(Scanner input) {
-        Menu newMenu = new Menu(String.valueOf(Menu.getMenuNum()));
+    public static Optional<Menu> modifyMenu(Scanner input, Menu menu, int menuLen) {
+        Menu activeMenu = (menu == null) ? new Menu("0" + (menuLen + 1)) : menu;
         boolean isComplete = false;
-        System.out.println("Initializing menu" + newMenu.getID() + "processing...");
+        System.out.println("Initializing menu " + activeMenu.getID() + "...");
         MenuHelpCommand.execute();
         while (!isComplete) {
             String inputText = input.nextLine();
@@ -31,28 +31,28 @@ public class MenuLogic {
             }
             switch(commandType) {
             case ADD_ITEM:
-                newMenu = MenuAddCommand.execute(newMenu, inputText);
+                activeMenu = MenuAddCommand.execute(activeMenu, inputText);
                 break;
             case DELETE_ITEM:
-                newMenu = MenuDeleteCommand.execute(newMenu, inputText);
+                activeMenu = MenuDeleteCommand.execute(activeMenu, inputText);
                 break;
             case VIEW_MENU_LIST:
                 MenuViewMenuListCommand.execute();
                 break;
             case COMPLETE_MENU:
-                isComplete = MenuCompleteCommand.execute(newMenu);
+                isComplete = MenuCompleteCommand.execute(activeMenu);
                 break;
             case HELP:
                 MenuHelpCommand.execute();
                 break;
             case EXIT:
-                MenuExitCommand.execute(newMenu);
+                MenuExitCommand.execute(activeMenu);
                 return Optional.empty();
             default:
                 System.out.println("Invalid command");
                 MenuHelpCommand.execute();
             }
         }
-        return Optional.of(newMenu);
+        return Optional.of(activeMenu);
     }
 }
