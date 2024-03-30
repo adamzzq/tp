@@ -1,7 +1,6 @@
 package command.main;
 
 import model.Menu;
-import ui.CommandType;
 import ui.Parser;
 
 import java.util.ArrayList;
