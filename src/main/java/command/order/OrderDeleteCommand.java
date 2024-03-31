@@ -30,7 +30,8 @@ public class OrderDeleteCommand implements OrderCommand {
             for (int i = 0; i < Integer.parseInt(itemQuantity); i++) {
                 newOrder.remove(menu.getItemByID(itemID).get());
             }
-            System.out.println(itemQuantity + " " + menu.getItemByID(itemID).get().getName() + " is removed from order");
+            System.out.println(itemQuantity + " " + menu.getItemByID(itemID).get().getName()
+                    + " is removed from order");
         }
         return newOrder;
     }

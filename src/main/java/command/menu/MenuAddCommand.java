@@ -25,7 +25,8 @@ public class MenuAddCommand implements MenuCommand {
         if (itemByID.isPresent()) {
             System.out.println("Item already in menu. It has ID: " + itemID + "and Name: " + itemByID.get().getName());
         } else if (itemByName.isPresent()) {
-            System.out.println("Item already in menu. It has ID: " + itemByName.get().getID() + "and Name: " + itemName);
+            System.out.println("Item already in menu. It has ID: " + itemByName.get().getID() +
+                    "and Name: " + itemName);
         } else {
             newMenu.add(new MenuItem(itemID,itemName,Double.parseDouble(itemPrice)));
             System.out.println("Item successfully added to menu!");
