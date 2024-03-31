@@ -10,6 +10,6 @@ public class MainEditMenuCommand implements MainCommand{
     public static Optional<Menu> execute(String inputText, ArrayList<Menu> menusList) {
         String[] parsedString = Parser.splitInput(Parser.analyzeInput(inputText), inputText);
         String menuID = parsedString[0];
-        return menusList.stream().filter(menu -> menu.getID().equals(menuID)).findAny();
+        return menusList.stream().filter(menu -> menu.getId().equals(menuID)).findAny();
     }
 }

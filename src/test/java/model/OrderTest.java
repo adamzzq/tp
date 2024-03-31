@@ -28,15 +28,15 @@ public class OrderTest {
         MenuItem dish05 = new MenuItem("D04", "Mee Siam", 3.50);
         Order order = new Order();
         order.add(dish01);
-        assertEquals(order.getID() + "\n" +
+        assertEquals(order.getId() + "\n" +
                 "1. D01 Chicken Rice $3.50", order.toString());
         order.add(dish02);
-        assertEquals(order.getID() + "\n" +
+        assertEquals(order.getId() + "\n" +
                 "1. D01 Chicken Rice $3.50" + "\n" +
                 "2. D02 Nasi Lemak $3.00", order.toString());
         order.add(dish04);
         order.add(dish05);
-        assertEquals(order.getID() + "\n" +
+        assertEquals(order.getId() + "\n" +
                 "1. D01 Chicken Rice $3.50" + "\n" +
                 "2. D02 Nasi Lemak $3.00" + "\n" +
                 "3. D04 Mee Siam $3.50" + "\n" +
@@ -54,6 +54,6 @@ public class OrderTest {
         order.add(dish02);
         order.add(dish04);
         order.add(dish05);
-        assertEquals(order.getID() + " {Total Price: " + order.getTotalPrice() + "}", order.getOrderSummary());
+        assertEquals(order.getId() + " {Total Price: " + order.getTotalPrice() + "}", order.getOrderSummary());
     }
 }

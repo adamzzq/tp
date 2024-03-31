@@ -11,7 +11,7 @@ public class OrderCompleteCommand implements OrderCommand {
      */
     public static boolean execute(Order order) {
         if (order.getSize() == 0) {
-            System.out.println("Order " + order.getID() + " is empty. Please add items to the order.");
+            System.out.println("Order " + order.getId() + " is empty. Please add items to the order.");
             return false;
         }
         return true;

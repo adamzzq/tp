@@ -20,7 +20,7 @@ public class MenuAddCommand implements MenuCommand {
         String itemName = indexString[1];
         String itemPrice = indexString[2];
         Optional<MenuItem> itemByName = newMenu.getItemByName(itemName);
-        Optional<MenuItem> itemByID = newMenu.getItemByID(itemID);
+        Optional<MenuItem> itemByID = newMenu.getItemById(itemID);
 
         if (itemByID.isPresent()) {
             System.out.println("Item already in menu. It has ID: " + itemID + "and Name: " + itemByID.get().getName());

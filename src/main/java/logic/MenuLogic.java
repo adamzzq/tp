@@ -18,7 +18,7 @@ public class MenuLogic {
         Menu activeMenu = (menu == null) ? new Menu("0" + (menuLen + 1)) : menu;
 
         boolean isComplete = false;
-        System.out.println("Initializing menu " + activeMenu.getID() + "...");
+        System.out.println("Initializing menu " + activeMenu.getId() + "...");
         MenuHelpCommand.execute();
         while (!isComplete) {
             String inputText = input.nextLine();
@@ -29,29 +29,27 @@ public class MenuLogic {
                 System.out.println("Invalid command");
                 continue;
             }
-            switch(commandType) {
-            case ADD_MENU_ITEM:
-                activeMenu = MenuAddCommand.execute(activeMenu, inputText);
-                break;
-            case DELETE_MENU_ITEM:
-                activeMenu = MenuDeleteCommand.execute(activeMenu, inputText);
-                break;
-
-            case COMPLETE:
-
+            if (commandType == CommandType.ADD_MENU_ITEM || commandType == CommandType.DELETE_MENU_ITEM) {
+                activeMenu = editMenu(commandType,activeMenu,inputText);
+            } else if (commandType == CommandType.COMPLETE) {
                 isComplete = MenuCompleteCommand.execute(activeMenu);
-                break;
-            case HELP:
+            } else if (commandType == CommandType.HELP) {
                 MenuHelpCommand.execute();
-                break;
-            case EXIT:
+            } else if (commandType == CommandType.EXIT) {
                 MenuExitCommand.execute(activeMenu);
                 return Optional.empty();
-            default:
+            } else {
                 System.out.println("Invalid command");
                 MenuHelpCommand.execute();
             }
         }
         return Optional.of(activeMenu);
+    }
+    private static Menu editMenu(CommandType commandType, Menu activeMenu, String inputText) {
+        if (commandType == CommandType.ADD_MENU_ITEM) {
+            return MenuAddCommand.execute(activeMenu, inputText);
+        } else {
+            return MenuDeleteCommand.execute(activeMenu, inputText);
+        }
     }
 }
