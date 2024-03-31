@@ -1,11 +1,15 @@
 package logic;
 
-import command.main.MainCreateOrderCommand;
 import command.main.MainExitCommand;
 import command.main.MainHelpCommand;
+import command.main.MainCreateOrderCommand;
 import command.main.MainViewOrderCommand;
 import command.main.MainViewOrdersSummaryCommand;
+import command.main.MainReceiptOrderCommand;
 import command.main.MainEditMenuCommand;
+import command.main.MainViewMenuCommand;
+import command.main.MainViewMenusSummaryCommand;
+
 
 import model.Menu;
 import model.MenuItem;
@@ -62,6 +66,9 @@ public class MainLogic {
             case VIEW_ALL_ORDERS:
                 MainViewOrdersSummaryCommand.execute(ordersList);
                 break;
+            case ORDER_RECEIPT:
+                MainReceiptOrderCommand.execute(ordersList, inputText);
+                break;
             case CREATE_MENU:
                 MenuLogic.modifyMenu(input, null, menusList.toArray().length)
                         .ifPresentOrElse(menusList::add, () -> System.out.println("Menu not created"));
@@ -70,6 +77,12 @@ public class MainLogic {
                 Optional<Menu> menuToEdit = MainEditMenuCommand.execute(inputText, menusList);
                 menuToEdit.ifPresentOrElse(menu -> MenuLogic.modifyMenu(input, menu, menusList.toArray().length),
                         () -> System.out.println("Menu ID not found"));
+                break;
+            case VIEW_MENU:
+                MainViewMenuCommand.execute(menusList, inputText);
+                break;
+            case VIEW_ALL_MENUS:
+                MainViewMenusSummaryCommand.execute(menusList);
                 break;
             default:
                 System.out.println("Invalid command");

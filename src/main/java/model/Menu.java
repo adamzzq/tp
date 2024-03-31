@@ -9,10 +9,6 @@ import java.util.logging.LogManager;
 import java.util.logging.Logger;
 import java.util.logging.FileHandler;
 
-import static model.SetMenu.Breakfast;
-import static model.SetMenu.Lunch;
-import static model.SetMenu.Dinner;
-
 public class Menu implements ItemManager {
     private static final Logger logr = Logger.getLogger("MenuLogger");
     private final ArrayList<MenuItem> menuItemList = new ArrayList<>();
@@ -21,23 +17,6 @@ public class Menu implements ItemManager {
     public Menu(String menuID) {
         Menu.setupLogger();
         this.menuID = menuID;
-    }
-
-    public Menu(SetMenu menuType) {
-        Menu.setupLogger();
-        switch (menuType) {
-        case Breakfast:
-            this.menuID = String.valueOf(Breakfast);
-            break;
-        case Lunch:
-            this.menuID = String.valueOf(Lunch);
-            break;
-        case Dinner:
-            this.menuID = String.valueOf(Dinner);
-            break;
-        default:
-            this.menuID = "No Menu type";
-        }
     }
 
     public Optional<MenuItem> getItemByID(String itemID) {
@@ -69,13 +48,10 @@ public class Menu implements ItemManager {
         return true;
     }
 
-    /*@Override
-    public String toString() {
-        return this.menuID + "\n" +
-                IntStream.range(0,this.menuItemList.size())
-                        .mapToObj(x -> (x + 1) + ". " + this.menuItemList.get(x))
-                        .collect(Collectors.joining("\n"));
-    }*/
+
+    public String getMenuSummary() {
+        return this.menuID + " menu with " + this.menuItemList.size() + " items";
+    }
 
     @Override
     public String toString() {
