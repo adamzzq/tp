@@ -65,7 +65,7 @@ public class Order implements ItemManager {
                 this.orderItemList.stream().mapToDouble(Item::getPrice).sum() * (1 + SERVICE_CHARGE) * (1 + GST)));
     }
 
-    public String getReceipt() {
+    public String getReceipt(double discount)  {
         StringBuilder receiptBuilder = new StringBuilder();
         Set<String> processedItems = new HashSet<>();
 
@@ -96,8 +96,10 @@ public class Order implements ItemManager {
             }
         }
 
-        double serviceCharge = getTotalPrice() / (1 + GST) / (1 + SERVICE_CHARGE) * SERVICE_CHARGE;
-        double gst = getTotalPrice() / (1 + GST) * GST;
+        double netTotal = getTotalPrice() / (1 + GST) / (1 + SERVICE_CHARGE) * (1 - discount);
+        double serviceCharge = netTotal * SERVICE_CHARGE;
+        double gst = netTotal * (1 + SERVICE_CHARGE) * GST;
+        double grandTotal = netTotal + serviceCharge + gst;
 
         receiptBuilder.append(ROW_DELIMITER)
                 .append(String.format("| %-" + CHARGE_FORMAT + formatChooser(serviceCharge) + " |\n",
@@ -105,15 +107,14 @@ public class Order implements ItemManager {
                 .append(String.format("| %-" + CHARGE_FORMAT
                         + formatChooser(gst) + " |\n", "GST (" + (GST * 100) + "%):", gst))
                 .append(String.format("| %-" + CHARGE_FORMAT
-                        + formatChooser(getTotalPrice()) + " |\n", "Grand Total:", getTotalPrice()))
+                        + formatChooser(getTotalPrice()) + " |\n", "Grand Total:", grandTotal))
                 .append(ROW_DELIMITER);
 
         return receiptBuilder.toString();
     }
 
-    //TODO: Implement getReceipt method with discount
-    public String getReceipt(double discount) {
-        return null;
+    public String getReceipt() {
+        return getReceipt(0);
     }
 
     private char formatChooser(double value) {
