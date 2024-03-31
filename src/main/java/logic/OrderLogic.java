@@ -20,7 +20,7 @@ public class OrderLogic {
     public static Optional<Order> createNewOrder(Scanner input, Menu menu) {
         Order newOrder = new Order();
         boolean isComplete = false;
-        System.out.println("Order " + newOrder.getID() + " creating...");
+        System.out.println("Order " + newOrder.getId() + " creating...");
         OrderHelpCommand.execute();
         while (!isComplete) {
             String inputText = input.nextLine();

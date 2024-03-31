@@ -31,7 +31,7 @@ public class MainLogic {
 
         //testing
         initMenu(menusList);
-        System.out.println("current menu ID: " + menusList.get(0).getID());
+        System.out.println("current menu ID: " + menusList.get(0).getId());
         testOrderAddAndRemove(ordersList);
         testOrderAddAndRemove(ordersList);
 

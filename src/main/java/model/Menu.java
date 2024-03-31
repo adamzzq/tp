@@ -19,7 +19,7 @@ public class Menu implements ItemManager {
         this.menuID = menuID;
     }
 
-    public Optional<MenuItem> getItemByID(String itemID) {
+    public Optional<MenuItem> getItemById(String itemID) {
         return menuItemList.stream().filter(x -> x.getID().equals(itemID)).findAny();
     }
 
@@ -28,9 +28,10 @@ public class Menu implements ItemManager {
     }
 
     @Override
-    public String getID() {
+    public String getId() {
         return menuID;
     }
+
     @Override
     public boolean add(MenuItem item) {
         this.menuItemList.add(item);
