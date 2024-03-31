@@ -56,7 +56,7 @@ public class Order implements ItemManager {
     }
 
     // TODO: correct the GST and Service Charge calculation
-    public String getReceipt(double serviceChargePercentage, double gstPercentage) {
+    public String getReceipt() {
         StringBuilder itemsBuilder = new StringBuilder();
         StringBuilder headersBuilder = new StringBuilder();
 
@@ -103,14 +103,14 @@ public class Order implements ItemManager {
             }
         }
 
-        double serviceCharge = getTotalPrice() * serviceChargePercentage;
-        double gst = getTotalPrice() * gstPercentage;
+        double serviceCharge = getTotalPrice() * SERVICE_CHARGE;
+        double gst = getTotalPrice() * GST;
 
         itemsBuilder.append(headerLine)
                 .append(String.format("| %-" + (idMaxLength + nameMaxLength + 10) + "s $%-12.2f |\n",
-                        "Service Charge (" + (serviceChargePercentage * 100) + "%):", serviceCharge))
+                        "Service Charge (" + (SERVICE_CHARGE * 100) + "%):", serviceCharge))
                 .append(String.format("| %-" + (idMaxLength + nameMaxLength + 10) + "s $%-12.2f |\n",
-                        "GST (" + (gstPercentage * 100) + "%):", gst))
+                        "GST (" + (GST * 100) + "%):", gst))
                 .append(String.format("| %-" + (idMaxLength + nameMaxLength + 10) + "s $%-12.2f |\n",
                         "Grand Total:", getTotalPrice()));
 
@@ -132,7 +132,7 @@ public class Order implements ItemManager {
     //        order.add(item1);
     //        order.add(item2);
     //        order.add(item3);
-    //        System.out.println(order.getReceipt(SERVICE_CHARGE, GST));
+    //        System.out.println(order.getReceipt());
     //    }
 
     //TODO: Implement getReceipt method with discount
