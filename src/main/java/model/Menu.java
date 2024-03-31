@@ -16,31 +16,31 @@ import static model.SetMenu.Dinner;
 public class Menu implements ItemManager {
     private static final Logger logr = Logger.getLogger("MenuLogger");
     private final ArrayList<MenuItem> menuItemList = new ArrayList<>();
-    private final String menuID;
+    private final String menuId;
 
-    public Menu(String menuID) {
+    public Menu(String menuId) {
         Menu.setupLogger();
-        this.menuID = menuID;
+        this.menuId = menuId;
     }
 
     public Menu(SetMenu menuType) {
         Menu.setupLogger();
         switch (menuType) {
         case Breakfast:
-            this.menuID = String.valueOf(Breakfast);
+            this.menuId = String.valueOf(Breakfast);
             break;
         case Lunch:
-            this.menuID = String.valueOf(Lunch);
+            this.menuId = String.valueOf(Lunch);
             break;
         case Dinner:
-            this.menuID = String.valueOf(Dinner);
+            this.menuId = String.valueOf(Dinner);
             break;
         default:
-            this.menuID = "No Menu type";
+            this.menuId = "No Menu type";
         }
     }
 
-    public Optional<MenuItem> getItemByID(String itemID) {
+    public Optional<MenuItem> getItemById(String itemID) {
         return menuItemList.stream().filter(x -> x.getID().equals(itemID)).findAny();
     }
 
@@ -49,14 +49,15 @@ public class Menu implements ItemManager {
     }
 
     @Override
-    public String getID() {
-        return menuID;
+    public String getId() {
+        return menuId;
     }
     @Override
     public boolean add(MenuItem item) {
         this.menuItemList.add(item);
         return true;
     }
+
 
     /**
      * Removes item from the menu by its name

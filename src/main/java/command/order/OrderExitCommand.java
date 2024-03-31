@@ -9,7 +9,7 @@ public class OrderExitCommand implements OrderCommand {
      * @param order the current order that will be cancelled
      */
     public static void execute(Order order) {
-        System.out.println("Order " + order.getID() + " cancelled");
+        System.out.println("Order " + order.getId() + " cancelled");
         System.out.println("Order not created");
     }
 }

@@ -52,7 +52,8 @@ public class Order implements ItemManager {
         return (int) this.orderItemList.stream().filter(x -> x.getID().equals(itemID)).count();
     }
 
-    public String getID() {
+    @Override
+    public String getId() {
         return orderID;
     }
 

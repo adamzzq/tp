@@ -10,7 +10,7 @@ public class MainViewOrderCommand implements MainCommand {
         String[] indexString = Parser.splitInput(Parser.analyzeInput(inputText), inputText);
         String orderID = indexString[0];
         ordersList.stream()
-                .filter(order -> order.getID().equals(orderID))
+                .filter(order -> order.getId().equals(orderID))
                 .findAny()
                 .ifPresentOrElse(System.out::println, () -> System.out.println("Order not found"));
     }
