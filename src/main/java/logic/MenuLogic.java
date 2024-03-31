@@ -36,7 +36,7 @@ public class MenuLogic {
             case DELETE_MENU_ITEM:
                 activeMenu = MenuDeleteCommand.execute(activeMenu, inputText);
                 break;
-            case COMPLETE_MENU:
+            case COMPLETE:
                 isComplete = MenuCompleteCommand.execute(activeMenu);
                 break;
             case HELP:

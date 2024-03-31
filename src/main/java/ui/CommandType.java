@@ -15,7 +15,7 @@ public enum CommandType {
     ADD_ITEM("(?i)add\\s*-item\\s*(\\d+)\\s*-quantity\\s*(\\d+)"),
     DELETE_ITEM("(?i)delete\\s*-item\\s*(\\d+)\\s*-quantity\\s*(\\d+)"),
     VIEW_ITEM("view item"),
-    COMPLETE_ORDER("(?i)complete\\s*"),
+    COMPLETE("(?i)complete\\s*"),
 
     // edit menu commands
     ADD_MENU_ITEM("(?i)add\\s*-item\\s*(\\d+)\\s*-name\\s*([A-Za-z\\s]+)\\s*-price\\s*(\\d+(\\.\\d+)?)"),
@@ -23,7 +23,6 @@ public enum CommandType {
     VIEW_MENU("(?i)view menu"),
     CREATE_MENU("(?i)create\\s*menu"),
     VIEW_MENU_LIST("(?i)view menu list"),
-    COMPLETE_MENU("(?i)complete\\s*"),
     EDIT_MENU("(?i)edit\\s*-menu\\s*(\\d+)");
 
     private final String commandRegex;
