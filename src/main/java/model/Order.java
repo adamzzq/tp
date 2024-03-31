@@ -97,7 +97,9 @@ public class Order implements ItemManager {
             String itemID = item.getID();
             if (!processedItems.contains(itemID)) {
                 int quantity = getItemCount(itemID);
-                itemsBuilder.append(String.format("| %-" + idMaxLength + "s | %-" + nameMaxLength + "s | $%-6.2f | %-9d|\n",
+                itemsBuilder.append(String.format("| %-" + idMaxLength
+                                + "s | %-" + nameMaxLength
+                                + "s | $%-6.2f | %-9d|\n",
                         itemID, item.getName(), item.getPrice(), quantity));
                 processedItems.add(itemID);
             }
