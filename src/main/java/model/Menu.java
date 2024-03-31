@@ -49,6 +49,9 @@ public class Menu implements ItemManager {
         return true;
     }
 
+    public int getSize() {
+        return menuItemList.size();
+    }
 
     public String getMenuSummary() {
         return this.menuID + " menu with " + this.menuItemList.size() + " items";
@@ -96,10 +99,4 @@ public class Menu implements ItemManager {
             logr.log(Level.SEVERE, "File logger not working.",e);
         }
     }
-
-
-    public int getSize() {
-        return menuItemList.size();
-    }
-
 }
