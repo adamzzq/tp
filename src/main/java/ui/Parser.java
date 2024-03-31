@@ -48,12 +48,13 @@ public class Parser {
         Pattern matchedPattern = Pattern.compile(token.getCommandRegex());
         Matcher matcher = matchedPattern.matcher(input);
         boolean hasMatched = matcher.matches();
-        assert hasMatched == true : "Input does not match the token";  // Ensures input matches the token
+        assert hasMatched : "Input does not match the token";  // Ensures input matches the token
 
         return IntStream.rangeClosed(1, matcher.groupCount())
-                .mapToObj(i -> matcher.group(i).trim())
-                .filter(s -> !s.isEmpty())
-                .peek(s -> logger.fine("Split input into: " + s))
+                .mapToObj(matcher::group)
+                .filter(s -> s != null && !s.isEmpty())
+                .map(String::trim)
+                .peek(s -> logger.fine("Split input: " + s))
                 .toArray(String[]::new);
     }
 }
