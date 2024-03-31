@@ -11,6 +11,16 @@ import java.time.format.DateTimeFormatter;
 public class Order implements ItemManager {
     private static final double SERVICE_CHARGE = 0.1;
     private static final double GST = 0.09;
+    private static final String ROW_DELIMITER = "+-----------------------------------------------------+\n";
+    private static final String TITLE = "|                       RECEIPT                       |\n";
+    private static final String HEADERS = "| ID       | Name            | Price       | Quantity |\n";
+    private static final int NAME_MAX_LENGTH = 15; // Default length for Name column header
+    private static final String SHORT_ROW_START = "| %-8s | %-15s | $%-10.2";
+    private static final String SHORT_ROW_END = " | %-9d|\n";
+    private static final String LONG_ROW_FORMAT = "|          | %-15s |"
+            + " ".repeat(13) + "|" + " ".repeat(10) + "|\n";
+    private static final String CHARGE_FORMAT = "37s $%-12.2";
+
     private final String orderID;
     private final ArrayList<MenuItem> orderItemList = new ArrayList<>();
 
@@ -52,94 +62,63 @@ public class Order implements ItemManager {
 
     public double getTotalPrice() {
         return Double.parseDouble(String.format("%.2f",
-                this.orderItemList.stream().mapToDouble(Item::getPrice).sum() * (1 + SERVICE_CHARGE + GST)));
+                this.orderItemList.stream().mapToDouble(Item::getPrice).sum() * (1 + SERVICE_CHARGE) * (1 + GST)));
     }
 
-    // TODO: correct the GST and Service Charge calculation
     public String getReceipt() {
-        StringBuilder itemsBuilder = new StringBuilder();
-        StringBuilder headersBuilder = new StringBuilder();
-
+        StringBuilder receiptBuilder = new StringBuilder();
         Set<String> processedItems = new HashSet<>();
-        int idMaxLength = 6; // Default length for ID column header
-        int nameMaxLength = 11; // Default length for Name column header
 
-        for (MenuItem item : orderItemList) {
-            idMaxLength = Math.max(idMaxLength, item.getID().length());
-            nameMaxLength = Math.max(nameMaxLength, item.getName().length());
-        }
-
-        int totalLength = idMaxLength + nameMaxLength + 19; // 19 is the length of the rest of the headers
-        int spaceLength = (totalLength) / 2;
-
-        String idHeader = "| ID" + " ".repeat(idMaxLength - 1);
-        String nameHeader = "| Name" + " ".repeat(nameMaxLength - 3);
-        String priceHeader = "| Price   ";
-        String quantityHeader = "| Quantity |\n";
-
-        String headerLine = "+-" + "-".repeat(idMaxLength)
-                + "-+-" + "-".repeat(nameMaxLength) + "-+---------+----------+\n";
-        headersBuilder.append("+-").append("-".repeat(idMaxLength + nameMaxLength + 24)).append("-+\n");
-
-        headersBuilder.append("|")
-                .append(" ".repeat(spaceLength))
-                .append("RECEIPT")
-                .append(" ".repeat(totalLength % 2 != 0 ? spaceLength + 1 : spaceLength))
-                .append("|\n")
-                .append(headerLine)
-                .append(idHeader)
-                .append(nameHeader)
-                .append(priceHeader)
-                .append(quantityHeader)
-                .append(headerLine);
+        receiptBuilder.append(ROW_DELIMITER)
+                .append(TITLE)
+                .append(ROW_DELIMITER)
+                .append(HEADERS)
+                .append(ROW_DELIMITER);
 
         for (MenuItem item : orderItemList) {
             String itemID = item.getID();
+
             if (!processedItems.contains(itemID)) {
                 int quantity = getItemCount(itemID);
-                itemsBuilder.append(String.format("| %-" + idMaxLength
-                                + "s | %-" + nameMaxLength
-                                + "s | $%-6.2f | %-9d|\n",
-                        itemID, item.getName(), item.getPrice(), quantity));
+                String shortName = item.getName().length() > NAME_MAX_LENGTH
+                        ? item.getName().substring(0, NAME_MAX_LENGTH) : item.getName();
+                String format = SHORT_ROW_START + formatChooser(item.getPrice()) + SHORT_ROW_END;
+                String formattedString = String.format(format, itemID, shortName, item.getPrice(), quantity);
+
+                receiptBuilder.append(formattedString);
+                // iterate through the rest part of the name, keep the max length of 15
+                for (int i = NAME_MAX_LENGTH; i < item.getName().length(); i += NAME_MAX_LENGTH) {
+                    String name = item.getName().substring(i, Math.min(i + NAME_MAX_LENGTH, item.getName().length()));
+                    receiptBuilder.append(String.format(LONG_ROW_FORMAT, name));
+                }
+
                 processedItems.add(itemID);
             }
         }
 
-        double serviceCharge = getTotalPrice() * SERVICE_CHARGE;
-        double gst = getTotalPrice() * GST;
+        double serviceCharge = getTotalPrice() / (1 + GST) / (1 + SERVICE_CHARGE) * SERVICE_CHARGE;
+        double gst = getTotalPrice() / (1 + GST) * GST;
 
-        itemsBuilder.append(headerLine)
-                .append(String.format("| %-" + (idMaxLength + nameMaxLength + 10) + "s $%-12.2f |\n",
+        receiptBuilder.append(ROW_DELIMITER)
+                .append(String.format("| %-" + CHARGE_FORMAT + formatChooser(serviceCharge) + " |\n",
                         "Service Charge (" + (SERVICE_CHARGE * 100) + "%):", serviceCharge))
-                .append(String.format("| %-" + (idMaxLength + nameMaxLength + 10) + "s $%-12.2f |\n",
-                        "GST (" + (GST * 100) + "%):", gst))
-                .append(String.format("| %-" + (idMaxLength + nameMaxLength + 10) + "s $%-12.2f |\n",
-                        "Grand Total:", getTotalPrice()));
+                .append(String.format("| %-" + CHARGE_FORMAT
+                        + formatChooser(gst) + " |\n", "GST (" + (GST * 100) + "%):", gst))
+                .append(String.format("| %-" + CHARGE_FORMAT
+                        + formatChooser(getTotalPrice()) + " |\n", "Grand Total:", getTotalPrice()))
+                .append(ROW_DELIMITER);
 
-        return headersBuilder + itemsBuilder.toString();
+        return receiptBuilder.toString();
     }
-
-    //test getReceipt
-    //    public static void main(String[] args) {
-    //        Order order = new Order();
-    //        MenuItem item1 = new MenuItem("1", "item1", 1000.0);
-    //        MenuItem item2 = new MenuItem("2", "item2555555", 20.0);
-    //        MenuItem item3 = new MenuItem("3", "item3", 30000.0);
-    //        order.add(item1);
-    //        order.add(item2);
-    //        order.add(item3);
-    //        order.add(item1);
-    //        order.add(item2);
-    //        order.add(item3);
-    //        order.add(item1);
-    //        order.add(item2);
-    //        order.add(item3);
-    //        System.out.println(order.getReceipt());
-    //    }
 
     //TODO: Implement getReceipt method with discount
     public String getReceipt(double discount) {
         return null;
+    }
+
+    private char formatChooser(double value) {
+        // If the value is too large, use scientific notation
+        return (String.valueOf((int) (value)).length()) > 7 ? 'e' : 'f';
     }
 
     /**
