@@ -24,13 +24,14 @@ public class OrderDeleteCommand implements OrderCommand {
         } else if (newOrder.getItemCount(itemID) - Integer.parseInt(itemQuantity) <= 0) {
             newOrder.remove(itemID);
             assert newOrder.getItemCount(itemID) == 0 : "all items of itemID should be removed from the order";
-            System.out.println("All " + " " + menu.getItem(itemID).get().getName() + " is removed from order");
+            System.out.println("All " + " " + menu.getItemByID(itemID).get().getName() + " is removed from order");
             return newOrder;
         } else {
             for (int i = 0; i < Integer.parseInt(itemQuantity); i++) {
-                newOrder.remove(menu.getItem(itemID).get());
+                newOrder.remove(menu.getItemByID(itemID).get());
             }
-            System.out.println(itemQuantity + " " + menu.getItem(itemID).get().getName() + " is removed from order");
+            System.out.println(itemQuantity + " " + menu.getItemByID(itemID).get().getName()
+                    + " is removed from order");
         }
         return newOrder;
     }

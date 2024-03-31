@@ -15,7 +15,7 @@ public enum CommandType {
     ADD_ITEM("(?i)add\\s*-item\\s*(\\d+)\\s*-quantity\\s*(\\d+)"),
     DELETE_ITEM("(?i)delete\\s*-item\\s*(\\d+)\\s*-quantity\\s*(\\d+)"),
     VIEW_ITEM("view item"),
-    COMPLETE_ORDER("(?i)complete\\s*"),
+    COMPLETE("(?i)complete\\s*"),
 
     // edit menu commands
     ADD_MENU_ITEM("(?i)add\\s*-item\\s*(\\d+)\\s*-name\\s*([A-Z\\s]+)\\s*-price\\s*(\\d+(\\.\\d+)?)"),

@@ -48,7 +48,7 @@ public class OrderLogic {
             case HELP:
                 OrderHelpCommand.execute();
                 break;
-            case COMPLETE_ORDER:
+            case COMPLETE:
                 isComplete = OrderCompleteCommand.execute(newOrder);
                 break;
             case EXIT:

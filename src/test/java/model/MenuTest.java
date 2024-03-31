@@ -8,6 +8,7 @@ public class MenuTest {
     @Test
     public void testEmptyMenu() {
         Menu menu = new Menu("001");
+
         assertEquals(
                 "+--------------------------------------+\n" +
                         "|              MENU                    |\n" +
@@ -16,6 +17,20 @@ public class MenuTest {
                         "+------+-------------------------------+\n" +
                         "+------+-------------------------------+\n"
                 , menu.toString());
+
+    }
+    @Test public void testMenuWithOneItem() {
+        Menu menu = new Menu("002");
+        menu.add(new MenuItem("001","Nasi Lemak",3.00));
+        assertEquals(
+                "+--------------------------------------+\n" +
+                "|              MENU                    |\n" +
+                "+------+-------------------------------+\n" +
+                "| ID   | Name                  | Price |\n" +
+                "+------+-------------------------------+\n" +
+                "| 001  | Nasi Lemak            | $3.00 |\n" +
+                "+------+-------------------------------+\n",
+                menu.toString());
 
     }
     /*@Test

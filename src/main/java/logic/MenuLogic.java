@@ -1,6 +1,5 @@
 package logic;
 
-import command.menu.MenuViewMenuListCommand;
 import command.menu.MenuAddCommand;
 import command.menu.MenuCompleteCommand;
 import command.menu.MenuDeleteCommand;
@@ -17,6 +16,7 @@ import java.util.Scanner;
 public class MenuLogic {
     public static Optional<Menu> modifyMenu(Scanner input, Menu menu, int menuLen) {
         Menu activeMenu = (menu == null) ? new Menu("0" + (menuLen + 1)) : menu;
+
         boolean isComplete = false;
         System.out.println("Initializing menu " + activeMenu.getID() + "...");
         MenuHelpCommand.execute();
@@ -36,10 +36,9 @@ public class MenuLogic {
             case DELETE_MENU_ITEM:
                 activeMenu = MenuDeleteCommand.execute(activeMenu, inputText);
                 break;
-            case VIEW_MENU_LIST:
-                MenuViewMenuListCommand.execute();
-                break;
-            case COMPLETE_ORDER:
+
+            case COMPLETE:
+
                 isComplete = MenuCompleteCommand.execute(activeMenu);
                 break;
             case HELP:
