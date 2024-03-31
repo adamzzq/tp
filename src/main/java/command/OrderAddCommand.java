@@ -33,7 +33,7 @@ public class OrderAddCommand implements OrderCommand {
         String[] indexString = Parser.splitInput(Parser.analyzeInput(inputText), inputText);
         String itemID = indexString[0];
         String itemQuantity = indexString[1];
-        Optional<MenuItem> item = menu.getItem(itemID);
+        Optional<MenuItem> item = menu.getItemByID(itemID);
         if (item.isPresent()) {
             for (int i = 0; i < Integer.parseInt(itemQuantity); i++) {
                 newOrder.add(item.get());

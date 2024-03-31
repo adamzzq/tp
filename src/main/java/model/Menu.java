@@ -15,7 +15,6 @@ import static model.SetMenu.Dinner;
 
 public class Menu implements ItemManager {
     private static final Logger logr = Logger.getLogger("MenuLogger");
-    private static final ArrayList<Menu> menuList = new ArrayList<>();
     private final ArrayList<MenuItem> menuItemList = new ArrayList<>();
     private final String menuID;
 
@@ -41,8 +40,12 @@ public class Menu implements ItemManager {
         }
     }
 
-    public Optional<MenuItem> getItem(String itemID) {
+    public Optional<MenuItem> getItemByID(String itemID) {
         return menuItemList.stream().filter(x -> x.getID().equals(itemID)).findAny();
+    }
+
+    public Optional<MenuItem> getItemByName(String itemName) {
+        return menuItemList.stream().filter(x -> x.getName().equals(itemName)).findAny();
     }
 
     @Override
@@ -82,11 +85,16 @@ public class Menu implements ItemManager {
         menuString.append("+------+-------------------------------+\n");
         menuString.append("| ID   | Name                  | Price |\n");
         menuString.append("+------+-------------------------------+\n");
-        for (MenuItem item : menuItemList) {
-            menuString.append(String.format("| %-5s| %-25s| $%-6.2f|\n",
-                    item.getID(), item.getName(), item.getPrice()));
+        if (menuItemList.isEmpty()) {
+            menuString.append("+------+-------------------------------+\n");
+        } else {
+            for (MenuItem item : menuItemList) {
+                menuString.append(String.format("| %-5s| %-22s| $%-5.2f|\n",
+                        item.getID(), item.getName(), item.getPrice()));
+            }
+            menuString.append("+------+-------------------------------+\n");
         }
-        menuString.append("+------+-------------------------------+\n");
+
         return menuString.toString();
     }
 
@@ -112,15 +120,9 @@ public class Menu implements ItemManager {
         }
     }
 
-    public static int getMenuNum() {
-        return menuList.size();
-    }
 
     public int getSize() {
         return menuItemList.size();
     }
 
-    public static ArrayList<Menu> getMenuList() {
-        return menuList;
-    }
 }
