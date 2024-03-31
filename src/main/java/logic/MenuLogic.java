@@ -39,7 +39,7 @@ public class MenuLogic {
             case VIEW_MENU_LIST:
                 MenuViewMenuListCommand.execute();
                 break;
-            case COMPLETE_MENU:
+            case COMPLETE_ORDER:
                 isComplete = MenuCompleteCommand.execute(activeMenu);
                 break;
             case HELP:
