@@ -18,7 +18,7 @@ public class MenuLogic {
         Menu activeMenu = (menu == null) ? new Menu("0" + (menuLen + 1)) : menu;
 
         boolean isComplete = false;
-        System.out.println("Initializing menu " + activeMenu.getID() + "...");
+        System.out.println("Initializing menu " + activeMenu.getId() + "...");
         MenuHelpCommand.execute();
         while (!isComplete) {
             String inputText = input.nextLine();

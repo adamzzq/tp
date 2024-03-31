@@ -9,7 +9,7 @@ public class MainViewMenuCommand {
         String[] indexString = Parser.splitInput(Parser.analyzeInput(inputText), inputText);
         String menuID = indexString[0];
         menuList.stream()
-                .filter(menu -> menu.getID().equals(menuID))
+                .filter(menu -> menu.getId().equals(menuID))
                 .findAny()
                 .ifPresentOrElse(System.out::println, () -> System.out.println("Menu not found"));
     }
