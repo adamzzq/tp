@@ -29,27 +29,30 @@ public class MenuLogic {
                 System.out.println("Invalid command");
                 continue;
             }
-            if (commandType == CommandType.ADD_MENU_ITEM || commandType == CommandType.DELETE_MENU_ITEM) {
-                activeMenu = editMenu(commandType,activeMenu,inputText);
-            } else if (commandType == CommandType.COMPLETE) {
+            switch(commandType) {
+            case ADD_MENU_ITEM:
+                activeMenu = MenuAddCommand.execute(activeMenu, inputText);
+                break;
+            case DELETE_MENU_ITEM:
+                activeMenu = MenuDeleteCommand.execute(activeMenu, inputText);
+                break;
+            case VIEW_ITEM:
+                System.out.println(activeMenu);
+                break;
+            case COMPLETE:
                 isComplete = MenuCompleteCommand.execute(activeMenu);
-            } else if (commandType == CommandType.HELP) {
+                break;
+            case HELP:
                 MenuHelpCommand.execute();
-            } else if (commandType == CommandType.EXIT) {
+                break;
+            case EXIT:
                 MenuExitCommand.execute(activeMenu);
                 return Optional.empty();
-            } else {
+            default:
                 System.out.println("Invalid command");
                 MenuHelpCommand.execute();
             }
         }
         return Optional.of(activeMenu);
-    }
-    private static Menu editMenu(CommandType commandType, Menu activeMenu, String inputText) {
-        if (commandType == CommandType.ADD_MENU_ITEM) {
-            return MenuAddCommand.execute(activeMenu, inputText);
-        } else {
-            return MenuDeleteCommand.execute(activeMenu, inputText);
-        }
     }
 }

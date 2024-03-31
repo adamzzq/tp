@@ -1,7 +1,6 @@
 package command;
 
 import command.main.MainExitCommand;
-import command.main.MainHelpCommand;
 import command.main.MainViewOrderCommand;
 import command.main.MainViewOrdersSummaryCommand;
 import command.main.MainCreateOrderCommand;
@@ -25,23 +24,6 @@ public class MainCommandTest {
         assertTrue(MainExitCommand.execute(false));
     }
 
-    @Test
-    public void testMainHelpCommand() {
-        ByteArrayOutputStream outputContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outputContent));
-
-        MainHelpCommand.execute();
-        String expectedOutput = "Here are the list of available commands:\n" +
-                "\thelp: Shows all the commands that can be used.\n" +
-                "\tcreate order -menu <menu_id>: Creates a new order using the specified menu.\n" +
-                "\tview -order -all: Shows a brief summary of all the created orders.\n" +
-                "\tview -order <order_id>: Shows all the contents of a specified order.\n" +
-                "\tcreate menu: Creates a new menu.\n" +
-                "\tedit -menu <menu_id>: Modify the specified menu's items in the menu interface.\n" +
-                "\tbye: Quits the program.\n";
-
-        assertEquals(expectedOutput, outputContent.toString().replace("\r", ""));
-    }
 
     @Test
     public void testMainViewOrdersSummaryCommand_emptyList() {

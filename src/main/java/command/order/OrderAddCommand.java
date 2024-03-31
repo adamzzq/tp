@@ -1,6 +1,5 @@
-package command;
+package command.order;
 
-import command.order.OrderCommand;
 import model.Menu;
 import model.MenuItem;
 import model.Order;

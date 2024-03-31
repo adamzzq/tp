@@ -9,35 +9,14 @@ import java.util.logging.LogManager;
 import java.util.logging.Logger;
 import java.util.logging.FileHandler;
 
-import static model.SetMenu.Breakfast;
-import static model.SetMenu.Lunch;
-import static model.SetMenu.Dinner;
-
 public class Menu implements ItemManager {
     private static final Logger logr = Logger.getLogger("MenuLogger");
     private final ArrayList<MenuItem> menuItemList = new ArrayList<>();
-    private final String menuId;
+    private final String menuID;
 
-    public Menu(String menuId) {
+    public Menu(String menuID) {
         Menu.setupLogger();
-        this.menuId = menuId;
-    }
-
-    public Menu(SetMenu menuType) {
-        Menu.setupLogger();
-        switch (menuType) {
-        case Breakfast:
-            this.menuId = String.valueOf(Breakfast);
-            break;
-        case Lunch:
-            this.menuId = String.valueOf(Lunch);
-            break;
-        case Dinner:
-            this.menuId = String.valueOf(Dinner);
-            break;
-        default:
-            this.menuId = "No Menu type";
-        }
+        this.menuID = menuID;
     }
 
     public Optional<MenuItem> getItemById(String itemID) {
@@ -50,14 +29,14 @@ public class Menu implements ItemManager {
 
     @Override
     public String getId() {
-        return menuId;
+        return menuID;
     }
+
     @Override
     public boolean add(MenuItem item) {
         this.menuItemList.add(item);
         return true;
     }
-
 
     /**
      * Removes item from the menu by its name
@@ -70,13 +49,13 @@ public class Menu implements ItemManager {
         return true;
     }
 
-    /*@Override
-    public String toString() {
-        return this.menuID + "\n" +
-                IntStream.range(0,this.menuItemList.size())
-                        .mapToObj(x -> (x + 1) + ". " + this.menuItemList.get(x))
-                        .collect(Collectors.joining("\n"));
-    }*/
+    public int getSize() {
+        return menuItemList.size();
+    }
+
+    public String getMenuSummary() {
+        return this.menuID + " menu with " + this.menuItemList.size() + " items";
+    }
 
     @Override
     public String toString() {
@@ -120,10 +99,4 @@ public class Menu implements ItemManager {
             logr.log(Level.SEVERE, "File logger not working.",e);
         }
     }
-
-
-    public int getSize() {
-        return menuItemList.size();
-    }
-
 }

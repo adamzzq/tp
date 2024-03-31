@@ -1,7 +1,7 @@
 package logic;
 
 import command.order.OrderViewItemsCommand;
-import command.OrderAddCommand;
+import command.order.OrderAddCommand;
 import command.order.OrderCompleteCommand;
 import command.order.OrderDeleteCommand;
 import command.order.OrderExitCommand;
@@ -42,7 +42,7 @@ public class OrderLogic {
             case VIEW_ITEM:
                 OrderViewItemsCommand.execute(newOrder);
                 break;
-            case VIEW_MENU:
+            case VIEW_MENU_ORDERLOGIC:
                 OrderViewMenuCommand.execute(menu);
                 break;
             case HELP:
