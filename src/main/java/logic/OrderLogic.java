@@ -49,7 +49,7 @@ public class OrderLogic {
                 OrderHelpCommand.execute();
                 break;
             case COMPLETE:
-                isComplete = OrderCompleteCommand.execute(newOrder);
+                isComplete = OrderCompleteCommand.execute(newOrder, input);
                 break;
             case EXIT:
                 OrderExitCommand.execute(newOrder);
