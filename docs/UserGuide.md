@@ -288,10 +288,21 @@ same directory where you put the `DinEz.jar` file.
 **A**: Just like the orders, there is no limit to the number of menus that can be created. The goal of this system is
 to be able to allow the user to create multiple menus from which items for the order can be chosen from.
 
+**Q** What happens if I try to add similar items to the menu?
+
+**A**: This is not allowed. The item name and ID are unique in each menu.
+
+**Q**: Can I delete an order that I have entered?
+
+**A**: No, once an order has been created, it cannot be deleted. This is to ensure that the order history is preserved 
+as they are important for the restaurant's records.
+
 **Q**: Can I edit an order that I have entered?
 
 **A**: To preserve the integrity of the generated orders, we do not offer a feature to edit orders that have been 
 entered. A confirmation message is hence present for the user to verify that their inputs are correct.
+
+
 
 ## Command Summary
 
