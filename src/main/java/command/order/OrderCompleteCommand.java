@@ -14,6 +14,7 @@ public class OrderCompleteCommand implements OrderCommand {
             System.out.println("Order " + order.getId() + " is empty. Please add items to the order.");
             return false;
         }
+        System.out.println("Order " + order.getId() + " is completed!");
         return true;
     }
 }
