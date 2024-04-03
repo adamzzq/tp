@@ -283,6 +283,16 @@ the program terminates.
 The save feature will be implemented in `v2.1`, where the save data will be stored in the
 same directory where you put the `DinEz.jar` file.
 
+**Q**: How many menus can I have?
+
+**A**: Just like the orders, there is no limit to the number of menus that can be created. The goal of this system is
+to be able to allow the user to create multiple menus from which items for the order can be chosen from.
+
+**Q**: Can I edit an order that I have entered?
+
+**A**: To preserve the integrity of the generated orders, we do not offer a feature to edit orders that have been 
+entered. A confirmation message is hence present for the user to verify that their inputs are correct.
+
 ## Command Summary
 
 * User help guide `help`
