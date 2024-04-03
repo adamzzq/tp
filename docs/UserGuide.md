@@ -71,6 +71,21 @@ traditional GUI.
 
 7. Refer to the [Features](#features) below for details of each command
 
+
+> [!NOTE]
+> * All the spaces in the commands are for clarity and are **optional** to include in the actual command.<br>
+> * Commands are **case-insensitive**.<br>
+> * The `<angle-brackets>` are used to denote the parameters that should be replaced with the **actual user input**.
+
+
+Accepted formats examples:<br>
+`create order -menu 01`
+`create order-menu01`
+`createorder-menu01`
+`CREATE ORDER -MENU 01`
+`Createorder -menu 01`(Non-exhaustive list)
+
+
 ## Features
 
 ### User help guide: `help`
