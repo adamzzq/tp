@@ -68,7 +68,7 @@ public class MainCommandTest {
         Menu testMenu = new Menu("01");
         ArrayList<Menu> testMenuList = new ArrayList<>();
         testMenuList.add(testMenu);
-        Optional<Menu> menuToEdit = MainEditMenuCommand.execute("edit -menu 00", testMenuList);
+        Optional<Menu> menuToEdit = MainEditMenuCommand.execute("edit -menu 02", testMenuList);
 
         assertTrue(menuToEdit.isEmpty());
     }
