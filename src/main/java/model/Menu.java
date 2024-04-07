@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import java.util.logging.FileHandler;
 
 public class Menu implements ItemManager {
+    private static final int NAME_MAX_LENGTH = 22;
     private static final Logger logr = Logger.getLogger("MenuLogger");
     private final ArrayList<MenuItem> menuItemList = new ArrayList<>();
     private final String menuID;
@@ -69,8 +70,19 @@ public class Menu implements ItemManager {
             menuString.append("+------+-------------------------------+\n");
         } else {
             for (MenuItem item : menuItemList) {
+                String shortName = item.getName().length() > NAME_MAX_LENGTH
+                        ? item.getName().substring(0, NAME_MAX_LENGTH) : item.getName();
+
                 menuString.append(String.format("| %-5s| %-22s| $%-5.2f|\n",
-                        item.getID(), item.getName(), item.getPrice()));
+                            item.getID(), shortName, item.getPrice()));
+
+                // wrap the item name to the next line if it is too long
+                for (int i = NAME_MAX_LENGTH; i < item.getName().length(); i += NAME_MAX_LENGTH) {
+                    String name = item.getName().substring(i, Math.min(i + NAME_MAX_LENGTH, item.getName().length()));
+                    menuString.append(String.format("| %-5s| %-22s| %-6s|\n",
+                            "", name, ""));
+                }
+
             }
             menuString.append("+------+-------------------------------+\n");
         }
