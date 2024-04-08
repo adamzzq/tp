@@ -2,7 +2,7 @@ package ui;
 
 public enum CommandType {
     //main commands
-    EXIT("(?i)bye"),
+    EXIT_MAIN("(?i)bye"),
     HELP("(?i)help"),
     CREATE_ORDER("(?i)create\\s*order\\s*-menu\\s*(\\d+)"), // case-insensitive, space safe
     VIEW_ORDER("(?i)view\\s*-order\\s*(\\d+)"),
@@ -20,6 +20,8 @@ public enum CommandType {
     VIEW_ITEM("view item"),
     COMPLETE("(?i)complete\\s*"),
     VIEW_MENU_ORDERLOGIC("(?i)view menu"),
+
+    EXIT("(?i)cancel"),
 
     // edit menu commands
     ADD_MENU_ITEM("(?i)add\\s*-item\\s*([A-Z\\s]+)\\s*-price\\s*(\\d+(\\.\\d+)?)"),

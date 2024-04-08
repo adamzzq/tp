@@ -13,7 +13,7 @@ public class JunitParserTest {
         Parser parser = new Parser();
         assertEquals(CommandType.CREATE_ORDER, parser.analyzeInput("create order -menu 1"));
         assertEquals(CommandType.VIEW_ORDER, parser.analyzeInput("view -order 2"));
-        assertEquals(CommandType.EXIT, parser.analyzeInput("bye"));
+        assertEquals(CommandType.EXIT_MAIN, parser.analyzeInput("bye"));
         assertEquals(CommandType.HELP, parser.analyzeInput("help"));
 
         // case-insensitive

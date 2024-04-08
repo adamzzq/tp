@@ -48,7 +48,7 @@ public class MainLogic {
                 continue;
             }
             switch (commandType) {
-            case EXIT:
+            case EXIT_MAIN:
                 isExit = MainExitCommand.execute(isExit);
                 assert isExit : "isExit should be true";
                 break;
