@@ -21,9 +21,11 @@ public class OrderLogic {
     public static Optional<Order> createNewOrder(Scanner input, Menu menu) {
         Order newOrder = new Order();
         boolean isComplete = false;
-        System.out.println("Order " + newOrder.getId() + " creating...");
+        String orderID = newOrder.getId();
+        System.out.println("Order " + orderID + " creating...");
         OrderHelpCommand.execute();
         while (!isComplete) {
+            System.out.print("[Order: " + orderID + "] [Menu: " + menu.getId() + "] >>> ");
             String inputText = input.nextLine();
             CommandType commandType;
             try {

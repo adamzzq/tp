@@ -39,6 +39,7 @@ public class MainLogic {
         MainHelpCommand.execute();
         boolean isExit = false;
         while (!isExit) {
+            System.out.print("[Main interface] >>> ");
             String inputText = input.nextLine();
             CommandType commandType;
             try {

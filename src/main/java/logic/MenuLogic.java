@@ -17,11 +17,12 @@ import java.util.Scanner;
 public class MenuLogic {
     public static Optional<Menu> modifyMenu(Scanner input, Menu menu, int menuLen) {
         Menu activeMenu = (menu == null) ? new Menu("0" + (menuLen + 1)) : menu;
-
+        String menuID = activeMenu.getId();
         boolean isComplete = false;
-        System.out.println("Initializing menu " + activeMenu.getId() + "...");
+        System.out.println("Initializing menu " + menuID + "...");
         MenuHelpCommand.execute();
         while (!isComplete) {
+            System.out.print("[Menu: " + menuID + "] >>> ");
             String inputText = input.nextLine();
             CommandType commandType;
             try {
