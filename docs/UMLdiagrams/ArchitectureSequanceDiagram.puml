@@ -53,9 +53,10 @@ parser --> subLogic : return command
 deactivate parser
 subLogic -> command : execute(command)
 activate command COMMAND_COLOR
-deactivate subLogic
-command --> mainLogic : return newOrder
+command --> subLogic : return newOrder
 deactivate command
+subLogic --> mainLogic : return newOrder
+deactivate subLogic
 mainLogic -> storage : save(newOrder)
 activate storage STORAGE_COLOR
 storage --> mainLogic
