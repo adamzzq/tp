@@ -43,6 +43,7 @@ public class OrderAddCommand implements OrderCommand {
             logr.warning("Item not in menu, not added to order");
             System.out.println("Item not found in menu");
         }
+
         return newOrder;
     }
 
