@@ -6,6 +6,7 @@ import command.menu.MenuDeleteCommand;
 import command.menu.MenuExitCommand;
 import command.menu.MenuHelpCommand;
 import model.Menu;
+import ui.CommandErrorMessage;
 import ui.CommandType;
 import ui.Parser;
 
@@ -26,7 +27,7 @@ public class MenuLogic {
             try {
                 commandType = Parser.analyzeInput(inputText);
             } catch (IllegalArgumentException e) {
-                System.out.println("Invalid command");
+                CommandErrorMessage.printMenuError(inputText);
                 continue;
             }
             switch(commandType) {
