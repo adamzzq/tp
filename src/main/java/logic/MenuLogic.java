@@ -31,10 +31,10 @@ public class MenuLogic {
             }
             switch(commandType) {
             case ADD_MENU_ITEM:
-                activeMenu = MenuAddCommand.execute(activeMenu, inputText);
+                MenuAddCommand.execute(activeMenu, inputText);
                 break;
             case DELETE_MENU_ITEM:
-                activeMenu = MenuDeleteCommand.execute(activeMenu, inputText);
+                MenuDeleteCommand.execute(activeMenu, inputText);
                 break;
             case VIEW_ITEM:
                 System.out.println(activeMenu);

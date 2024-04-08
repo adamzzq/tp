@@ -22,7 +22,7 @@ public enum CommandType {
     VIEW_MENU_ORDERLOGIC("(?i)view menu"),
 
     // edit menu commands
-    ADD_MENU_ITEM("(?i)add\\s*-item\\s*(\\d+)\\s*-name\\s*([A-Z\\s]+)\\s*-price\\s*(\\d+(\\.\\d+)?)"),
+    ADD_MENU_ITEM("(?i)add\\s*-item\\s*([A-Z\\s]+)\\s*-price\\s*(\\d+(\\.\\d+)?)"),
     DELETE_MENU_ITEM("(?i)delete\\s*-item\\s*(\\d+)");
 
 
