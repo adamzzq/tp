@@ -1,20 +1,45 @@
 package ui;
 
 public class CommandErrorMessage {
-    public static void printError(String inputText) {
+    private static final String INVALID_PARAMS =
+            "Please ensure that you have entered the necessary parameters correctly.";
+    private static final String ORDER_VIEW = "Invalid format for view command. "
+            + "Please enter either \"view menu\" or \"view item\".";
+    private static final String MENU_VIEW = "Invalid format for view command. Please enter \"view item\".";
+    private static final String INVALID_COMMAND =
+            "Command not recognised. Type \"help\" to see the list of available commands.";
+
+    public static void printMainError(String inputText) {
         String errorMessage = "";
         if (inputText.startsWith("view") || inputText.startsWith("create")
-                || inputText.startsWith("receipt") || inputText.startsWith("edit")
-                || inputText.startsWith("add") || inputText.startsWith("delete")) {
-            errorMessage = "Please ensure that you have entered the necessary parameters correctly.";
-        } else if (inputText.startsWith("help")) {
-            errorMessage = "Did you mean to type \"help\"?";
-        } else if (inputText.startsWith("complete")) {
-            errorMessage = "Did you mean to type \"complete\"?";
-        } else if (inputText.startsWith("bye")) {
-            errorMessage = "Did you mean to type \"bye\"?";
+                || inputText.startsWith("receipt") || inputText.startsWith("edit")) {
+            errorMessage = INVALID_PARAMS;
         } else {
-            errorMessage = "Command not recognised. Type \"help\" to see the list of available commands.";
+            errorMessage = INVALID_COMMAND;
+        }
+        System.out.println(errorMessage);
+    }
+
+    public static void printOrderError(String inputText) {
+        String errorMessage = "";
+        if (inputText.startsWith("add") || inputText.startsWith("delete")) {
+            errorMessage = INVALID_PARAMS;
+        } else if (inputText.startsWith("view")) {
+            errorMessage = ORDER_VIEW;
+        } else {
+            errorMessage = INVALID_COMMAND;
+        }
+        System.out.println(errorMessage);
+    }
+
+    public static void printMenuError(String inputText) {
+        String errorMessage = "";
+        if (inputText.startsWith("add") || inputText.startsWith("delete")) {
+            errorMessage = INVALID_PARAMS;
+        } else if (inputText.startsWith("view")) {
+            errorMessage = MENU_VIEW;
+        } else {
+            errorMessage = INVALID_COMMAND;
         }
         System.out.println(errorMessage);
     }

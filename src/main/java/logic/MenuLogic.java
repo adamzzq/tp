@@ -27,7 +27,7 @@ public class MenuLogic {
             try {
                 commandType = Parser.analyzeInput(inputText);
             } catch (IllegalArgumentException e) {
-                CommandErrorMessage.printError(inputText);
+                CommandErrorMessage.printMenuError(inputText);
                 continue;
             }
             switch(commandType) {

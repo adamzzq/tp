@@ -44,7 +44,7 @@ public class MainLogic {
             try {
                 commandType = Parser.analyzeInput(inputText);
             } catch (IllegalArgumentException e) {
-                CommandErrorMessage.printError(inputText);
+                CommandErrorMessage.printMainError(inputText);
                 continue;
             }
             switch (commandType) {

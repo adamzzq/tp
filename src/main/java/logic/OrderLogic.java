@@ -29,7 +29,7 @@ public class OrderLogic {
             try {
                 commandType = Parser.analyzeInput(inputText);
             } catch (IllegalArgumentException e) {
-                CommandErrorMessage.printError(inputText);
+                CommandErrorMessage.printOrderError(inputText);
                 continue;
             }
             switch (commandType) {
