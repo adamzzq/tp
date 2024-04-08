@@ -14,6 +14,7 @@ import command.main.MainViewMenusSummaryCommand;
 import model.Menu;
 import model.MenuItem;
 import model.Order;
+import ui.CommandErrorMessage;
 import ui.CommandType;
 import ui.Parser;
 
@@ -43,8 +44,7 @@ public class MainLogic {
             try {
                 commandType = Parser.analyzeInput(inputText);
             } catch (IllegalArgumentException e) {
-                System.out.println("Invalid command");
-                MainHelpCommand.execute();
+                CommandErrorMessage.printError(inputText);
                 continue;
             }
             switch (commandType) {

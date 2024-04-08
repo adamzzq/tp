@@ -10,6 +10,7 @@ import command.order.OrderViewMenuCommand;
 
 import model.Menu;
 import model.Order;
+import ui.CommandErrorMessage;
 import ui.CommandType;
 import ui.Parser;
 
@@ -28,8 +29,7 @@ public class OrderLogic {
             try {
                 commandType = Parser.analyzeInput(inputText);
             } catch (IllegalArgumentException e) {
-                System.out.println("Invalid command");
-                OrderHelpCommand.execute();
+                CommandErrorMessage.printError(inputText);
                 continue;
             }
             switch (commandType) {
