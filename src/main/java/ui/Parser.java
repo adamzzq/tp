@@ -12,6 +12,8 @@ public class Parser {
     private static final String ANALYZE_INPUT = "analyzeInput";
     private static final String SPLIT_INPUT = "splitInput";
 
+    private static final String ANALYZE_INITIALIZATION = "analyzeInitialization";
+
     /**
      * Analyzes the given input and returns the corresponding token.
      *

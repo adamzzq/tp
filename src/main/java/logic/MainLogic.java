@@ -23,12 +23,33 @@ import java.util.Optional;
 import java.util.Scanner;
 
 public class MainLogic {
+    private static String restaurantName;
+    private static String restaurantAddress;
+    private static String userName;
+
     public static void main(String[] args) {
         //Initialise all required models
         System.out.println("Hello from DinEz");
         Scanner input = new Scanner(System.in);
         ArrayList<Order> ordersList = new ArrayList<>();
         ArrayList<Menu> menusList = new ArrayList<>();
+
+        //initialization
+        boolean isValidRestaurantName = false;
+        boolean isValidAddress = false;
+        boolean isValidUser = false;
+
+        while (!isValidRestaurantName) {
+            isValidRestaurantName = initializeSystem("Restaurant");
+        }
+        while (!isValidAddress) {
+            isValidAddress = initializeSystem("Address");
+        }
+        while (!isValidUser) {
+            isValidUser = initializeSystem("User");
+        }
+
+
 
         //testing
         initMenu(menusList);
@@ -59,7 +80,8 @@ public class MainLogic {
             case CREATE_ORDER:
                 //GOTO sub-menu to add/remove menuItems, inputText is passed to detect menu selected
                 Optional<Menu> menuSelected = MainCreateOrderCommand.execute(inputText, menusList);
-                menuSelected.flatMap(menu -> OrderLogic.createNewOrder(input, menu)).ifPresent(ordersList::add);
+                menuSelected.flatMap(menu -> OrderLogic.createNewOrder(input, menu, restaurantName, restaurantAddress,
+                        userName)).ifPresent(ordersList::add);
                 break;
             case VIEW_ORDER:
                 MainViewOrderCommand.execute(ordersList, inputText);
@@ -89,6 +111,42 @@ public class MainLogic {
                 System.out.println("Invalid command");
                 MainHelpCommand.execute();
             }
+        }
+    }
+
+    private static boolean initializeSystem (String token) {
+        switch(token) {
+        case "Restaurant":
+            System.out.println("Enter restaurant name: ");
+            break;
+        case "Address":
+            System.out.println("Enter address of restaurant: ");
+            break;
+        case "User":
+            System.out.println("Enter user name: ");
+            break;
+        default:
+            System.out.println("Error in received initialization token");
+        }
+        Scanner input = new Scanner(System.in);
+        String inputString= input.nextLine();
+        switch(token) {
+        case "Restaurant":
+            restaurantName = inputString;
+            break;
+        case "Address":
+            restaurantAddress = inputString;
+            break;
+        case "User":
+            userName = inputString;
+            break;
+        default:
+            System.out.println("Error in received initialization token");
+        }
+        if (inputString.isBlank() || inputString.isEmpty()) {
+            throw new IllegalArgumentException("Input cannot be empty!\n");
+        } else {
+            return true;
         }
     }
 
@@ -124,7 +182,8 @@ public class MainLogic {
         MenuItem dish02 = new MenuItem("D02", "Nasi Lemak", 3.00);
         MenuItem dish04 = new MenuItem("D04", "Mee Siam", 3.50);
         MenuItem dish05 = new MenuItem("D04", "Mee Siam", 3.50);
-        Order order = new Order();
+        Order order = new Order("Happy Hawker", "Street 123", "Tom",
+                "Dine in");
         order.add(dish01);
         order.add(dish02);
         order.add(dish04);

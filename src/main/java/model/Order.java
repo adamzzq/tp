@@ -20,12 +20,20 @@ public class Order implements ItemManager {
     private static final String LONG_ROW_FORMAT = "|          | %-15s |"
             + " ".repeat(13) + "|" + " ".repeat(10) + "|\n";
     private static final String CHARGE_FORMAT = "37s $%-12.2";
-
     private final String orderID;
+
+    private final String restaurantName;
+    private final String restaurantAddress;
+    private final String orderType;
+    private final String userName;
     private final ArrayList<MenuItem> orderItemList = new ArrayList<>();
 
-    public Order() {
+    public Order(String restaurantName, String restaurantAddress, String userName, String orderType) {
         this.orderID = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+        this.restaurantName = restaurantName;
+        this.restaurantAddress = restaurantAddress;
+        this.userName = userName;
+        this.orderType = orderType;
     }
 
     @Override
@@ -71,8 +79,14 @@ public class Order implements ItemManager {
         Set<String> processedItems = new HashSet<>();
 
         receiptBuilder.append(ROW_DELIMITER)
+                .append(restaurantName)
+                .append("\n")
+                .append(restaurantAddress)
+                .append("\n")
+                .append(ROW_DELIMITER)
                 .append(TITLE)
                 .append(ROW_DELIMITER)
+                .append(orderType)
                 .append(HEADERS)
                 .append(ROW_DELIMITER);
 
@@ -110,6 +124,10 @@ public class Order implements ItemManager {
                 .append(String.format("| %-" + CHARGE_FORMAT
                         + formatChooser(getTotalPrice()) + " |\n", "Grand Total:", grandTotal))
                 .append(ROW_DELIMITER);
+
+        receiptBuilder.append("Cashier: ")
+                .append(userName)
+                .append("\n");
 
         return receiptBuilder.toString();
     }
