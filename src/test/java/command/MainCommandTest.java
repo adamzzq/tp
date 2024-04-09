@@ -9,10 +9,12 @@ import model.Menu;
 import model.Order;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -65,10 +67,12 @@ public class MainCommandTest {
 
     @Test
     public void testMainEditMenuCommand_invalidMenu() {
+        ByteArrayInputStream inputContent = new ByteArrayInputStream("test".getBytes());
+        Scanner input = new Scanner(inputContent);
         Menu testMenu = new Menu("01");
         ArrayList<Menu> testMenuList = new ArrayList<>();
         testMenuList.add(testMenu);
-        Optional<Menu> menuToEdit = MainEditMenuCommand.execute("edit -menu 02", testMenuList);
+        Optional<Menu> menuToEdit = MainEditMenuCommand.execute(input, "edit -menu 02", testMenuList);
 
         assertTrue(menuToEdit.isEmpty());
     }
