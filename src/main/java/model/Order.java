@@ -83,6 +83,7 @@ public class Order implements ItemManager {
     /**
      * Returns a formatted receipt header (top part of the receipt)
      *
+     * @param headerBuilder the StringBuilder to append the header to
      * @return the formatted receipt header
      */
     private StringBuilder getReceiptHeader(StringBuilder headerBuilder) {
@@ -118,6 +119,7 @@ public class Order implements ItemManager {
     /**
      * Returns a formatted receipt with summary (bottom part of the receipt) appended
      *
+     * @param receiptBuilder the StringBuilder to append the summary to
      * @param discount the discount to be applied to the order
      * @return the formatted receipt with summary
      */
@@ -169,22 +171,22 @@ public class Order implements ItemManager {
                 int quantity = getItemCount(itemID);
                 String shortName = item.getName().length() > NAME_MAX_LENGTH
                         ? item.getName().substring(0, NAME_MAX_LENGTH) : item.getName();
-                String format = SHORT_ROW_START + chooseFormat(item.getPrice()) + SHORT_ROW_END;
-                String formattedString = String.format(format, itemID, shortName, item.getPrice(), quantity);
+                String shortNameFormat = SHORT_ROW_START + chooseFormat(item.getPrice()) + SHORT_ROW_END;
 
-                receiptBuilder.append(formattedString);
+                receiptBuilder.append(String.format(shortNameFormat, itemID, shortName, item.getPrice(), quantity));
+
                 // iterate through the rest part of the name, keep the max length of 15
                 for (int i = NAME_MAX_LENGTH; i < item.getName().length(); i += NAME_MAX_LENGTH) {
-                    String name = item.getName().substring(i, Math.min(i + NAME_MAX_LENGTH, item.getName().length()));
-                    receiptBuilder.append(String.format(LONG_ROW_FORMAT, name));
-                }
+                    String partialName = item.getName()
+                            .substring(i, Math.min(i + NAME_MAX_LENGTH, item.getName().length()));
 
+                    receiptBuilder.append(String.format(LONG_ROW_FORMAT, partialName));
+                }
                 processedItems.add(itemID);
             }
         }
 
         receiptBuilder = getReceiptSummary(receiptBuilder, discount);
-
         return receiptBuilder.toString();
     }
 
@@ -192,6 +194,12 @@ public class Order implements ItemManager {
         return getReceipt(0);
     }
 
+    /**
+     * Chooses the format of the number based on the length of the integer part
+     *
+     * @param value the value to be formatted
+     * @return 'e' if the value has more than 7 digits, 'f' otherwise
+     */
     private char chooseFormat(double value) {
         // If the value is too large, use scientific notation
         return (String.valueOf((int) (value)).length()) > 7 ? 'e' : 'f';
