@@ -309,24 +309,28 @@ entered. A confirmation message is hence present for the user to verify that the
 
 ## Command Summary
 
+**Main interface commands**
 * User help guide `help`
 * Check menus `view -menu <menu_id>` and `view -menu -all`
-* Create new menu `create menu`
-* Edit menu `edit -menu <menu_id>`
-  * **Menu interface sub-commands**
+* Create new menu `create menu` <<[Menu Interface](#menu-interface-sub-commands)>>
+* Edit menu `edit -menu <menu_id>` <<[Menu Interface](#menu-interface-sub-commands)>>
+* Check orders `view -order <order_id>` and `view -order -all`
+* Create new order `create order -menu <menu_id>`<<[Order Interface](#order-interface-sub-commands)>>
+* Get order receipt `receipt -order <order_id>`
+* Quit the program `bye` <br>
+
+### Menu interface sub-commands
   * Add items `add -item <item_name> -price <price_of_item>`
   * Delete items `delete -item <item_id>`
   * Check menu items `view item`
   * Complete current menu `complete`
-  * Abort current menu `cancel`
-* Check orders `view -order <order_id>` and `view -order -all`
-* Create new order `create order -menu <menu_id>`
-  * **Order interface sub-commands**
+  * Abort current menu `cancel` <br>
+
+### Order interface sub-commands
   * Add items `add -item <item_id> -quantity <quantity_of_item>`
   * Delete items `delete -item <item_id> -quantity <quantity_of_item>`
   * Check menu items `view menu`
   * Check order items `view item`
   * Complete current order `complete`
   * Abort current order `cancel`
-* Get order receipt `receipt -order <order_id>`
-* Quit the program `bye`
+
