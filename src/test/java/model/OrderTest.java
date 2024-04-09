@@ -26,7 +26,8 @@ public class OrderTest {
         MenuItem dish02 = new MenuItem("D02", "Nasi Lemak", 3.00);
         MenuItem dish04 = new MenuItem("D04", "Mee Siam", 3.50);
         MenuItem dish05 = new MenuItem("D04", "Mee Siam", 3.50);
-        Order order = new Order();
+        Order order = new Order("ABC restaurant", "123 street",
+                "tom","dine in");
         order.add(dish01);
         assertEquals(order.getId() + "\n" +
                 "1. D01 Chicken Rice $3.50", order.toString());
