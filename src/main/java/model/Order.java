@@ -164,7 +164,7 @@ public class Order implements ItemManager {
      * @return the formatted receipt
      * @throws IllegalArgumentException if the discount is not between 1% and 99%
      */
-    public String getReceipt(double discount)  throws IllegalArgumentException {
+    public String getReceipt(double discount) throws IllegalArgumentException {
         if (discount != 0 && !(discount >= 0.01 && discount <= 0.99)) {
             throw new IllegalArgumentException("Discount must be between 1% and 99% (inclusive)");
         }
