@@ -11,6 +11,7 @@ import java.time.format.DateTimeFormatter;
 public class Order implements ItemManager {
     private static final double SERVICE_CHARGE = 0.1;
     private static final double GST = 0.09;
+
     private static final String ROW_DELIMITER = "+-----------------------------------------------------+\n";
     private static final String TITLE = "|                       RECEIPT                       |\n";
     private static final String HEADERS = "| ID       | Name            | Price       | Quantity |\n";
@@ -22,12 +23,14 @@ public class Order implements ItemManager {
     private static final String CHARGE_FORMAT = "| %-37s $%-12.2";
     private static final String DISCOUNT_AMOUNT_FORMAT = "| %.0f%% %-32s -$%-12.2";
     private static final String SINGLE_DIGIT_DISCOUNT_FORMAT = "| %.0f%% %-33s -$%-12.2";
+
     private static final int SUBTITLE_OFFSET = 4;
     private static final int ORDER_TYPE_OFFSET = 16;
     private static final int CASHIER_NAME_OFFSET = 13;
     private static final int ORDER_ID_OFFSET = 14;
-    private final String orderID;
+    private static final double SINGLE_DIGIT_THRESHOLD = 0.095;
 
+    private final String orderID;
     private final String restaurantName;
     private final String restaurantAddress;
     private final String orderType;
@@ -131,9 +134,10 @@ public class Order implements ItemManager {
         double grandTotal = netTotal + serviceCharge + gst;
 
         receiptBuilder.append(ROW_DELIMITER)
-                .append(String.format((discount< 0.095 ? SINGLE_DIGIT_DISCOUNT_FORMAT : DISCOUNT_AMOUNT_FORMAT)
-                                + chooseFormat(discount) + " |\n", discount * 100,
-                        "Off Discount:", discountAmount))
+                .append(String.format((discount < SINGLE_DIGIT_THRESHOLD ?
+                        SINGLE_DIGIT_DISCOUNT_FORMAT : DISCOUNT_AMOUNT_FORMAT)
+                            + chooseFormat(discount) + " |\n", discount * 100,
+                            "Off Discount:", discountAmount))
                 .append(String.format(CHARGE_FORMAT + chooseFormat(netTotal) + " |\n",
                         "Subtotal:", netTotal))
                 .append(ROW_DELIMITER)
