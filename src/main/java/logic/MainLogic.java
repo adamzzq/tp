@@ -86,8 +86,7 @@ public class MainLogic {
                 MainViewMenusSummaryCommand.execute(menusList);
                 break;
             default:
-                System.out.println("Invalid command");
-                MainHelpCommand.execute();
+                CommandErrorMessage.printMainError(inputText);
             }
         }
     }
