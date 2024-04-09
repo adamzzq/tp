@@ -23,7 +23,7 @@ public class Order implements ItemManager {
     private static final int SUBTITLE_OFFSET = 4;
     private static final int ORDER_TYPE_OFFSET = 16;
     private static final int CASHIER_NAME_OFFSET = 13;
-    public static final int ORDER_ID_OFFSET = 14;
+    private static final int ORDER_ID_OFFSET = 14;
     private final String orderID;
 
     private final String restaurantName;
