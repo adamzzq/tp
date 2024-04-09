@@ -62,8 +62,7 @@ public class OrderLogic {
                 OrderExitCommand.execute(newOrder);
                 return Optional.empty();
             default:
-                System.out.println("Invalid command");
-                OrderHelpCommand.execute();
+                CommandErrorMessage.printOrderError(inputText);
             }
         }
         return Optional.of(newOrder);

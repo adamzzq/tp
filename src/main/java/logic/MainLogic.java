@@ -19,6 +19,7 @@ import ui.CommandType;
 import ui.Parser;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -28,6 +29,9 @@ public class MainLogic {
     private static String userName;
 
     public static void main(String[] args) {
+        // Set default locale to US to ensure consistent formatting
+        Locale.setDefault(Locale.US);
+
         //Initialise all required models
         System.out.println("Hello from DinEz");
         Scanner input = new Scanner(System.in);
@@ -97,9 +101,9 @@ public class MainLogic {
                         .ifPresentOrElse(menusList::add, () -> System.out.println("Menu not created"));
                 break;
             case EDIT_MENU:
-                Optional<Menu> menuToEdit = MainEditMenuCommand.execute(inputText, menusList);
-                menuToEdit.ifPresentOrElse(menu -> MenuLogic.modifyMenu(input, menu, menusList.toArray().length),
-                        () -> System.out.println("Menu ID not found"));
+                if (MainEditMenuCommand.execute(input, inputText, menusList).isEmpty()) {
+                    System.out.println("Menu ID not found");
+                }
                 break;
             case VIEW_MENU:
                 MainViewMenuCommand.execute(menusList, inputText);
@@ -108,8 +112,7 @@ public class MainLogic {
                 MainViewMenusSummaryCommand.execute(menusList);
                 break;
             default:
-                System.out.println("Invalid command");
-                MainHelpCommand.execute();
+                CommandErrorMessage.printMainError(inputText);
             }
         }
     }

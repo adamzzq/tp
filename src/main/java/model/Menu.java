@@ -11,6 +11,12 @@ import java.util.logging.FileHandler;
 
 public class Menu implements ItemManager {
     private static final int NAME_MAX_LENGTH = 22;
+    private static final String ROW_DELIMITER = "+------+-----------------------------------+\n";
+    private static final String MENU_HEADER = "+------------------------------------------+\n" +
+            "|                   MENU                   |\n" +
+            ROW_DELIMITER +
+            "| ID   |         Name          |   Price   |\n" +
+            ROW_DELIMITER;
     private static final Logger logr = Logger.getLogger("MenuLogger");
     private final ArrayList<MenuItem> menuItemList = new ArrayList<>();
     private final String menuID;
@@ -26,6 +32,10 @@ public class Menu implements ItemManager {
 
     public Optional<MenuItem> getItemByName(String itemName) {
         return menuItemList.stream().filter(x -> x.getName().equals(itemName)).findAny();
+    }
+
+    public ArrayList<MenuItem> getMenuItemList() {
+        return menuItemList;
     }
 
     @Override
@@ -61,30 +71,29 @@ public class Menu implements ItemManager {
     @Override
     public String toString() {
         StringBuilder menuString = new StringBuilder();
-        menuString.append("+--------------------------------------+\n");
-        menuString.append("|              MENU                    |\n");
-        menuString.append("+------+-------------------------------+\n");
-        menuString.append("| ID   | Name                  | Price |\n");
-        menuString.append("+------+-------------------------------+\n");
+        menuString.append(MENU_HEADER);
         if (menuItemList.isEmpty()) {
-            menuString.append("+------+-------------------------------+\n");
+            menuString.append(ROW_DELIMITER);
         } else {
             for (MenuItem item : menuItemList) {
                 String shortName = item.getName().length() > NAME_MAX_LENGTH
                         ? item.getName().substring(0, NAME_MAX_LENGTH) : item.getName();
 
-                menuString.append(String.format("| %-5s| %-22s| $%-5.2f|\n",
+                String priceFormat = (String.valueOf(item.getPrice()).length() > 7) ?
+                        "| %-5s| %-22s|$%-10.2e|\n" : "| %-5s| %-22s|$%-10.2f|\n";
+
+                menuString.append(String.format(priceFormat,
                             item.getID(), shortName, item.getPrice()));
 
                 // wrap the item name to the next line if it is too long
                 for (int i = NAME_MAX_LENGTH; i < item.getName().length(); i += NAME_MAX_LENGTH) {
                     String name = item.getName().substring(i, Math.min(i + NAME_MAX_LENGTH, item.getName().length()));
-                    menuString.append(String.format("| %-5s| %-22s| %-6s|\n",
+                    menuString.append(String.format("| %-5s| %-22s| %-10s|\n",
                             "", name, ""));
                 }
 
             }
-            menuString.append("+------+-------------------------------+\n");
+            menuString.append(ROW_DELIMITER);
         }
 
         return menuString.toString();
@@ -108,7 +117,7 @@ public class Menu implements ItemManager {
             fh.setLevel(Level.FINE);
             logr.addHandler(fh);
         } catch (java.io.IOException e) {
-            logr.log(Level.SEVERE, "File logger not working.",e);
+            logr.log(Level.SEVERE, "File logger not working.", e);
         }
     }
 }
