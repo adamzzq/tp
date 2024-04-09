@@ -159,11 +159,16 @@ public class Order implements ItemManager {
     /**
      * Returns a formatted and complete receipt
      *
-     * @param discount the discount to be applied to the order in decimal form<br>
-     *      (e.g. 0.1 for 10% discount)
+     * @param discount the discount to be applied to the order in decimal form ranging from 0.1 to 0.99
+     *     in 2 decimal places, with 0 being an exception for no discount (e.g. 0.15 for 15% discount)
      * @return the formatted receipt
+     * @throws IllegalArgumentException if the discount is not between 1% and 99%
      */
-    public String getReceipt(double discount)  {
+    public String getReceipt(double discount)  throws IllegalArgumentException {
+        if (discount != 0 && !(discount >= 0.01 && discount <= 0.99)) {
+            throw new IllegalArgumentException("Discount must be between 1% and 99% (inclusive)");
+        }
+
         StringBuilder receiptBuilder = new StringBuilder();
         Set<String> processedItems = new HashSet<>();
 
