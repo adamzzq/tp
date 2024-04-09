@@ -34,8 +34,14 @@ public class OrderAddCommand implements OrderCommand {
         String itemQuantity = indexString[1];
         Optional<MenuItem> item = menu.getItemById(itemID);
         if (item.isPresent()) {
-            for (int i = 0; i < Integer.parseInt(itemQuantity); i++) {
-                newOrder.add(item.get());
+            try {
+                for (int i = 0; i < Integer.parseInt(itemQuantity); i++) {
+                    newOrder.add(item.get());
+                }
+            } catch (NumberFormatException e) {
+                logr.warning("Quantity of item is too large");
+                System.out.println("Please enter a smaller number.");
+                return newOrder;
             }
             logr.info("Item successfully added to order");
             System.out.println(itemQuantity + " " + item.get().getName() + " is added to order");
