@@ -60,7 +60,10 @@ traditional GUI.
     view -menu -all: Shows a brief summary of all the created menus.
     bye: Quits the program.
    ```
-6. Type the command in the CLI and press Enter to execute it e.g. typing `help` then pressing
+6. **IMPORTANT!!!** Our application consists of **three interfaces**(i.e. main,order and menu) which consists of
+   different commands. `create order` enters order interface, `create menu` enters menu interface. Type `help` to check
+   available commands at current interface.
+7. Type the command in the CLI and press Enter to execute it e.g. typing `help` then pressing
    Enter will display the help menu.
    Here are some example commands you can try:
 - `help`: Displays all the commands that can be used
@@ -69,7 +72,7 @@ traditional GUI.
 - `view -menu -all`: Shows a brief summary of all the created menus
 - `bye`: Exits from the program
 
-7. Refer to the [Features](#features) below for details of each command
+8. Refer to the [Features](#features) below for details of each command
 
 
 > [!NOTE]
@@ -181,7 +184,7 @@ _Details coming soon..._
 ### Add items: `add`
 Adds an item with specified ID, name, and price to the current menu.
 
-Format: `add -item <item_id> -name <item_name> -price <price_of_item>`
+Format: `add -item <item_name> -price <price_of_item>`
 
 * The `<item_id>` is unique a number to identify the item. You cannot add two items with the same ID.
 * The `<item_name>` cannot contain symbols (e.g. `~!@#$%^&*()`)
@@ -189,9 +192,9 @@ Format: `add -item <item_id> -name <item_name> -price <price_of_item>`
 
 Example of usage:
 
-`add -item 001 -name Chicken Rice -price 3.50`
+`add -item Chicken Rice -price 3.50`
 
-`add -item 007 -name Seafood Fried Rice -price 5`
+`add -item Seafood Fried Rice -price 5`
 
 ### Delete items: `delete`
 Deletes an item of a specified ID from the current menu.
@@ -217,10 +220,10 @@ Format: `complete`
 
 * The `complete` command cannot be used on an empty menu. You will be prompted to add items to the menu.
 
-### Abort current menu: `bye`
+### Abort current menu: `cancel`
 Cancels the current menu's creation and returns to the main interface.
 
-Format: `bye`
+Format: `cancel`
 
 * The cancelled menu will be discarded and cannot be retrieved.
 
@@ -267,10 +270,10 @@ Format: `complete`
 
 * The `complete` command cannot be used on an empty order. You will be prompted to add items to the order.
 
-### Abort current order: `bye`
+### Abort current order: `cancel`
 Cancels the current order's creation and returns to the main interface.
 
-Format: `bye`
+Format: `cancel`
 
 * The cancelled order will be discarded and cannot be retrieved.
 
@@ -306,24 +309,28 @@ entered. A confirmation message is hence present for the user to verify that the
 
 ## Command Summary
 
+**Main interface commands**
 * User help guide `help`
 * Check menus `view -menu <menu_id>` and `view -menu -all`
-* Create new menu `create menu`
-* Edit menu `edit -menu <menu_id>`
-  * **Menu interface sub-commands**
-  * Add items `add -item <item_id> -name <item_name> -price <price_of_item>`
+* Create new menu `create menu` <<[Menu Interface](#menu-interface-sub-commands)>>
+* Edit menu `edit -menu <menu_id>` <<[Menu Interface](#menu-interface-sub-commands)>>
+* Check orders `view -order <order_id>` and `view -order -all`
+* Create new order `create order -menu <menu_id>`<<[Order Interface](#order-interface-sub-commands)>>
+* Get order receipt `receipt -order <order_id>`
+* Quit the program `bye` <br>
+
+### Menu interface sub-commands
+  * Add items `add -item <item_name> -price <price_of_item>`
   * Delete items `delete -item <item_id>`
   * Check menu items `view item`
   * Complete current menu `complete`
-  * Abort current menu `bye`
-* Check orders `view -order <order_id>` and `view -order -all`
-* Create new order `create order -menu <menu_id>`
-  * **Order interface sub-commands**
+  * Abort current menu `cancel` <br>
+
+### Order interface sub-commands
   * Add items `add -item <item_id> -quantity <quantity_of_item>`
   * Delete items `delete -item <item_id> -quantity <quantity_of_item>`
   * Check menu items `view menu`
   * Check order items `view item`
   * Complete current order `complete`
-  * Abort current order `bye`
-* Get order receipt `receipt -order <order_id>`
-* Quit the program `bye`
+  * Abort current order `cancel`
+

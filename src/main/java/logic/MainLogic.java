@@ -14,6 +14,7 @@ import command.main.MainViewMenusSummaryCommand;
 import model.Menu;
 import model.MenuItem;
 import model.Order;
+import ui.CommandErrorMessage;
 import ui.CommandType;
 import ui.Parser;
 
@@ -38,17 +39,17 @@ public class MainLogic {
         MainHelpCommand.execute();
         boolean isExit = false;
         while (!isExit) {
+            System.out.print("[Main interface] >>> ");
             String inputText = input.nextLine();
             CommandType commandType;
             try {
                 commandType = Parser.analyzeInput(inputText);
             } catch (IllegalArgumentException e) {
-                System.out.println("Invalid command");
-                MainHelpCommand.execute();
+                CommandErrorMessage.printMainError(inputText);
                 continue;
             }
             switch (commandType) {
-            case EXIT:
+            case EXIT_MAIN:
                 isExit = MainExitCommand.execute(isExit);
                 assert isExit : "isExit should be true";
                 break;
