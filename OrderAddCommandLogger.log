@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="GBK" standalone="no"?>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2024-04-08T05:52:44.066841900Z</date>
-  <millis>1712555564066</millis>
-  <nanos>841900</nanos>
+  <date>2024-04-09T11:16:09.809997600Z</date>
+  <millis>1712661369809</millis>
+  <nanos>997600</nanos>
   <sequence>0</sequence>
   <logger>OrderAddCommandLogger</logger>
   <level>INFO</level>
@@ -14,9 +14,9 @@
   <message>Adding new item to order</message>
 </record>
 <record>
-  <date>2024-04-08T05:52:44.072808700Z</date>
-  <millis>1712555564072</millis>
-  <nanos>808700</nanos>
+  <date>2024-04-09T11:16:09.817242600Z</date>
+  <millis>1712661369817</millis>
+  <nanos>242600</nanos>
   <sequence>1</sequence>
   <logger>OrderAddCommandLogger</logger>
   <level>INFO</level>
