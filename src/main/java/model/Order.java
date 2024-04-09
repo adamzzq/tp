@@ -19,7 +19,11 @@ public class Order implements ItemManager {
     private static final String SHORT_ROW_END = " | %-9d|\n";
     private static final String LONG_ROW_FORMAT = "|          | %-15s |"
             + " ".repeat(13) + "|" + " ".repeat(10) + "|\n";
-    private static final String CHARGE_FORMAT = "37s $%-12.2";
+    private static final String CHARGE_FORMAT = "| %-37s $%-12.2";
+    private static final int SUBTITLE_OFFSET = 4;
+    private static final int ORDER_TYPE_OFFSET = 16;
+    private static final int CASHIER_NAME_OFFSET = 13;
+    public static final int ORDER_ID_OFFSET = 14;
     private final String orderID;
 
     private final String restaurantName;
@@ -78,15 +82,32 @@ public class Order implements ItemManager {
         StringBuilder receiptBuilder = new StringBuilder();
         Set<String> processedItems = new HashSet<>();
 
+        // add | to the end of the string, keep the format consistent
         receiptBuilder.append(ROW_DELIMITER)
-                .append(restaurantName)
-                .append("\n")
-                .append(restaurantAddress)
-                .append("\n")
-                .append(ROW_DELIMITER)
                 .append(TITLE)
                 .append(ROW_DELIMITER)
+
+                .append("| ")
+                .append(restaurantName)
+                .append(" ".repeat(ROW_DELIMITER.length() - restaurantName.length() - SUBTITLE_OFFSET))
+                .append("|\n")
+
+                .append("| ")
+                .append(restaurantAddress)
+                .append(" ".repeat(ROW_DELIMITER.length() - restaurantAddress.length() - SUBTITLE_OFFSET))
+                .append("|\n")
+
+                .append("| Order Type: ")
                 .append(orderType)
+                .append(" ".repeat(ROW_DELIMITER.length() - orderType.length() - ORDER_TYPE_OFFSET))
+                .append("|\n")
+
+                .append("| Order ID: ")
+                .append(orderID)
+                .append(" ".repeat(ROW_DELIMITER.length() - orderID.length() - ORDER_ID_OFFSET))
+                .append("|\n")
+
+                .append(ROW_DELIMITER)
                 .append(HEADERS)
                 .append(ROW_DELIMITER);
 
@@ -97,7 +118,7 @@ public class Order implements ItemManager {
                 int quantity = getItemCount(itemID);
                 String shortName = item.getName().length() > NAME_MAX_LENGTH
                         ? item.getName().substring(0, NAME_MAX_LENGTH) : item.getName();
-                String format = SHORT_ROW_START + formatChooser(item.getPrice()) + SHORT_ROW_END;
+                String format = SHORT_ROW_START + chooseFormat(item.getPrice()) + SHORT_ROW_END;
                 String formattedString = String.format(format, itemID, shortName, item.getPrice(), quantity);
 
                 receiptBuilder.append(formattedString);
@@ -117,17 +138,19 @@ public class Order implements ItemManager {
         double grandTotal = netTotal + serviceCharge + gst;
 
         receiptBuilder.append(ROW_DELIMITER)
-                .append(String.format("| %-" + CHARGE_FORMAT + formatChooser(serviceCharge) + " |\n",
+                .append(String.format(CHARGE_FORMAT + chooseFormat(serviceCharge) + " |\n",
                         "Service Charge (" + (SERVICE_CHARGE * 100) + "%):", serviceCharge))
-                .append(String.format("| %-" + CHARGE_FORMAT
-                        + formatChooser(gst) + " |\n", "GST (" + (GST * 100) + "%):", gst))
-                .append(String.format("| %-" + CHARGE_FORMAT
-                        + formatChooser(getTotalPrice()) + " |\n", "Grand Total:", grandTotal))
+                .append(String.format(CHARGE_FORMAT + chooseFormat(gst) + " |\n",
+                        "GST (" + (GST * 100) + "%):", gst))
+                .append(String.format(CHARGE_FORMAT + chooseFormat(getTotalPrice()) + " |\n",
+                        "Grand Total:", grandTotal))
                 .append(ROW_DELIMITER);
 
-        receiptBuilder.append("Cashier: ")
+        receiptBuilder.append("| Cashier: ")
                 .append(userName)
-                .append("\n");
+                .append(" ".repeat(ROW_DELIMITER.length() - userName.length()- CASHIER_NAME_OFFSET))
+                .append("|\n")
+                .append(ROW_DELIMITER);
 
         return receiptBuilder.toString();
     }
@@ -136,7 +159,7 @@ public class Order implements ItemManager {
         return getReceipt(0);
     }
 
-    private char formatChooser(double value) {
+    private char chooseFormat(double value) {
         // If the value is too large, use scientific notation
         return (String.valueOf((int) (value)).length()) > 7 ? 'e' : 'f';
     }
