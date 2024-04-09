@@ -20,6 +20,8 @@ public class Order implements ItemManager {
     private static final String LONG_ROW_FORMAT = "|          | %-15s |"
             + " ".repeat(13) + "|" + " ".repeat(10) + "|\n";
     private static final String CHARGE_FORMAT = "| %-37s $%-12.2";
+    private static final String DISCOUNT_AMOUNT_FORMAT = "| %.0f%% %-32s -$%-12.2";
+    private static final String SINGLE_DIGIT_DISCOUNT_FORMAT = "| %.0f%% %-33s -$%-12.2";
     private static final int SUBTITLE_OFFSET = 4;
     private static final int ORDER_TYPE_OFFSET = 16;
     private static final int CASHIER_NAME_OFFSET = 13;
@@ -78,12 +80,13 @@ public class Order implements ItemManager {
                 this.orderItemList.stream().mapToDouble(Item::getPrice).sum() * (1 + SERVICE_CHARGE) * (1 + GST)));
     }
 
-    public String getReceipt(double discount)  {
-        StringBuilder receiptBuilder = new StringBuilder();
-        Set<String> processedItems = new HashSet<>();
-
-        // add | to the end of the string, keep the format consistent
-        receiptBuilder.append(ROW_DELIMITER)
+    /**
+     * Returns a formatted receipt header (top part of the receipt)
+     *
+     * @return the formatted receipt header
+     */
+    private StringBuilder getReceiptHeader(StringBuilder headerBuilder) {
+        return headerBuilder.append(ROW_DELIMITER)
                 .append(TITLE)
                 .append(ROW_DELIMITER)
 
@@ -110,6 +113,54 @@ public class Order implements ItemManager {
                 .append(ROW_DELIMITER)
                 .append(HEADERS)
                 .append(ROW_DELIMITER);
+    }
+
+    /**
+     * Returns a formatted receipt with summary (bottom part of the receipt) appended
+     *
+     * @param discount the discount to be applied to the order
+     * @return the formatted receipt with summary
+     */
+    private StringBuilder getReceiptSummary(StringBuilder receiptBuilder, double discount) {
+        double netTotal = getTotalPrice() / (1 + GST) / (1 + SERVICE_CHARGE) * (1 - discount);
+        double discountAmount = (discount) * netTotal / (1 - discount);
+        double serviceCharge = netTotal * SERVICE_CHARGE;
+        double gst = netTotal * (1 + SERVICE_CHARGE) * GST;
+        double grandTotal = netTotal + serviceCharge + gst;
+
+        receiptBuilder.append(ROW_DELIMITER)
+                .append(String.format((discount< 0.095 ? SINGLE_DIGIT_DISCOUNT_FORMAT : DISCOUNT_AMOUNT_FORMAT)
+                                + chooseFormat(discount) + " |\n", discount * 100,
+                        "Off Discount:", discountAmount))
+                .append(String.format(CHARGE_FORMAT + chooseFormat(netTotal) + " |\n",
+                        "Subtotal:", netTotal))
+                .append(ROW_DELIMITER)
+                .append(String.format(CHARGE_FORMAT + chooseFormat(serviceCharge) + " |\n",
+                        "Service Charge (" + (SERVICE_CHARGE * 100) + "%):", serviceCharge))
+                .append(String.format(CHARGE_FORMAT + chooseFormat(gst) + " |\n",
+                        "GST (" + (GST * 100) + "%):", gst))
+                .append(String.format(CHARGE_FORMAT + chooseFormat(getTotalPrice()) + " |\n",
+                        "Grand Total:", grandTotal))
+                .append(ROW_DELIMITER);
+
+        return receiptBuilder.append("| Cashier: ")
+                .append(userName)
+                .append(" ".repeat(ROW_DELIMITER.length() - userName.length()- CASHIER_NAME_OFFSET))
+                .append("|\n")
+                .append(ROW_DELIMITER);
+    }
+
+    /**
+     * Returns a formatted and complete receipt
+     *
+     * @param discount the discount to be applied to the order
+     * @return the formatted receipt
+     */
+    public String getReceipt(double discount)  {
+        StringBuilder receiptBuilder = new StringBuilder();
+        Set<String> processedItems = new HashSet<>();
+
+        receiptBuilder = getReceiptHeader(receiptBuilder);
 
         for (MenuItem item : orderItemList) {
             String itemID = item.getID();
@@ -132,25 +183,7 @@ public class Order implements ItemManager {
             }
         }
 
-        double netTotal = getTotalPrice() / (1 + GST) / (1 + SERVICE_CHARGE) * (1 - discount);
-        double serviceCharge = netTotal * SERVICE_CHARGE;
-        double gst = netTotal * (1 + SERVICE_CHARGE) * GST;
-        double grandTotal = netTotal + serviceCharge + gst;
-
-        receiptBuilder.append(ROW_DELIMITER)
-                .append(String.format(CHARGE_FORMAT + chooseFormat(serviceCharge) + " |\n",
-                        "Service Charge (" + (SERVICE_CHARGE * 100) + "%):", serviceCharge))
-                .append(String.format(CHARGE_FORMAT + chooseFormat(gst) + " |\n",
-                        "GST (" + (GST * 100) + "%):", gst))
-                .append(String.format(CHARGE_FORMAT + chooseFormat(getTotalPrice()) + " |\n",
-                        "Grand Total:", grandTotal))
-                .append(ROW_DELIMITER);
-
-        receiptBuilder.append("| Cashier: ")
-                .append(userName)
-                .append(" ".repeat(ROW_DELIMITER.length() - userName.length()- CASHIER_NAME_OFFSET))
-                .append("|\n")
-                .append(ROW_DELIMITER);
+        receiptBuilder = getReceiptSummary(receiptBuilder, discount);
 
         return receiptBuilder.toString();
     }
