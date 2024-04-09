@@ -28,6 +28,10 @@ public class Menu implements ItemManager {
         return menuItemList.stream().filter(x -> x.getName().equals(itemName)).findAny();
     }
 
+    public ArrayList<MenuItem> getMenuItemList() {
+        return menuItemList;
+    }
+
     @Override
     public String getId() {
         return menuID;
