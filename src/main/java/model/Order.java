@@ -156,7 +156,7 @@ public class Order implements ItemManager {
      * Returns a formatted and complete receipt
      *
      * @param discount the discount to be applied to the order in decimal form<br>
-     * (e.g. 0.1 for 10% discount)
+     *      (e.g. 0.1 for 10% discount)
      * @return the formatted receipt
      */
     public String getReceipt(double discount)  {
