@@ -12,6 +12,7 @@ public class MainViewOrderCommand implements MainCommand {
         ordersList.stream()
                 .filter(order -> order.getId().equals(orderID))
                 .findAny()
+                .map(Order::getReceipt)
                 .ifPresentOrElse(System.out::println, () -> System.out.println("Order not found"));
     }
 }

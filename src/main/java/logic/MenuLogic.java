@@ -51,8 +51,7 @@ public class MenuLogic {
                 MenuExitCommand.execute(activeMenu);
                 return Optional.empty();
             default:
-                System.out.println("Invalid command");
-                MenuHelpCommand.execute();
+                CommandErrorMessage.printMenuError(inputText);
             }
         }
         return Optional.of(activeMenu);
