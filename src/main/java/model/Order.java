@@ -9,26 +9,26 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Order implements ItemManager {
-    private static final double SERVICE_CHARGE = 0.1;
+    private static final double SERVICE_CHARGE = 0.001;
     private static final double GST = 0.09;
 
     private static final String ROW_DELIMITER = "+-----------------------------------------------------+\n";
-    private static final String TITLE = "|                       RECEIPT                       |\n";
+    private static final String TITLE = "RECEIPT";
     private static final String HEADERS = "| ID       | Name            | Price       | Quantity |\n";
     private static final int NAME_MAX_LENGTH = 15; // Default length for Name column header
     private static final String SHORT_ROW_START = "| %-8s | %-15s | $%-10.2";
     private static final String SHORT_ROW_END = " | %-9d|\n";
     private static final String LONG_ROW_FORMAT = "|          | %-15s |"
             + " ".repeat(13) + "|" + " ".repeat(10) + "|\n";
-    private static final String CHARGE_FORMAT = "| %-37s $%-12.2";
-    private static final String DISCOUNT_AMOUNT_FORMAT = "| %.0f%% %-32s -$%-12.2";
-    private static final String SINGLE_DIGIT_DISCOUNT_FORMAT = "| %.0f%% %-33s -$%-12.2";
+    private static final char SCIENTIFIC_NOTATION = 'e';
+    private static final char FLOAT_NOTATION = 'f';
 
     private static final int SUBTITLE_OFFSET = 4;
     private static final int ORDER_TYPE_OFFSET = 16;
     private static final int CASHIER_NAME_OFFSET = 13;
     private static final int ORDER_ID_OFFSET = 14;
-    private static final double SINGLE_DIGIT_THRESHOLD = 0.095;
+    private static final int MAX_CHARGE_LENGTH = 7;
+    private static final int CHARGE_VALUE_OFFSET = 3;
 
     private final String orderID;
     private final String restaurantName;
@@ -91,17 +91,20 @@ public class Order implements ItemManager {
      */
     private StringBuilder getReceiptHeader(StringBuilder headerBuilder) {
         return headerBuilder.append(ROW_DELIMITER)
-                .append(TITLE)
+                .append("| ")
+                .append(centerAlign(TITLE))
+                .append("|\n")
                 .append(ROW_DELIMITER)
 
                 .append("| ")
-                .append(restaurantName)
-                .append(" ".repeat(ROW_DELIMITER.length() - restaurantName.length() - SUBTITLE_OFFSET))
+                .append(centerAlign(restaurantName))
                 .append("|\n")
 
                 .append("| ")
-                .append(restaurantAddress)
-                .append(" ".repeat(ROW_DELIMITER.length() - restaurantAddress.length() - SUBTITLE_OFFSET))
+                .append(centerAlign(restaurantAddress))
+                .append("|\n")
+                .append("| ")
+                .append(centerAlign(""))
                 .append("|\n")
 
                 .append("| Order Type: ")
@@ -119,6 +122,17 @@ public class Order implements ItemManager {
                 .append(ROW_DELIMITER);
     }
 
+    private String centerAlign(String word) {
+        int totalSpaces = word.length() + SUBTITLE_OFFSET;
+        int leftSpaces = (ROW_DELIMITER.length() - totalSpaces) / 2;
+        int rightSpaces = leftSpaces;
+
+        if (totalSpaces % 2 == 1) { // to make up the difference for odd length
+            rightSpaces++;
+        }
+        return " ".repeat(leftSpaces) + word + " ".repeat(rightSpaces);
+    }
+
     /**
      * Returns a formatted receipt with summary (bottom part of the receipt) appended
      *
@@ -133,20 +147,32 @@ public class Order implements ItemManager {
         double gst = netTotal * (1 + SERVICE_CHARGE) * GST;
         double grandTotal = netTotal + serviceCharge + gst;
 
+        int maxLength = String.valueOf((int) grandTotal).length() + CHARGE_VALUE_OFFSET;
+        if (maxLength > 10) {
+            String scientificNotation = String.format("%.2e", grandTotal);
+            maxLength = scientificNotation.length();
+        }
+
+        // find which number has the most number of digits
+        for (double num : new double[]{netTotal, serviceCharge, gst, grandTotal}) {
+            int numLength = String.valueOf((int) num).length() + CHARGE_VALUE_OFFSET;
+            if (numLength > 10) {
+                String scientificNotation = String.format("%.2e", num);
+                numLength = scientificNotation.length();
+            }
+            if (numLength > maxLength) {
+                maxLength = numLength;
+            }
+        }
+
         receiptBuilder.append(ROW_DELIMITER)
-                .append(String.format((discount < SINGLE_DIGIT_THRESHOLD ?
-                        SINGLE_DIGIT_DISCOUNT_FORMAT : DISCOUNT_AMOUNT_FORMAT)
-                            + chooseFormat(discount) + " |\n", discount * 100,
-                            "Off Discount:", discountAmount))
-                .append(String.format(CHARGE_FORMAT + chooseFormat(netTotal) + " |\n",
-                        "Subtotal:", netTotal))
+                .append(setChargeFormat((int) (discount * 100) + "% Off Discount:", discountAmount, maxLength))
+                .append(setChargeFormat("Subtotal:", netTotal, maxLength))
                 .append(ROW_DELIMITER)
-                .append(String.format(CHARGE_FORMAT + chooseFormat(serviceCharge) + " |\n",
-                        "Service Charge (" + (SERVICE_CHARGE * 100) + "%):", serviceCharge))
-                .append(String.format(CHARGE_FORMAT + chooseFormat(gst) + " |\n",
-                        "GST (" + (GST * 100) + "%):", gst))
-                .append(String.format(CHARGE_FORMAT + chooseFormat(getTotalPrice()) + " |\n",
-                        "Grand Total:", grandTotal))
+                .append(setChargeFormat(setChargeDescription("Service Charge", SERVICE_CHARGE)
+                        , serviceCharge, maxLength))
+                .append(setChargeFormat(setChargeDescription("GST", GST), gst, maxLength))
+                .append(setChargeFormat("Grand Total:", grandTotal, maxLength))
                 .append(ROW_DELIMITER);
 
         return receiptBuilder.append("| Cashier: ")
@@ -154,6 +180,46 @@ public class Order implements ItemManager {
                 .append(" ".repeat(ROW_DELIMITER.length() - userName.length()- CASHIER_NAME_OFFSET))
                 .append("|\n")
                 .append(ROW_DELIMITER);
+    }
+
+    /**
+     * Returns a formatted charge description with the percentage in brackets
+     *
+     * @param description the description of the charge
+     * @param percentage the value of the charge in decimal form e.g. 0.35 for 35% discount
+     * @return the formatted charge description
+     */
+    private String setChargeDescription(String description, double percentage) {
+        return String.format("%s(%s%%): ", description, percentage * 100);
+    }
+
+    /**
+     * Returns a formatted charge line aligned to the right by the dollar sign
+     *
+     * @param description the description of the charge
+     * @param charge the charge to be displayed
+     * @param maxDigits the maximum number of digits in the charge
+     * @return the formatted charge line
+     */
+    private String setChargeFormat(String description, double charge, int maxDigits) {
+        int chargeLength = String.valueOf((int) charge).length() + CHARGE_VALUE_OFFSET;
+        if (chargeLength > MAX_CHARGE_LENGTH + CHARGE_VALUE_OFFSET) {
+            String scientificNotation = String.format("%.2e", charge);
+            chargeLength = scientificNotation.length();
+        }
+
+        int lengthDifference = maxDigits - chargeLength;
+        int descriptionLength = String.valueOf(description).length();
+        int middleSpace = ROW_DELIMITER.length() - descriptionLength - maxDigits - 2 * CHARGE_VALUE_OFFSET;
+        StringBuilder chargeFormatBuilder = new StringBuilder()
+                .append("| %s")
+                .append(" ".repeat(middleSpace))
+                .append("$%.2")
+                .append(chooseFormat(charge))
+                .append(" ".repeat(Math.abs(lengthDifference)))
+                .append(" |\n");
+
+        return String.format(chargeFormatBuilder.toString(), description, charge);
     }
 
     /**
@@ -217,7 +283,7 @@ public class Order implements ItemManager {
      */
     private char chooseFormat(double value) {
         // If the value is too large, use scientific notation
-        return (String.valueOf((int) (value)).length()) > 7 ? 'e' : 'f';
+        return (String.valueOf((int) (value)).length()) > MAX_CHARGE_LENGTH ? SCIENTIFIC_NOTATION : FLOAT_NOTATION;
     }
 
     /**
