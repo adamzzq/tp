@@ -21,10 +21,9 @@ public class OrderLogic {
     private static String orderType;
     public static Optional<Order> createNewOrder(Scanner input, Menu menu, String restaurantName,
                                                  String restaurantAddress, String userName) {
-        try {
-            initializeOrderType();
-        } catch (IllegalArgumentException e) {
-            System.out.println("Invalid input to order type."); //can handle this with a command
+        boolean isValidOrderType = false;
+        while (!isValidOrderType) {
+            isValidOrderType = initializeOrderType();
         }
 
         Order newOrder = new Order(restaurantName,restaurantAddress,userName,orderType);
@@ -72,7 +71,7 @@ public class OrderLogic {
         return Optional.of(newOrder);
     }
 
-    private static void initializeOrderType() {
+    private static boolean initializeOrderType() {
         System.out.println("Would you like your order to be\n " +
                 "   1) dine in\n" +
                 "    2) takeaway\n" +
@@ -85,7 +84,9 @@ public class OrderLogic {
         } else if (orderTypeUserInput.trim().equals("2")) {
             orderType = "Takeaway";
         } else {
-            throw new IllegalArgumentException("Input not 1 or 2!");
+            System.out.println("Input not 1 or 2!");
+            return false;
         }
+        return true;
     }
 }
