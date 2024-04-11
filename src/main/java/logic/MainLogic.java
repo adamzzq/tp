@@ -100,7 +100,7 @@ public class MainLogic {
                         .ifPresent(order -> {
                             ordersList.add(order);
                             Storage.saveOrder(order);
-                });
+                        });
                 break;
             case VIEW_ORDER:
                 MainViewOrderCommand.execute(ordersList, inputText);
