@@ -20,7 +20,7 @@ public class Order implements ItemManager {
     private static final String LONG_ROW_FORMAT = "|          | %-15s |"
             + " ".repeat(13) + "|" + " ".repeat(10) + "|\n";
     private static final String CHARGE_FORMAT = "37s $%-12.2";
-    private final String orderID;
+    private String orderID;
 
     private final String restaurantName;
     private final String restaurantAddress;
@@ -139,6 +139,30 @@ public class Order implements ItemManager {
     private char formatChooser(double value) {
         // If the value is too large, use scientific notation
         return (String.valueOf((int) (value)).length()) > 7 ? 'e' : 'f';
+    }
+
+    public String getRestaurantName() {
+        return restaurantName;
+    }
+
+    public String getRestaurantAddress() {
+        return restaurantAddress;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getOrderType() {
+        return orderType;
+    }
+
+    public ArrayList<MenuItem> getOrderItemList() {
+        return orderItemList;
+    }
+
+    public void setOrderID(String orderID) {
+        this.orderID = orderID;
     }
 
     /**
