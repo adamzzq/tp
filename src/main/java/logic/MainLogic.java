@@ -165,7 +165,8 @@ public class MainLogic {
             System.out.println("Error in received initialization token");
         }
         if (inputString.isBlank() || inputString.isEmpty()) {
-            throw new IllegalArgumentException("Input cannot be empty!\n");
+            System.out.println("Input cannot be empty!");
+            return false;
         } else {
             return true;
         }
