@@ -9,6 +9,8 @@ import command.main.MainReceiptOrderCommand;
 import command.main.MainEditMenuCommand;
 import command.main.MainViewMenuCommand;
 import command.main.MainViewMenusSummaryCommand;
+import command.main.MainViewRestaurantInfoCommand;
+import command.main.MainEditRestaurantInfoCommand;
 
 
 import model.Menu;
@@ -49,7 +51,7 @@ public class MainLogic {
         }
 
         if (isNewRestaurant) {
-            Restaurant.initRestaurant(input);
+            restaurant.initRestaurant();
             Storage.saveRestaurant(restaurant);
         } else {
             Storage.loadData(ordersList, menusList);
@@ -126,6 +128,12 @@ public class MainLogic {
                 break;
             case VIEW_ALL_MENUS:
                 MainViewMenusSummaryCommand.execute(menusList);
+                break;
+            case EDIT_RESTAURANT_INFO:
+                MainEditRestaurantInfoCommand.execute(restaurant);
+                break;
+            case VIEW_RESTAURANT_INFO:
+                MainViewRestaurantInfoCommand.execute(restaurant);
                 break;
             default:
                 CommandErrorMessage.printMainError(inputText);

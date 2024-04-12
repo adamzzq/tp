@@ -12,6 +12,8 @@ public enum CommandType {
     CREATE_MENU("(?i)create\\s*menu"),
     EDIT_MENU("(?i)edit\\s*-menu\\s*(\\d+)"),
     ORDER_RECEIPT("(?i)receipt\\s*-order\\s*(\\d+)"),
+    VIEW_RESTAURANT_INFO("(?i)view\\s*restaurant"),
+    EDIT_RESTAURANT_INFO("(?i)edit\\s*restaurant"),
 
 
     //order commands
