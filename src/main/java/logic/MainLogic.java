@@ -27,8 +27,6 @@ import java.util.Optional;
 import java.util.Scanner;
 
 public class MainLogic {
-    private static String restaurantName;
-    private static String restaurantAddress;
     private static String userName;
 
     public static void main(String[] args) {
@@ -136,32 +134,16 @@ public class MainLogic {
     }
 
     private static boolean initializeSystem (String token) {
-        switch(token) {
-        case "Restaurant":
-            System.out.println("Enter restaurant name: ");
-            break;
-        case "Address":
-            System.out.println("Enter address of restaurant: ");
-            break;
-        case "User":
+        if (token.equals("User")) {
             System.out.println("Enter user name: ");
-            break;
-        default:
+        } else {
             System.out.println("Error in received initialization token");
         }
         Scanner input = new Scanner(System.in);
         String inputString= input.nextLine();
-        switch(token) {
-        case "Restaurant":
-            restaurantName = inputString;
-            break;
-        case "Address":
-            restaurantAddress = inputString;
-            break;
-        case "User":
+        if (token.equals("User")) {
             userName = inputString;
-            break;
-        default:
+        } else {
             System.out.println("Error in received initialization token");
         }
         if (inputString.isBlank() || inputString.isEmpty()) {
