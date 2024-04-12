@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.NoSuchElementException;
 
 public class Storage {
     private static final String RESTAURANT_FILEPATH = "data/restaurant.txt";
@@ -27,7 +28,7 @@ public class Storage {
         try {
             loadRestaurant(restaurant);
             return false;
-        } catch (ArrayIndexOutOfBoundsException | FileNotFoundException e) {
+        } catch (ArrayIndexOutOfBoundsException | FileNotFoundException | NoSuchElementException e) {
             return true;
         }
     }
