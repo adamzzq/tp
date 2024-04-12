@@ -6,6 +6,7 @@ public class Restaurant {
     private static String restaurantName;
     private static String restaurantAddress;
 
+    //@@author Zhengwinter
     public static void initRestaurant(Scanner input) {
         boolean isValidRestaurantName = false;
         boolean isValidAddress = false;
@@ -51,6 +52,7 @@ public class Restaurant {
         }
     }
 
+    //@@author webtjs
     public String getRestaurantName() {
         return restaurantName;
     }
