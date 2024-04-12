@@ -14,18 +14,19 @@ import command.main.MainViewMenusSummaryCommand;
 import model.Menu;
 import model.MenuItem;
 import model.Order;
+import model.Restaurant;
+import storage.Storage;
 import ui.CommandErrorMessage;
 import ui.CommandType;
 import ui.Parser;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.Scanner;
 
 public class MainLogic {
-    private static String restaurantName;
-    private static String restaurantAddress;
     private static String userName;
 
     public static void main(String[] args) {
@@ -35,20 +36,28 @@ public class MainLogic {
         //Initialise all required models
         System.out.println("Hello from DinEz");
         Scanner input = new Scanner(System.in);
+        Restaurant restaurant = new Restaurant();
         ArrayList<Order> ordersList = new ArrayList<>();
         ArrayList<Menu> menusList = new ArrayList<>();
 
+        boolean isNewRestaurant = true;
+        try {
+            isNewRestaurant = Storage.checkNewRestaurant(restaurant);
+        } catch (IOException | SecurityException e) {
+            System.out.println("Error creating save files.");
+            System.exit(0);
+        }
+
+        if (isNewRestaurant) {
+            Restaurant.initRestaurant(input);
+            Storage.saveRestaurant(restaurant);
+        } else {
+            Storage.loadData(ordersList, menusList);
+        }
+
         //initialization
-        boolean isValidRestaurantName = false;
-        boolean isValidAddress = false;
         boolean isValidUser = false;
 
-        while (!isValidRestaurantName) {
-            isValidRestaurantName = initializeSystem("Restaurant");
-        }
-        while (!isValidAddress) {
-            isValidAddress = initializeSystem("Address");
-        }
         while (!isValidUser) {
             isValidUser = initializeSystem("User");
         }
@@ -84,8 +93,12 @@ public class MainLogic {
             case CREATE_ORDER:
                 //GOTO sub-menu to add/remove menuItems, inputText is passed to detect menu selected
                 Optional<Menu> menuSelected = MainCreateOrderCommand.execute(inputText, menusList);
-                menuSelected.flatMap(menu -> OrderLogic.createNewOrder(input, menu, restaurantName, restaurantAddress,
-                        userName)).ifPresent(ordersList::add);
+                menuSelected.flatMap(menu -> OrderLogic.createNewOrder(input, menu,
+                        restaurant.getRestaurantName(), restaurant.getRestaurantAddress(), userName))
+                        .ifPresent(order -> {
+                            ordersList.add(order);
+                            Storage.saveOrder(order);
+                        });
                 break;
             case VIEW_ORDER:
                 MainViewOrderCommand.execute(ordersList, inputText);
@@ -98,7 +111,10 @@ public class MainLogic {
                 break;
             case CREATE_MENU:
                 MenuLogic.modifyMenu(input, null, menusList.toArray().length)
-                        .ifPresentOrElse(menusList::add, () -> System.out.println("Menu not created"));
+                        .ifPresentOrElse(menu -> {
+                            menusList.add(menu);
+                            Storage.saveMenu(menu);
+                        }, () -> System.out.println("Menu not created"));
                 break;
             case EDIT_MENU:
                 if (MainEditMenuCommand.execute(input, inputText, menusList).isEmpty()) {
@@ -118,32 +134,16 @@ public class MainLogic {
     }
 
     private static boolean initializeSystem (String token) {
-        switch(token) {
-        case "Restaurant":
-            System.out.println("Enter restaurant name: ");
-            break;
-        case "Address":
-            System.out.println("Enter address of restaurant: ");
-            break;
-        case "User":
+        if (token.equals("User")) {
             System.out.println("Enter user name: ");
-            break;
-        default:
+        } else {
             System.out.println("Error in received initialization token");
         }
         Scanner input = new Scanner(System.in);
         String inputString= input.nextLine();
-        switch(token) {
-        case "Restaurant":
-            restaurantName = inputString;
-            break;
-        case "Address":
-            restaurantAddress = inputString;
-            break;
-        case "User":
+        if (token.equals("User")) {
             userName = inputString;
-            break;
-        default:
+        } else {
             System.out.println("Error in received initialization token");
         }
         if (inputString.isBlank() || inputString.isEmpty()) {

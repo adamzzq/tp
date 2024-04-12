@@ -29,8 +29,7 @@ public class Order implements ItemManager {
     private static final int ORDER_ID_OFFSET = 14;
     private static final int MAX_CHARGE_LENGTH = 6;
     private static final int CHARGE_VALUE_OFFSET = 3;
-
-    private final String orderID;
+    private String orderID;
     private final String restaurantName;
     private final String restaurantAddress;
     private final String orderType;
@@ -294,6 +293,30 @@ public class Order implements ItemManager {
     private char chooseFormat(double value) {
         // If the value is too large, use scientific notation
         return (String.valueOf((int) (value)).length()) > MAX_CHARGE_LENGTH ? SCIENTIFIC_NOTATION : FLOAT_NOTATION;
+    }
+
+    public String getRestaurantName() {
+        return restaurantName;
+    }
+
+    public String getRestaurantAddress() {
+        return restaurantAddress;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getOrderType() {
+        return orderType;
+    }
+
+    public ArrayList<MenuItem> getOrderItemList() {
+        return orderItemList;
+    }
+
+    public void setOrderID(String orderID) {
+        this.orderID = orderID;
     }
 
     /**

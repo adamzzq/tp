@@ -3,8 +3,10 @@ package command.main;
 import logic.MenuLogic;
 import model.Menu;
 import model.MenuItem;
+import storage.Storage;
 import ui.Parser;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Scanner;
@@ -23,6 +25,11 @@ public class MainEditMenuCommand implements MainCommand{
                 int ogIndex = menusList.indexOf(menuToEdit.get());
                 menusList.remove(ogIndex);
                 menusList.add(ogIndex, copymenu);
+                try {
+                    Storage.updateMenus(menusList);
+                } catch (IOException e) {
+                    System.out.println("Error updating menus save file.");
+                }
             });
             return Optional.of(copymenu);
         }
