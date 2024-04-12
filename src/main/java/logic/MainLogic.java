@@ -61,7 +61,7 @@ public class MainLogic {
         boolean isValidUser = false;
 
         while (!isValidUser) {
-            isValidUser = initializeSystem("User");
+            isValidUser = initializeUser();
         }
 
 
@@ -145,26 +145,20 @@ public class MainLogic {
      * Upon entering the system, the user is prompted to enter details about the restaurant including
      * details like restaurant name, restaurant address as well as username. This function handles the
      * prompting for input and receiving the input from the user
-     * @param token Which step of the prompts the user is on, can be user,
      * @return true if the input was valid, false otherwise
      */
-    private static boolean initializeSystem (String token) {
-        if (token.equals("User")) {
-            System.out.println("Enter user name: ");
-        } else {
-            System.out.println("Error in received initialization token");
-        }
+    private static boolean initializeUser() {
+
+        System.out.println("Enter user name: ");
+
         Scanner input = new Scanner(System.in);
         String inputString= input.nextLine();
-        if (token.equals("User")) {
-            userName = inputString;
-        } else {
-            System.out.println("Error in received initialization token");
-        }
+
         if (inputString.isBlank() || inputString.isEmpty()) {
             System.out.println("Input cannot be empty!");
             return false;
         } else {
+            userName = inputString;
             return true;
         }
     }
