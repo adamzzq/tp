@@ -19,3 +19,6 @@ text-ui-test/EXPECTED-UNIX.TXT
 #log files
 *.log
 *.log.lck
+
+#data directory
+/data/
