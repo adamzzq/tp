@@ -12,6 +12,14 @@ import java.util.Optional;
 import java.util.Scanner;
 
 public class MainEditMenuCommand implements MainCommand{
+    /**
+     * Process edit menu command from user and allow user to edit a menu if it exists
+     * @param input The scanner used to receive user input from the command line
+     * @param inputText The input from the user, in the form of String
+     * @param menusList The ArrayList that keeps track of all existing menus
+     * @return an empty optional if the specified menu is absent, and return a copy of the
+     *          edited menu if the specified menu is present
+     */
     public static Optional<Menu> execute(Scanner input, String inputText, ArrayList<Menu> menusList) {
         String[] parsedString = Parser.splitInput(Parser.analyzeInput(inputText), inputText);
         String menuID = parsedString[0];

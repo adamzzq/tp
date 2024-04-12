@@ -4,6 +4,9 @@ import model.Menu;
 
 import java.util.ArrayList;
 
+/**
+ * Displays a list of all the menu items
+ */
 public class MainViewMenusSummaryCommand {
     public static void execute(ArrayList<Menu> menuList) {
         if (menuList.isEmpty()){
