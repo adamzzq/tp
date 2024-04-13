@@ -4,6 +4,9 @@ import model.Menu;
 import java.util.ArrayList;
 import ui.Parser;
 
+/**
+ * Displays the menu that was specified by the menu ID
+ */
 public class MainViewMenuCommand {
 
     /**

@@ -1,7 +1,7 @@
 package model;
 
 public abstract class Item {
-    private final String id;
+    private String id;
     private final String name;
     private final double unitPrice;
 
@@ -13,6 +13,10 @@ public abstract class Item {
 
     public String getID() {
         return this.id;
+    }
+
+    public void setID(String id) {
+        this.id = id;
     }
 
     public String getName() {
