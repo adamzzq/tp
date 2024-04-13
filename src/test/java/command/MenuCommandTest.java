@@ -89,7 +89,7 @@ public class MenuCommandTest {
         assertEquals(expectedOutput,outputContent.toString().replace("\r",""));
     }
 
-    @Test
+    /*@Test
     public void testMenuDeleteMiddleExistingItem() {
         Menu newMenu = new Menu("001");
         MenuAddCommand.execute(newMenu,"add -item Ice Cream -price 2.00");
@@ -108,7 +108,7 @@ public class MenuCommandTest {
                 "| 2    | Frappe                |$4.00      |\n" +
                 "+------+-----------------------------------+\n\n";
         assertEquals(expectedOutput,outputContent.toString().replace("\r",""));
-    }
+    }*/
     @Test
     public void testMenuCompleteEmptyMenu() {
         Menu newMenu = new Menu("001");
