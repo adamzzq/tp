@@ -19,21 +19,27 @@ traditional GUI.
   * [Get order receipt: `receipt order`](#get-order-receipt-receipt-order)
   * [Check menus: `view menu`](#check-menu-items-view-menu)
   * [Quit the program: `bye`](#quit-the-program-bye)
-  * [Order statistics `[coming in v2.1]`](#order-statistics-coming-in-v21)
   * [Save data `[coming in v2.1]`](#save-data-coming-in-v21)
-* [Features for Menu Interface](#features-for-menu-interface)
+* [Features in Menu Interface](#features-in-menu-interface)
   * [Add items: `add`](#add-items-add)
   * [Delete items: `delete`](#delete-items-delete)
   * [Check menu items: `view item`](#check-menu-items-view-item)
   * [Complete current menu: `complete`](#complete-current-menu-complete)
   * [Abort current menu: `bye`](#abort-current-menu-bye)
-* [Features for Order Interface](#features-for-order-interface)
+* [Features in Order Interface](#features-in-order-interface)
   * [Add items: `add`](#add-items-add-1)
   * [Delete items: `delete`](#delete-items-delete-1)
   * [Check menu items: `view menu`](#check-menu-items-view-menu)
   * [Check order items: `view item`](#check-order-items-view-item)
   * [Complete current order: `complete`](#complete-current-order-complete)
   * [Abort current order: `bye`](#abort-current-order-bye)
+* [Features in Statistics interface](#features-in-statistics-interface)
+  * [Bestselling item: `bestselling`](#bestselling-item-bestselling)
+  * [Total orders: `total orders`](#total-orders-total-orders)
+  * [Gross revenue: `revenue gross`](#gross-revenue-revenue-gross)
+  * [Net revenue: `revenue net`](#net-revenue-revenue-net)
+  * [View profit: `view profit cost <cost>`](#view-profit-view-profit-cost-cost)
+  * [Return to main interface: `quit`](#return-to-main-interface-quit)
 * [FAQ](#faq)
 * [Command summary](#command-summary)
 
@@ -58,6 +64,7 @@ traditional GUI.
     edit -menu <menu_id>: Modify the specified menu's items in the menu interface.
     view -menu <menu_id>: Shows all the contents of a specified menu.
     view -menu -all: Shows a brief summary of all the created menus.
+    view performance: Enters the order statistics interface.
     bye: Quits the program.
    ```
 6. **IMPORTANT!!!** Our application consists of **three interfaces**(i.e. main,order and menu) which consists of
@@ -173,13 +180,10 @@ Exits out of the program.
 
 Format: `bye`
 
-### Order statistics `[coming in v2.1]`
-_Details coming soon..._
-
 ### Save data `[coming in v2.1]`
 _Details coming soon..._
 
-## Features for Menu interface
+## Features in Menu interface
 
 ### Add items: `add`
 Adds an item with specified ID, name, and price to the current menu.
@@ -187,7 +191,7 @@ Adds an item with specified ID, name, and price to the current menu.
 Format: `add -item <item_name> -price <price_of_item>`
 
 * The `<item_id>` is unique a number to identify the item. You cannot add two items with the same ID.
-* The `<item_name>` cannot contain symbols (e.g. `~!@#$%^&*()`)
+* The `<item_name>` should contain English alphabets and spaces only.
 * The `<price_of_item>` should be the price of the item without the `$` symbol.
 
 Example of usage:
@@ -227,7 +231,7 @@ Format: `cancel`
 
 * The cancelled menu will be discarded and cannot be retrieved.
 
-## Features for order interface
+## Features in Order interface
 
 ### Add items: `add`
 Adds a specified quantity of a specific menu item into the order.
@@ -276,6 +280,56 @@ Cancels the current order's creation and returns to the main interface.
 Format: `cancel`
 
 * The cancelled order will be discarded and cannot be retrieved.
+
+<!-- for reference in stats feature
+        System.out.println("Available commands:");
+        System.out.println("\tbestselling - View the best selling item(s)");
+        System.out.println("\ttotal orders - View the total number of orders");
+        System.out.println("\trevenue -gross - View the gross revenue");
+        System.out.println("\trevenue -net - View the net revenue");
+        System.out.println("\tview profit -cost <cost> - View the profit based on the cost");
+        System.out.println("\tquit - return to main interface");
+-->
+## Features in Statistics interface
+
+### Find bestselling items: `bestselling`
+Shows the best-selling item(s) in the restaurant of all time.
+The best-selling item is defined as the item with the highest quantity sold. If there are multiple items with the same
+highest quantity sold, the top 3 items will be displayed.
+
+Format: `bestselling`
+
+### Get total orders count: `total orders`
+Shows the total number of orders that have been created.
+
+Format: `total orders`
+
+### Calculate Gross revenue: `revenue -gross`
+Shows the gross revenue of the restaurant. (i.e. total revenue before deducting costs and taxes)
+
+Format: `revenue -gross`
+
+### Calculate Net revenue: `revenue -net`
+Shows the net revenue of the restaurant. (i.e. total revenue after deducting taxes)
+
+Format: `revenue -net`
+
+### Calculate profit: `view profit cost <cost>`
+Shows the profit based on the cost of the items in the restaurant. (i.e. total revenue after deducting costs and taxes)
+
+Format: `view profit -cost <cost>`
+
+* The `<cost>` is the money spent on preparing the items.
+* It should be a non-negative number without the `$` symbol.
+
+Example of usage:
+`view profit -cost 150`
+
+### Return to main interface: `quit`
+Returns to the main interface from the statistics interface.
+
+Format: `quit`
+
 
 ## FAQ
 
