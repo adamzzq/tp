@@ -1,6 +1,10 @@
 package command;
 
-import command.menu.*;
+import command.menu.MenuAddCommand;
+import command.menu.MenuCompleteCommand;
+import command.menu.MenuDeleteCommand;
+import command.menu.MenuExitCommand;
+import command.menu.MenuHelpCommand;
 import model.Menu;
 import org.junit.jupiter.api.Test;
 
