@@ -7,6 +7,8 @@
 !define MAIN_LOGIC_COLOR #green
 !define COMMAND_COLOR #lightgreen
 !define SUB_LOGIC_COLOR #red
+!define ORDER_COLOR #cornflowerblue
+!define MENU_COLOR #mediumorchid
 !define STORAGE_COLOR #black
 !define MODEL_COLOR #brown
 !define PARSER_COLOR #orange
