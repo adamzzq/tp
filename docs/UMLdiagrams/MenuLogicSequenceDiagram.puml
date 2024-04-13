@@ -1,0 +1,65 @@
+@startuml
+!include style.puml
+
+Actor User as user USER_COLOR
+
+Participant ":MenuLogic" as subLogic SUB_LOGIC_COLOR
+Participant ":Parser" as parser PARSER_COLOR
+Participant ":Command" as command COMMAND_COLOR
+Participant ":Model" as model MODEL_COLOR
+
+
+user -> subLogic : modifyMenu()
+activate subLogic SUB_LOGIC_COLOR
+subLogic -> parser : analyzeInput("Create Menu")
+activate parser PARSER_COLOR
+parser --> subLogic : return command
+deactivate parser
+subLogic -> command : execute(command)
+activate command COMMAND_COLOR
+command -> model : create new Menu
+activate model MODEL_COLOR
+model --> command : return new Menu
+deactivate model
+command --> subLogic : return new Menu
+deactivate command
+user -> subLogic : "add -item <Item_name> -price <Price_of_the_item>"
+subLogic -> parser : analyzeInput
+activate parser PARSER_COLOR
+parser --> subLogic : return command
+deactivate parser
+subLogic -> command : execute(command)
+activate command COMMAND_COLOR
+command -> model : create new MenuItem
+activate model MODEL_COLOR
+model --> command : return new MenuItem
+deactivate model
+command --> subLogic : return new MenuItem
+deactivate command
+user -> subLogic : "view item"
+subLogic -> parser : analyzeInput("view item")
+activate parser PARSER_COLOR
+parser --> subLogic : return command
+deactivate parser
+subLogic -> command : execute(command)
+activate command COMMAND_COLOR
+command -> model : get all MenuItems
+activate model MODEL_COLOR
+model --> command : return all MenuItems
+deactivate model
+command --> subLogic : return all MenuItems
+deactivate command
+user --> subLogic : "delete -item <Item_Id>"
+subLogic -> parser : analyzeInput("delete -item <Item_Id>")
+activate parser PARSER_COLOR
+parser --> subLogic : return command
+deactivate parser
+subLogic -> command : execute(command)
+activate command COMMAND_COLOR
+command -> model : delete MenuItem
+activate model MODEL_COLOR
+model --> command : return Menu without the deleted MenuItem
+deactivate model
+command --> subLogic : return Menu without the deleted MenuItem
+deactivate command
+@enduml

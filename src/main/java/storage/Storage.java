@@ -21,6 +21,13 @@ public class Storage {
     private static final String MENUS_FILEPATH = "data/menus.txt";
     private static final String SEPARATOR = " | ";
 
+    /**
+     * Checks if a new restaurant needs to be created based on the provided restaurant data.
+     *
+     * @param restaurant The Restaurant object to check
+     * @return true if a new restaurant needs to be created, false otherwise
+     * @throws IOException If an I/O error occurs while creating or reading the restaurant file
+     */
     public static boolean checkNewRestaurant(Restaurant restaurant) throws IOException{
         File restaurantFile = new File(RESTAURANT_FILEPATH);
         restaurantFile.getParentFile().mkdirs();
@@ -33,6 +40,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the order and menu data into their respective ArrayLists.
+     *
+     * @param ordersList The ArrayList to store the loaded orders
+     * @param menusList  The ArrayList to store the loaded menus
+     */
     public static void loadData(ArrayList<Order> ordersList, ArrayList<Menu> menusList) {
         try {
             loadOrders(ordersList);
@@ -42,6 +55,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the restaurant data from the restaurant save file and sets the name and address
+     * in the provided Restaurant object.
+     *
+     * @param restaurant The Restaurant object to populate with data
+     * @throws FileNotFoundException If the restaurant save file is not found
+     */
     private static void loadRestaurant(Restaurant restaurant) throws FileNotFoundException {
         File restaurantFile = new File(RESTAURANT_FILEPATH);
         Scanner restaurantScanner = new Scanner(restaurantFile);
@@ -50,6 +70,13 @@ public class Storage {
         restaurant.setRestaurantAddress(restaurantDetails[1]);
     }
 
+    /**
+     * Loads the order data from the order file and populates the provided ArrayList
+     * with the loaded orders.
+     *
+     * @param ordersList The ArrayList to store the loaded orders
+     * @throws IOException If an I/O error occurs while reading the order file
+     */
     private static void loadOrders(ArrayList<Order> ordersList) throws IOException{
         File ordersFile = new File(ORDERS_FILEPATH);
         if (ordersFile.createNewFile()) {
@@ -84,6 +111,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the menu data from the menu file and populates the provided ArrayList
+     * with the loaded menus.
+     *
+     * @param menusList The ArrayList to store the loaded menus
+     * @throws IOException If an I/O error occurs while reading the menu file
+     */
     private static void loadMenus(ArrayList<Menu> menusList) throws IOException{
         File menusFile = new File(MENUS_FILEPATH);
         if (menusFile.createNewFile()) {
@@ -113,6 +147,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves restaurant information to the restaurant save file.
+     *
+     * @param restaurant The Restaurant object with information to save
+     */
     public static void saveRestaurant(Restaurant restaurant) {
         try {
             FileWriter fw = new FileWriter(RESTAURANT_FILEPATH);
@@ -124,6 +163,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves order information to the order save file.
+     *
+     * @param order The Order object with information to save
+     */
     public static void saveOrder(Order order){
         try {
             FileWriter fw = new FileWriter(ORDERS_FILEPATH, true);
@@ -152,6 +196,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves menu information to the menu save file.
+     *
+     * @param menu The Menu object with information to save
+     */
     public static void saveMenu(Menu menu) {
         try {
             FileWriter fw = new FileWriter(MENUS_FILEPATH, true);
@@ -168,6 +217,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Updates the menu save file with the data from the provided list of menus.
+     *
+     * @param menusList The ArrayList of Menu objects to update in the menu file
+     * @throws IOException If an I/O error occurs while writing to the menu file
+     */
     public static void updateMenus(ArrayList<Menu> menusList) throws IOException{
         FileWriter fw = new FileWriter(MENUS_FILEPATH);
         for (Menu menu : menusList) {

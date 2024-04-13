@@ -32,7 +32,7 @@ The app's work is done by the following components:
 The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues 
 the command `Create order -menu 01`, `add -item 001` and `complete`.
 
-![Sequence Diagram](images\ArchitectureSequanceDiagram.png)
+![Sequence Diagram](images\ArchitectureSequenceDiagram.png)
 
 ### UI Component
 The UI component is responsible for parsing user input into commands that can be executed by the logic component.
@@ -104,6 +104,7 @@ by querying the orderList.
 
 **View Receipt** <br>
 `Mainlogic` takes in the command and calls the `ViewReceiptCommand` class to execute the command
+
 ### `OrderLogic`
 Generally, the order logic works as follows: 
 1. User enters an input which is received in the *ui* and parsed by the `Parser`. 
@@ -112,54 +113,128 @@ Generally, the order logic works as follows:
 4. Control is passed to other sections of the code
 
 **View Menu** <br>
+
 Within the construct of the order logic, the menu can be accessed for viewing in order to select items from 
 available menus. This is carried out with the `view menu` command.
 
 **View Item**  
+
 Within `OrderLogic`, a list containing all the items that have been added to the current active order can be viewed by executing
 the `view item` command.
 
 **Add**  
+
 Inside `OrderLogic`, items from the menu can be added into the current active order.
 This is carried out using the `add -item <item_id> -quantity <quantity_of_item>` command,
 where `<item_id>` is an integer corresponding to the item's id in the menu,
 and `<quantity_of_item>` is an integer of the amount of that item to be added.
 
 **Delete**  
+
 In `OrderLogic`, items from the current order can be removed via the
 `delete -item <item_id> -quantity <quantity_of_item>` command. `<item_id>`
 and `<quantity_of_item>` are the same type of parameters as the ones specified
 in the `Add` command class.
 
 **Complete**  
-Inside `OrderLogic`, once the order is finished, it can be completed and closed
+
+In `OrderLogic`, once the order is finished, it can be completed and closed
 by executing the `complete` command. This marks the current order as completed
 and the program returns back to `MainLogic` for subsequent command executions.
+
+**Cancel**
+
+In "OrderLogic", the user can cancel the current order by executing the `cancel` command.
+This will abort the current order created and return to the main menu.
+
+### `MenuLogic`
+![MenuLogic Diagram](images/MenuLogicSequenceDiagram.png)
+Generally, the menu logic works similar to order logic:
+1. User enters an input which is received in the *ui* and parsed by the `Parser`.
+2. The `Parser` classifies the command based on `CommandType`
+3. Within `MenuLogic`, `execute` is called on the corresponding class
+4. Control is passed to other sections of the code
+
+**View Item**  
+
+Within `MenuLogic`, a list containing all the items that have been added to the current active order can be viewed by executing
+the `view item` command.
+
+**Add**
+
+Inside `MenuLogic`, items from the menu can be added into the current active order.
+This is carried out using the `add -item <item_name> -price <price_of_item>` command,
+where `<item_name>` is a string represent the name of the MenuItem,
+and `<price_of_item>` is a double of the price of that item to be added.
+
+**Delete**
+
+In `MenuLogic`, items from the current order can be removed via the
+`delete -item <item_id>` command. `<item_id>` is the index of the item in the menu.
+
+**Complete**
+
+Inside `MenuLogic`, once the order is finished, it can be completed and closed
+by executing the `complete` command. This marks the current Menu as completed
+and the program returns back to `MainLogic` for subsequent command executions.
+
+**Cancel**
+In `MenuLogic`, the user can cancel the current menu by executing the `cancel` command.
+This will abort the current menu created and return to the main menu.
 
 ## Product scope
 ### Target user profile
 
-{Describe the target user profile}
+* has a need to manage orders in a restaurant
+* has a need to manage menus in a restaurant
+* has a need to manage cashiering duty in a restaurant
+* prefer CLI apps than GUI apps
+* can type fast
+
 
 ### Value proposition
 
-{Describe the value proposition: what problem does it solve?}
+Manage orders and menus faster and more efficiently than traditional GUI applications for faster typer.
 
 ## User Stories
 
-|Version| As a ... | I want to ... | So that I can ...|
-|--------|----------|---------------|------------------|
-|v1.0|new user|see usage instructions|refer to them when I forget how to use the application|
-|v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
+| Priority | As a ...         | I want to ...                             | So that I can ...                                               |
+|----------|------------------|-------------------------------------------|-----------------------------------------------------------------|
+| `* * *`  | restaurant owner | Add dishes to order/menu                  | easily refer and calculate the total price                      |
+| `* * *`  | restaurant owner | Delete dishes to order/menu               | remove the dishes that the customers do not want                |
+| `*   *`  | restaurant owner | view the order receipt                    | check the order details and the total price                     |
+| `* * *`  | restaurant owner | manage cashiering duties in my restaurant | keep track of the money that comes in and out of the restaurant |
+| `*   *`  | restaurant owner | manage menus in my restaurant             | keep track of the dishes that are available in the restaurant   |
+| `*    `  | restaurant owner | view the order/menu                       | check the dishes that are available in the restaurant           |
+
 
 ## Non-Functional Requirements
 
-{Give non-functional requirements}
+* Should Work on any mainstream OS as long as it has Java 11 or above installed.
+* Should be able to handle and save a large number of orders and menus for restaurant's daily operations.
+* Faster type can use the CLI app more efficiently than GUI app
 
 ## Glossary
 
-* *glossary item* - Definition
+* **Mainstream OS**: Windows, Linux, Unix, MacOS.
+
 
 ## Instructions for manual testing
 
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+### Launch and shutdown
+* Initial launch
+  1. Download the jar file and copy into an empty folder
+  2. Open a terminal and navigate to the folder containing the jar file
+  3. Run the command `java -jar DinEz.jar` to launch the application
+* Shutdown
+  1. Type `exit` and press enter to shutdown the application
+
+### Create order and add/delete/view item
+* To create an order
+  1. Prerequisite: Type `create order -menu 01` in Main interface to enter the Order interface, 01 is the default menu
+  2. Test Case: `Add -item 001 -quantity 2`
+     Expected: Item 001 is added to the order with quantity 2
+  3. Test Case: `View -item`
+     Expected: Item 001 is displayed with quantity 2
+  3. Test Case: `Delete -item 001 -quantity 1`
+     Expected: Item 001 is removed from the order with quantity 1

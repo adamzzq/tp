@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
+import java.util.Iterator;
 import java.util.Optional;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
@@ -15,7 +16,7 @@ public class Menu implements ItemManager {
     private static final String MENU_HEADER = "+------------------------------------------+\n" +
             "|                   MENU                   |\n" +
             ROW_DELIMITER +
-            "| ID   |         Name          |   Price   |\n" +
+            "| ID   |         Name          | Price     |\n" +
             ROW_DELIMITER;
     private static final Logger logr = Logger.getLogger("MenuLogger");
     private final ArrayList<MenuItem> menuItemList = new ArrayList<>();
@@ -57,7 +58,19 @@ public class Menu implements ItemManager {
     public boolean remove(String itemID) {
         assert itemID != null: "itemID of item to be removed should not be null";
         this.menuItemList.removeIf(x -> x.getID().equals(itemID));
+        sortId(itemID);
         return true;
+    }
+
+    private void sortId(String startId) {
+        int id = Integer.parseInt(startId);
+        // sort the id of the rest of the items after the removed item
+        Iterator<MenuItem> iterator = menuItemList.iterator();
+        while (id <= menuItemList.size()) {
+            Item item = menuItemList.get(id - 1);
+            item.setID(id + "");
+            id++;
+        }
     }
 
     public int getSize() {
@@ -80,7 +93,7 @@ public class Menu implements ItemManager {
                         ? item.getName().substring(0, NAME_MAX_LENGTH) : item.getName();
 
                 String priceFormat = (String.valueOf(item.getPrice()).length() > 7) ?
-                        "| %-5s| %-22s|$%-10.2e|\n" : "| %-5s| %-22s|$%-10.2f|\n";
+                        "| %-5s| %-22s|$%-10.2e|\n" : "| %-5s| %-22s| $%-9.2f|\n";
 
                 menuString.append(String.format(priceFormat,
                             item.getID(), shortName, item.getPrice()));
