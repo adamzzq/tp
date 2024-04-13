@@ -119,9 +119,7 @@ public class MainLogic {
                         }, () -> System.out.println("Menu not created"));
                 break;
             case EDIT_MENU:
-                if (MainEditMenuCommand.execute(input, inputText, menusList).isEmpty()) {
-                    System.out.println("Menu ID not found");
-                }
+                MainEditMenuCommand.execute(input, inputText, menusList);
                 break;
             case VIEW_MENU:
                 MainViewMenuCommand.execute(menusList, inputText);

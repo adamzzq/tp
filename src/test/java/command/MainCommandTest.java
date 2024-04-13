@@ -14,7 +14,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Optional;
 import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -93,11 +92,15 @@ public class MainCommandTest {
     public void testMainEditMenuCommand_invalidMenu() {
         ByteArrayInputStream inputContent = new ByteArrayInputStream("test".getBytes());
         Scanner input = new Scanner(inputContent);
+        ByteArrayOutputStream outputContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputContent));
+
         Menu testMenu = new Menu("01");
         ArrayList<Menu> testMenuList = new ArrayList<>();
         testMenuList.add(testMenu);
-        Optional<Menu> menuToEdit = MainEditMenuCommand.execute(input, "edit -menu 02", testMenuList);
+        MainEditMenuCommand.execute(input, "edit -menu 02", testMenuList);
+        String expectedOutput = "Menu ID not found\n";
 
-        assertTrue(menuToEdit.isEmpty());
+        assertEquals(expectedOutput, outputContent.toString().replace("\r", ""));
     }
 }
