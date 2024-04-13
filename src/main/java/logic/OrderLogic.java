@@ -71,6 +71,11 @@ public class OrderLogic {
         return Optional.of(newOrder);
     }
 
+    /**
+     * Initializes the order type.
+     *
+     * @return true if the order type is successfully initialized, false otherwise
+     */
     private static boolean initializeOrderType() {
         System.out.println("Would you like your order to be\n " +
                 "   1) dine in\n" +

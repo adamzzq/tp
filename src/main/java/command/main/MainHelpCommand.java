@@ -3,6 +3,9 @@ package command.main;
 
 public class MainHelpCommand implements MainCommand {
 
+    /**
+     * Executes the command to show all the available commands
+     */
     public static void execute() {
         System.out.println("Here are the list of available commands:");
         System.out.println("\thelp: Shows all the commands that can be used.");

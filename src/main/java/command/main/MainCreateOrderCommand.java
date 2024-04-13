@@ -8,6 +8,12 @@ import java.util.Optional;
 
 public class MainCreateOrderCommand implements MainCommand {
 
+    /**
+     * Executes the command to create an order
+     * @param inputText the user input in the form of String from the command line
+     * @param menusList the list of menus to choose from
+     * @return an Optional of Menu
+     */
     public static Optional<Menu> execute(String inputText, ArrayList<Menu> menusList) {
         try {
             String[] indexString = Parser.splitInput(Parser.analyzeInput(inputText), inputText);

@@ -133,6 +133,12 @@ public class MainLogic {
         }
     }
 
+    /**
+     * Initializes the system with the user's name.
+     *
+     * @param token the token to initialize the system
+     * @return true if the system is initialized, false otherwise
+     */
     private static boolean initializeSystem (String token) {
         if (token.equals("User")) {
             System.out.println("Enter user name: ");

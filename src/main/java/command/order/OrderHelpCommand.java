@@ -1,6 +1,9 @@
 package command.order;
 
 public class OrderHelpCommand implements OrderCommand {
+    /**
+     * Executes the command to show the list of available commands.
+     */
     public static void execute() {
         System.out.println("Here are the list of available commands:");
         System.out.println("\thelp: Shows all the commands that can be used.");
