@@ -14,6 +14,7 @@ public enum CommandType {
     ORDER_RECEIPT("(?i)receipt\\s*-order\\s*(\\d+)"),
     VIEW_RESTAURANT_INFO("(?i)view\\s*restaurant"),
     EDIT_RESTAURANT_INFO("(?i)edit\\s*restaurant"),
+    VIEW_PERFORMANCE_INFO("(?i)view\\s*performance"),
 
 
     //order commands
@@ -27,9 +28,15 @@ public enum CommandType {
 
     // edit menu commands
     ADD_MENU_ITEM("(?i)add\\s*-item\\s*([A-Z\\s]+)\\s*-price\\s*(\\d+(\\.\\d+)?)"),
-    DELETE_MENU_ITEM("(?i)delete\\s*-item\\s*(\\d+)");
+    DELETE_MENU_ITEM("(?i)delete\\s*-item\\s*(\\d+)"),
 
-
+    // stats commands
+    VIEW_BEST_SELLING_ITEM("(?i)bestselling"),
+    VIEW_TOTAL_ORDERS("(?i)total\\s*orders"),
+    VIEW_GROSS_REVENUE("(?i)revenue\\s*-gross"),
+    VIEW_NET_REVENUE("(?i)revenue\\s*-net"),
+    VIEW_PROFIT("(?i)view\\s*profit\\s*-cost\\s*(\\d+(\\.\\d+)?)"),
+    QUIT("(?i)quit");
 
     private final String commandRegex;
     CommandType(String commandRegex) {

@@ -2,7 +2,6 @@ package model;
 
 import java.util.ArrayList;
 
-import java.util.Iterator;
 import java.util.Optional;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
@@ -62,14 +61,14 @@ public class Menu implements ItemManager {
         return true;
     }
 
+    /**
+     * Sorts the id of the items in the menu after an item is removed
+     * @param startId The id of the item that is removed
+     */
     private void sortId(String startId) {
-        int id = Integer.parseInt(startId);
-        // sort the id of the rest of the items after the removed item
-        Iterator<MenuItem> iterator = menuItemList.iterator();
-        while (id <= menuItemList.size()) {
+        for (int id = Integer.parseInt(startId); id <= menuItemList.size(); id++) {
             Item item = menuItemList.get(id - 1);
             item.setID(id + "");
-            id++;
         }
     }
 
