@@ -13,13 +13,6 @@ import java.util.Scanner;
 
 public class MainEditMenuCommand implements MainCommand{
 
-    /**
-     * Executes the command to edit a menu
-     * @param input the Scanner object to take in user input
-     * @param inputText the user input in the form of String from the command line
-     * @param menusList the list of menus to choose from
-     * @return an Optional of Menu
-     */
     public static Optional<Menu> execute(Scanner input, String inputText, ArrayList<Menu> menusList) {
         String[] parsedString = Parser.splitInput(Parser.analyzeInput(inputText), inputText);
         String menuID = parsedString[0];
