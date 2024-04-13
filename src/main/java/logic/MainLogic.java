@@ -162,16 +162,16 @@ public class MainLogic {
     }
 
     private static void initMenu(ArrayList<Menu> menusList) {
-        MenuItem dish01 = new MenuItem("001", "Chicken Rice", 3.50);
-        MenuItem dish02 = new MenuItem("002", "Nasi Lemak", 3.00);
-        MenuItem dish03 = new MenuItem("003", "Hokkien Mee", 4.00);
-        MenuItem dish04 = new MenuItem("004", "Mee Siam", 3.50);
-        MenuItem dish05 = new MenuItem("005", "Fishball Noodles", 3.00);
-        MenuItem dish06 = new MenuItem("006", "Chicken Curry Rice", 5.00);
-        MenuItem dish07 = new MenuItem("007", "Seafood Fried Rice", 5.50);
-        MenuItem dish08 = new MenuItem("008", "Roasted delight set", 6.50);
-        MenuItem dish09 = new MenuItem("009", "Hotplate beef set", 7.00);
-        MenuItem dish10 = new MenuItem("010", "Kimchi noodles", 4.00);
+        MenuItem dish01 = new MenuItem("1", "Chicken Rice", 3.50);
+        MenuItem dish02 = new MenuItem("2", "Nasi Lemak", 3.00);
+        MenuItem dish03 = new MenuItem("3", "Hokkien Mee", 4.00);
+        MenuItem dish04 = new MenuItem("4", "Mee Siam", 3.50);
+        MenuItem dish05 = new MenuItem("5", "Fishball Noodles", 3.00);
+        MenuItem dish06 = new MenuItem("6", "Chicken Curry Rice", 5.00);
+        MenuItem dish07 = new MenuItem("7", "Seafood Fried Rice", 5.50);
+        MenuItem dish08 = new MenuItem("8", "Roasted delight set", 6.50);
+        MenuItem dish09 = new MenuItem("9", "Hotplate beef set", 7.00);
+        MenuItem dish10 = new MenuItem("10", "Kimchi noodles", 4.00);
 
         Menu menuV1 = new Menu("01");
         menuV1.add(dish01);

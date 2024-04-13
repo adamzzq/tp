@@ -41,9 +41,9 @@ public class MenuCommandTest {
                 "+------------------------------------------+\n" +
                 "|                   MENU                   |\n" +
                 "+------+-----------------------------------+\n" +
-                "| ID   |         Name          |   Price   |\n" +
+                "| ID   |         Name          | Price     |\n" +
                 "+------+-----------------------------------+\n" +
-                "| 1    | Fried Chicken         |$5.00      |\n" +
+                "| 1    | Fried Chicken         | $5.00     |\n" +
                 "+------+-----------------------------------+\n\n";
         assertEquals(expectedOutput,outputContent.toString().replace("\r",""));
     }
@@ -70,7 +70,7 @@ public class MenuCommandTest {
                 "+------------------------------------------+\n" +
                 "|                   MENU                   |\n" +
                 "+------+-----------------------------------+\n" +
-                "| ID   |         Name          |   Price   |\n" +
+                "| ID   |         Name          | Price     |\n" +
                 "+------+-----------------------------------+\n" +
                 "+------+-----------------------------------+\n\n";
         assertEquals(expectedOutput,outputContent.toString().replace("\r",""));
@@ -87,7 +87,7 @@ public class MenuCommandTest {
                 "+------------------------------------------+\n" +
                 "|                   MENU                   |\n" +
                 "+------+-----------------------------------+\n" +
-                "| ID   |         Name          |   Price   |\n" +
+                "| ID   |         Name          | Price     |\n" +
                 "+------+-----------------------------------+\n" +
                 "+------+-----------------------------------+\n\n";
         assertEquals(expectedOutput,outputContent.toString().replace("\r",""));
