@@ -73,7 +73,7 @@ Item <|-- MenuItem
 ItemManager <|.. Menu
 ItemManager <|.. Order
 
-MenuItem "1..*" -- "0..*" Order
+MenuItem "1..*" --* Order
 MenuItem "1..*" -* Menu
 
 
