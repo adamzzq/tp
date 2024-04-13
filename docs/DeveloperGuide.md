@@ -92,7 +92,7 @@ Generally, the main logic works as follows:
 4. If it is not a first level command, the command will be pass to `SubLogic` to handle.
 
 **Create Order** <br>
-`Mainlogic` takes user input and crate an `Order` class and pass it to `OrderLogic` to execute the command.
+`Mainlogic` takes user input and creates an `Order` class , then passes it to `OrderLogic` to execute the command.
 
 **View Order by ID** <br>
 `Mainlogic` takes in the command and the order ID, execute the `view order` command by calling a static method<br>
