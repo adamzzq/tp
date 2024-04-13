@@ -6,6 +6,12 @@ import ui.Parser;
 import java.util.ArrayList;
 
 public class MainReceiptOrderCommand {
+
+    /**
+     * Executes the command to print the receipt of an order
+     * @param ordersList the list of orders to choose from
+     * @param inputText the user input in the form of String from the command line
+     */
     public static void execute(ArrayList<Order> ordersList, String inputText) {
         String[] indexString = Parser.splitInput(Parser.analyzeInput(inputText), inputText);
         String orderID = indexString[0];
