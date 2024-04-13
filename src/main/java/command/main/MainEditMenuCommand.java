@@ -17,10 +17,8 @@ public class MainEditMenuCommand implements MainCommand{
      * @param input The scanner used to receive user input from the command line
      * @param inputText The input from the user, in the form of String
      * @param menusList The ArrayList that keeps track of all existing menus
-     * @return an empty optional if the specified menu is absent, and return a copy of the
-     *          edited menu if the specified menu is present
      */
-    public static Optional<Menu> execute(Scanner input, String inputText, ArrayList<Menu> menusList) {
+    public static void execute(Scanner input, String inputText, ArrayList<Menu> menusList) {
         String[] parsedString = Parser.splitInput(Parser.analyzeInput(inputText), inputText);
         String menuID = parsedString[0];
         Optional<Menu> menuToEdit = menusList.stream().filter(menu -> menu.getId().equals(menuID)).findAny();
@@ -39,8 +37,8 @@ public class MainEditMenuCommand implements MainCommand{
                     System.out.println("Error updating menus save file.");
                 }
             });
-            return Optional.of(copymenu);
+        } else {
+            System.out.println("Menu ID not found");
         }
-        return Optional.empty();
     }
 }
