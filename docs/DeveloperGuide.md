@@ -185,27 +185,56 @@ This will abort the current menu created and return to the main menu.
 ## Product scope
 ### Target user profile
 
-{Describe the target user profile}
+* has a need to manage orders in a restaurant
+* has a need to manage menus in a restaurant
+* has a need to manage cashiering duty in a restaurant
+* prefer CLI apps than GUI apps
+* can type fast
+
 
 ### Value proposition
 
-{Describe the value proposition: what problem does it solve?}
+Manage orders and menus faster and more efficiently than traditional GUI applications for faster typer.
 
 ## User Stories
 
-|Version| As a ... | I want to ... | So that I can ...|
-|--------|----------|---------------|------------------|
-|v1.0|new user|see usage instructions|refer to them when I forget how to use the application|
-|v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
+| Priority | As a ...         | I want to ...                             | So that I can ...                                               |
+|----------|------------------|-------------------------------------------|-----------------------------------------------------------------|
+| `* * *`  | restaurant owner | Add dishes to order/menu                  | easily refer and calculate the total price                      |
+| `* * *`  | restaurant owner | Delete dishes to order/menu               | remove the dishes that the customers do not want                |
+| `*   *`  | restaurant owner | view the order receipt                    | check the order details and the total price                     |
+| `* * *`  | restaurant owner | manage cashiering duties in my restaurant | keep track of the money that comes in and out of the restaurant |
+| `*   *`  | restaurant owner | manage menus in my restaurant             | keep track of the dishes that are available in the restaurant   |
+| `*    `  | restaurant owner | view the order/menu                       | check the dishes that are available in the restaurant           |
+
 
 ## Non-Functional Requirements
 
-{Give non-functional requirements}
+* Should Work on any mainstream OS as long as it has Java 11 or above installed.
+* Should be able to handle and save a large number of orders and menus for restaurant's daily operations.
+* Faster type can use the CLI app more efficiently than GUI app
 
 ## Glossary
 
-* *glossary item* - Definition
+* **Mainstream OS**: Windows, Linux, Unix, MacOS.
+
 
 ## Instructions for manual testing
 
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+### Launch and shutdown
+* Initial launch
+  1. Download the jar file and copy into an empty folder
+  2. Open a terminal and navigate to the folder containing the jar file
+  3. Run the command `java -jar DinEz.jar` to launch the application
+* Shutdown
+  1. Type `exit` and press enter to shutdown the application
+
+### Create order and add/delete/view item
+* To create an order
+  1. Prerequisite: Type `create order -menu 01` in Main interface to enter the Order interface, 01 is the default menu
+  2. Test Case: `Add -item 001 -quantity 2`
+     Expected: Item 001 is added to the order with quantity 2
+  3. Test Case: `View -item`
+     Expected: Item 001 is displayed with quantity 2
+  3. Test Case: `Delete -item 001 -quantity 1`
+     Expected: Item 001 is removed from the order with quantity 1
