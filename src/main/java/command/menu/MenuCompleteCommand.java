@@ -3,6 +3,7 @@ package command.menu;
 import model.Menu;
 
 public class MenuCompleteCommand implements MenuCommand {
+
     /**
      * Prints a confirmation message of menu saved to the command line
      * @param menu The menu that was edited
