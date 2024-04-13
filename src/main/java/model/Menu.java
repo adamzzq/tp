@@ -58,7 +58,6 @@ public class Menu implements ItemManager {
     public boolean remove(String itemID) {
         assert itemID != null: "itemID of item to be removed should not be null";
         this.menuItemList.removeIf(x -> x.getID().equals(itemID));
-        System.out.println("Item " + itemID + " is removed from menu");
         sortId(itemID);
         return true;
     }
