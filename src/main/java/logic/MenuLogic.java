@@ -23,7 +23,7 @@ public class MenuLogic {
      * @return The active menu (the menu the user is working with), otherwise return empty Optional
      */
     public static Optional<Menu> modifyMenu(Scanner input, Menu menu, int menuLen) {
-        Menu activeMenu = (menu == null) ? new Menu("0" + (menuLen + 1)) : menu;
+        Menu activeMenu = (menu == null) ? new Menu("" + (menuLen + 1)) : menu;
         String menuID = activeMenu.getId();
         boolean isComplete = false;
         System.out.println("Initializing menu " + menuID + "...");

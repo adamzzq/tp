@@ -321,9 +321,11 @@ Format: `view item`
 ### Complete current order: `complete`
 Marks the current order as completed and returns to the main interface.
 
-Format: `complete`
+Format: `complete` or `complete -discount <discount>`
 
 * The `complete` command cannot be used on an empty order. You will be prompted to add items to the order.
+* The `<discount>` is a number representing the discount percentage. It should be an integer without the `%`
+  symbol, ranging from 0 to 99.
 
 ### Abort current order: `cancel`
 Cancels the current order's creation and returns to the main interface.

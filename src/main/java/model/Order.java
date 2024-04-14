@@ -244,7 +244,7 @@ public class Order implements ItemManager {
      */
     public String getReceipt(double discount) throws IllegalArgumentException {
         if (discount != 0 && !(discount >= 0.01 && discount <= 0.99)) {
-            throw new IllegalArgumentException("Discount must be between 1% and 99% (inclusive)");
+            throw new NumberFormatException("Discount must be between 0 and 99 (inclusive)");
         }
 
         StringBuilder receiptBuilder = new StringBuilder();
