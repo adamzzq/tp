@@ -13,7 +13,7 @@ public class OrderHelpCommand implements OrderCommand {
                 + "Deletes the specified quantity \n\t\tof a particular menu item from the order.");
         System.out.println("\tview menu: Shows the menu of the current order.");
         System.out.println("\tview item: Shows the items in the current order.");
-        System.out.println("\tcomplete: Completes the order and returns to the main menu.");
+        System.out.println("\tcomplete (-discount <percentage>): Completes the order and returns to the main menu.");
         System.out.println("\tcancel: Aborts the current order and returns to the main menu.");
     }
 }
