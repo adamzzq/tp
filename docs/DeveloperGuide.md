@@ -7,7 +7,7 @@
 ## Design
 
 ### Architecture
-![Architecture](images\Architecture.png)
+![Architecture](images/Architecture.png)
 
 The **Architecture diagram** given above shows the high-level design of the application.
 
@@ -32,7 +32,7 @@ The app's work is done by the following components:
 The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues 
 the command `create order -menu 1`, `add -item 1` and `complete`.
 
-![Sequence Diagram](images\ArchitectureSequenceDiagram.png ) 
+![Sequence Diagram](images/ArchitectureSequenceDiagram.png ) 
 
 ### UI Component
 The UI component is responsible for parsing user input into commands that can be executed by the logic component.
