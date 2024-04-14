@@ -20,8 +20,8 @@ Given below is a quick overview of main components and how they interact with ea
 
 The app's work is done by the following components:
 
-* [**`MainLogic`**](#sublogic-component): The main logic command executor.
-* [**`SubLogic`**](#sublogic-component): The sub logics(i.e. **`MenuLogic`**, **`OrderLogic`**) command executor.
+* [**`MainLogic`**](#logic-component): The main logic command executor.
+* [**`SubLogic`**](#logic-component): The sub logics(i.e. **`MenuLogic`**, **`OrderLogic`**) command executor.
 * [**`Parser`**](#parser-component): The parser that parses user input to command.
 * [**`Model`**](#model-component): The data model that stores the data.
 * [**`Command`**](#command-component): Represents a command that the user can execute.
@@ -475,12 +475,12 @@ folder. The user should see the following:
 
 ```
 [Main interface] >>> create menu
-Initializing menu 02...
+Initializing menu 2...
 Here are the list of available commands:
     help: Shows all the commands that can be used.
     ...
     cancel: Aborts the current menu and returns to the main menu.
-[Menu: 02] >>> add -item Beef noodles -price 6
+[Menu: 2] >>> add -item Beef noodles -price 6
 Item successfully added to menu!
 +------------------------------------------+
 |                   MENU                   |
@@ -490,7 +490,7 @@ Item successfully added to menu!
 | 1    | Beef noodles          | $6.00     |
 +------+-----------------------------------+
 
-[Menu: 02] >>> add -item Prawn noodles -price 5
+[Menu: 2] >>> add -item Prawn noodles -price 5
 Item successfully added to menu!
 +------------------------------------------+
 |                   MENU                   |
@@ -501,8 +501,8 @@ Item successfully added to menu!
 | 2    | Prawn noodles         | $5.00     |
 +------+-----------------------------------+
 
-[Menu: 02] >>> complete
-Menu 02 has been saved!
+[Menu: 2] >>> complete
+Menu 2 has been saved!
 [Main interface] >>> 
 ```
 
