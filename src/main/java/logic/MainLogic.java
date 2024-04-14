@@ -14,7 +14,6 @@ import command.main.MainEditRestaurantInfoCommand;
 
 
 import model.Menu;
-import model.MenuItem;
 import model.Order;
 import model.Restaurant;
 import storage.Storage;
@@ -159,32 +158,5 @@ public class MainLogic {
             userName = inputString;
             return true;
         }
-    }
-
-    private static void initMenu(ArrayList<Menu> menusList) {
-        MenuItem dish01 = new MenuItem("1", "Chicken Rice", 3.50);
-        MenuItem dish02 = new MenuItem("2", "Nasi Lemak", 3.00);
-        MenuItem dish03 = new MenuItem("3", "Hokkien Mee", 4.00);
-        MenuItem dish04 = new MenuItem("4", "Mee Siam", 3.50);
-        MenuItem dish05 = new MenuItem("5", "Fishball Noodles", 3.00);
-        MenuItem dish06 = new MenuItem("6", "Chicken Curry Rice", 5.00);
-        MenuItem dish07 = new MenuItem("7", "Seafood Fried Rice", 5.50);
-        MenuItem dish08 = new MenuItem("8", "Roasted delight set", 6.50);
-        MenuItem dish09 = new MenuItem("9", "Hotplate beef set", 7.00);
-        MenuItem dish10 = new MenuItem("10", "Kimchi noodles", 4.00);
-
-        Menu menuV1 = new Menu("0");
-        menuV1.add(dish01);
-        menuV1.add(dish02);
-        menuV1.add(dish03);
-        menuV1.add(dish04);
-        menuV1.add(dish05);
-        menuV1.add(dish06);
-        menuV1.add(dish07);
-        menuV1.add(dish08);
-        menuV1.add(dish09);
-        menuV1.add(dish10);
-        menusList.add(menuV1);
-
     }
 }

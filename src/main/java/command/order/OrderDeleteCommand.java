@@ -21,7 +21,7 @@ public class OrderDeleteCommand implements OrderCommand {
         } else if (order.getItemCount(itemID) - Integer.parseInt(itemQuantity) <= 0) {
             order.remove(itemID);
             assert order.getItemCount(itemID) == 0 : "all items of itemID should be removed from the order";
-            System.out.println("All " + " " + menu.getItemById(itemID).get().getName() + " is removed from order");
+            System.out.println("All " + menu.getItemById(itemID).get().getName() + " is removed from order");
         } else {
             for (int i = 0; i < Integer.parseInt(itemQuantity); i++) {
                 order.remove(menu.getItemById(itemID).get());

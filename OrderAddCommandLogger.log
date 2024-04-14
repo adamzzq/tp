@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<?xml version="1.0" encoding="GBK" standalone="no"?>
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2024-04-14T19:21:42.439563100Z</date>
-  <millis>1713122502439</millis>
-  <nanos>563100</nanos>
-  <sequence>0</sequence>
+  <date>2024-04-14T20:32:11.882986800Z</date>
+  <millis>1713126731882</millis>
+  <nanos>986800</nanos>
+  <sequence>22</sequence>
   <logger>OrderAddCommandLogger</logger>
   <level>INFO</level>
   <class>command.order.OrderAddCommand</class>
@@ -14,15 +14,15 @@
   <message>Adding new item to order</message>
 </record>
 <record>
-  <date>2024-04-14T19:21:42.442094900Z</date>
-  <millis>1713122502442</millis>
-  <nanos>94900</nanos>
-  <sequence>1</sequence>
+  <date>2024-04-14T20:32:11.883987500Z</date>
+  <millis>1713126731883</millis>
+  <nanos>987500</nanos>
+  <sequence>23</sequence>
   <logger>OrderAddCommandLogger</logger>
-  <level>INFO</level>
+  <level>WARNING</level>
   <class>command.order.OrderAddCommand</class>
   <method>execute</method>
   <thread>1</thread>
-  <message>Item successfully added to order</message>
+  <message>Item not in menu, not added to order</message>
 </record>
 </log>
