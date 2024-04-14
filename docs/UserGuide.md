@@ -3,8 +3,8 @@
 ## Introduction
 
 DinEz is an integrated system solution which aims to address certain aspects of restaurant management encountered during
-the daily operation of a restaurant in a digitalised way, including order taking, menu management, inventory monitoring
-and order statistics etc.  
+the daily operation of a restaurant in a digitalised way, including order taking, menu management and order statistics.
+
 If you are well-versed with CLI and can type fast, DinEz can help to coordinate the various tasks and allow you to
 access all the necessary information in one application. The CLI is also reliable and simpler to operate than a
 traditional GUI.
@@ -18,27 +18,33 @@ traditional GUI.
   * [Check orders: `view order`](#check-orders-view-order)
   * [Get order receipt: `receipt order`](#get-order-receipt-receipt-order)
   * [Check menus: `view menu`](#check-menu-items-view-menu)
+  * [Check restaurant info: `view restaurant`](#check-restaurant-info-view-restaurant)
+  * [Edit restaurant info: `edit restaurant`](#edit-restaurant-info-edit-restaurant)
+  * [Check order statistics: `view performance`](#check-order-statistics-view-performance)
   * [Quit the program: `bye`](#quit-the-program-bye)
-  * [Save data `[coming in v2.1]`](#save-data-coming-in-v21)
+  * [Save data](#save-data)
+  * [Editing the data file](#editing-the-data-file)
 * [Features in Menu Interface](#features-in-menu-interface)
+  * [Menu help guide: `help`](#menu-help-guide-help)
   * [Add items: `add`](#add-items-add)
   * [Delete items: `delete`](#delete-items-delete)
   * [Check menu items: `view item`](#check-menu-items-view-item)
   * [Complete current menu: `complete`](#complete-current-menu-complete)
-  * [Abort current menu: `bye`](#abort-current-menu-bye)
+  * [Abort current menu: `cancel`](#abort-current-menu-cancel)
 * [Features in Order Interface](#features-in-order-interface)
+  * [Order help guide](#order-help-guide-help)
   * [Add items: `add`](#add-items-add-1)
   * [Delete items: `delete`](#delete-items-delete-1)
   * [Check menu items: `view menu`](#check-menu-items-view-menu)
   * [Check order items: `view item`](#check-order-items-view-item)
   * [Complete current order: `complete`](#complete-current-order-complete)
-  * [Abort current order: `bye`](#abort-current-order-bye)
+  * [Abort current order: `cancel`](#abort-current-order-cancel)
 * [Features in Statistics interface](#features-in-statistics-interface)
-  * [Bestselling item: `bestselling`](#bestselling-item-bestselling)
-  * [Total orders: `total orders`](#total-orders-total-orders)
-  * [Gross revenue: `revenue gross`](#gross-revenue-revenue-gross)
-  * [Net revenue: `revenue net`](#net-revenue-revenue-net)
-  * [View profit: `view profit cost <cost>`](#view-profit-view-profit-cost-cost)
+  * [Bestselling item: `bestselling`](#find-bestselling-items-bestselling)
+  * [Total orders: `total orders`](#get-total-orders-count-total-orders)
+  * [Gross revenue: `revenue gross`](#calculate-gross-revenue-revenue--gross)
+  * [Net revenue: `revenue net`](#calculate-net-revenue-revenue--net)
+  * [View profit: `view profit cost <cost>`](#calculate-profit-view-profit-cost-cost)
   * [Return to main interface: `quit`](#return-to-main-interface-quit)
 * [FAQ](#faq)
 * [Command summary](#command-summary)
@@ -50,9 +56,16 @@ traditional GUI.
 3. Copy the file to the folder you want to use as the _home folder_ for the restaurant management system
 4. Open a command terminal, `cd` into the folder in which you placed the `DinEz.jar` then use the command
 `java -jar DinEz.jar` to run the program.
-5. You should see a greeting message like the following one:
+5. You should be prompted to enter a restaurant name, address, and a username. After entering the required information,
+   you should see a greeting message. The following is an example of what you should see:
    ```
     Hello from DinEz
+    Enter restaurant name: 
+    Fine Food
+    Enter address of restaurant:
+    Avenue 0
+    Enter user name:
+    Tom
     current menu ID: 01
     Here are the list of available commands:
     help: Shows all the commands that can be used.
@@ -105,13 +118,13 @@ Format: `help`
 
 ### Create new menu: `create menu`
 Creates a new menu and goes to the menu interface to perform sub-commands. (Refer to
-[Features for Menu interface](#features-for-menu-interface) for the sub-commands)
+[Features for Menu interface](#features-in-menu-interface) for the sub-commands)
 
 Format: `create menu`
 
 ### Edit menu: `edit menu`
 Edits a menu by going to the menu interface to perform sub-commands. (Refer to
-[Features for Menu interface](#features-for-menu-interface) for the sub-commands)
+[Features for Menu interface](#features-in-menu-interface) for the sub-commands)
 
 Format: `edit -menu <menu_id>`
 
@@ -124,7 +137,7 @@ Example of usage:
 
 ### Create new order: `create order`
 Creates a new order with a specified menu and goes to the order interface to perform sub-commands. (Refer to
-[Features for Order interface](#features-for-order-interface) for the sub-commands)
+[Features for Order interface](#features-in-order-interface) for the sub-commands)
 
 Format: `create order -menu <menu_id>`
 
@@ -175,15 +188,48 @@ Example of usage:
 
 `view -menu 02`
 
+### Check restaurant info: `view restaurant`
+Shows the restaurant name and address currently in use.
+
+Format: `view restaurant`
+
+### Edit restaurant info: `edit restaurant`
+Changes the restaurant name and address.
+
+Format: `edit restaurant`
+
+### Check order statistics: `view performance`
+Enters the order statistics interface where various statistics based on all completed orders can be viewed.(Refer to
+[Features in statistics interface](#features-in-statistics-interface) for the sub-commands)
+
+Format: `view performance`
+
 ### Quit the program: `bye`
 Exits out of the program.
 
 Format: `bye`
 
-### Save data `[coming in v2.1]`
-_Details coming soon..._
+### Save data
+Data for restaurant information, orders, and menus are saved in the hard disk automatically after any command that
+changes the data. There is no need to save manually.
+
+### Editing the data file
+Data for restaurant information, orders, and menus are saved automatically in 3 separate text files `restaurant.txt`,
+`orders.txt`, and `menus.txt`. These 3 files are located in `[JAR file location]/data/*.txt` (where `*.txt` represents
+the name of the data file).
+> [!CAUTION]
+> * If your changes to the data files makes its format invalid, our application will discard the files that have been
+    corrupted and start with the respective empty data files at the next run. Therefore, it is recommended to make a
+    backup of your data files before editing it.
+> * Additionally, some edits can cause DinEz to behave in unexpected ways (e.g., if order ID is changed to a string).
+    Hence, only edit the data files if you are confident that you can update it correctly.
 
 ## Features in Menu interface
+
+### Menu help guide: `help`
+Shows all the commands that can be used in the menu interface.
+
+Format: `help`
 
 ### Add items: `add`
 Adds an item with specified ID, name, and price to the current menu.
@@ -232,6 +278,11 @@ Format: `cancel`
 * The cancelled menu will be discarded and cannot be retrieved.
 
 ## Features in Order interface
+
+### Order help guide: `help`
+Shows all the commands that can be used in the order interface.
+
+Format: `help`
 
 ### Add items: `add`
 Adds a specified quantity of a specific menu item into the order.
@@ -333,12 +384,11 @@ Format: `quit`
 
 ## FAQ
 
-**Q**: How do I save the menus and orders I have created? 
+**Q**: How do I save restaurant information, as well as the menus and orders I have created? 
 
-**A**: As of `v2.0`, a save feature has not been implemented yet. Newly created orders and menus will be discarded once
-the program terminates.  
-The save feature will be implemented in `v2.1`, where the save data will be stored in the
-same directory where you put the `DinEz.jar` file.
+**A**: Data for restaurant information, orders, and menus are saved in the hard disk automatically after any command
+that changes the data. There is no need to save manually. The data files are stored in the `data` directory, which is
+located in the same directory where you put the `DinEz.jar` file.
 
 **Q**: How many menus can I have?
 
@@ -363,7 +413,7 @@ entered. A confirmation message is hence present for the user to verify that the
 
 ## Command Summary
 
-**Main interface commands**
+### Main interface commands
 * User help guide `help`
 * Check menus `view -menu <menu_id>` and `view -menu -all`
 * Create new menu `create menu` <<[Menu Interface](#menu-interface-sub-commands)>>
@@ -371,7 +421,10 @@ entered. A confirmation message is hence present for the user to verify that the
 * Check orders `view -order <order_id>` and `view -order -all`
 * Create new order `create order -menu <menu_id>`<<[Order Interface](#order-interface-sub-commands)>>
 * Get order receipt `receipt -order <order_id>`
-* Quit the program `bye` <br>
+* Check restaurant info `view restaurant`
+* Edit restaurant info `edit restaurant`
+* Check order statistics `view performance`<<[Statistics interface](#statistics-interface-sub-commands)>>
+* Quit the program `bye` 
 
 ### Menu interface sub-commands
   * Add items `add -item <item_name> -price <price_of_item>`
@@ -388,3 +441,10 @@ entered. A confirmation message is hence present for the user to verify that the
   * Complete current order `complete`
   * Abort current order `cancel`
 
+### Statistics interface sub-commands
+* Find bestselling items: `bestselling`
+* Get total orders count: `total orders`
+* Calculate Gross revenue: `revenue -gross`
+* Calculate Net revenue: `revenue -net`
+* Calculate profit: `view profit -cost <cost>`
+* Return to main interface: `quit`
