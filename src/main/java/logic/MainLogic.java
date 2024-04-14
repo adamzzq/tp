@@ -57,15 +57,13 @@ public class MainLogic {
             Storage.loadData(ordersList, menusList);
         }
 
+        initMenu(menusList);
         //initialization
         boolean isValidUser = false;
 
         while (!isValidUser) {
             isValidUser = initializeUser();
         }
-
-        // default menu
-        initMenu(menusList);
 
         MainHelpCommand.execute();
         boolean isExit = false;
@@ -144,7 +142,6 @@ public class MainLogic {
      * @return true if the input was valid, false otherwise
      */
     private static boolean initializeUser() {
-
         System.out.println("Enter user name: ");
 
         Scanner input = new Scanner(System.in);

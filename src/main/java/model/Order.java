@@ -235,22 +235,12 @@ public class Order implements ItemManager {
     }
 
     /**
-     * Returns a formatted and complete receipt
+     * Returns a formatted item list (middle part of the receipt)
      *
-     * @param discount the discount to be applied to the order in decimal form ranging from 0.1 to 0.99
-     *     in 2 decimal places, with 0 being an exception for no discount (e.g. 0.15 for 15% discount)
-     * @return the formatted receipt
-     * @throws IllegalArgumentException if the discount is not between 1% and 99%
+     * @param receiptBuilder the StringBuilder to append the item list to
      */
-    public String getReceipt(double discount) throws IllegalArgumentException {
-        if (discount != 0 && !(discount >= 0.01 && discount <= 0.99)) {
-            throw new NumberFormatException("Discount must be between 0 and 99 (inclusive)");
-        }
-
-        StringBuilder receiptBuilder = new StringBuilder();
+    private void getItemList(StringBuilder receiptBuilder) {
         Set<String> processedItems = new HashSet<>();
-
-        receiptBuilder = getReceiptHeader(receiptBuilder);
 
         for (MenuItem item : orderItemList) {
             String itemID = item.getID();
@@ -273,8 +263,27 @@ public class Order implements ItemManager {
                 processedItems.add(itemID);
             }
         }
+    }
 
+    /**
+     * Returns a formatted and complete receipt
+     *
+     * @param discount the discount to be applied to the order in decimal form ranging from 0.1 to 0.99
+     *     in 2 decimal places, with 0 being an exception for no discount (e.g. 0.15 for 15% discount)
+     * @return the formatted receipt
+     * @throws IllegalArgumentException if the discount is not between 1% and 99%
+     */
+    public String getReceipt(double discount) throws IllegalArgumentException {
+        if (discount != 0 && !(discount >= 0.01 && discount <= 0.99)) {
+            throw new NumberFormatException("Discount must be between 0 and 99 (inclusive)");
+        }
+
+        StringBuilder receiptBuilder = new StringBuilder();
+
+        receiptBuilder = getReceiptHeader(receiptBuilder);
+        getItemList(receiptBuilder);
         receiptBuilder = getReceiptSummary(receiptBuilder, discount);
+
         return receiptBuilder.toString();
     }
 
@@ -296,6 +305,25 @@ public class Order implements ItemManager {
     private char chooseFormat(double value) {
         // If the value is too large, use scientific notation
         return (String.valueOf((int) (value)).length()) > MAX_CHARGE_LENGTH ? SCIENTIFIC_NOTATION : FLOAT_NOTATION;
+    }
+
+    /**
+     * Returns a formatted item list with the current order
+     *
+     * @return the formatted table of items in the order
+     */
+    public String viewItems() {
+        StringBuilder receiptBuilder = new StringBuilder();
+
+        receiptBuilder.append(ROW_DELIMITER)
+                .append("|")
+                .append(centerAlign("Current Order"))
+                .append("|\n").append(ROW_DELIMITER);
+
+        getItemList(receiptBuilder);
+
+        receiptBuilder = getReceiptSummary(receiptBuilder, 0);
+        return receiptBuilder.toString();
     }
 
     public String getRestaurantName() {

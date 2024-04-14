@@ -45,7 +45,7 @@ public class MenuLogic {
             case DELETE_MENU_ITEM:
                 MenuDeleteCommand.execute(activeMenu, inputText);
                 break;
-            case VIEW_ITEM:
+            case VIEW_ITEMS:
                 System.out.println(activeMenu);
                 break;
             case COMPLETE:

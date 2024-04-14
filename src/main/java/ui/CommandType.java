@@ -20,7 +20,7 @@ public enum CommandType {
     //order commands
     ADD_ITEM("(?i)add\\s*-item\\s*(\\d+)\\s*-quantity\\s*(\\d+)"),
     DELETE_ITEM("(?i)delete\\s*-item\\s*(\\d+)\\s*-quantity\\s*(\\d+)"),
-    VIEW_ITEM("(?i)view item"),
+    VIEW_ITEMS("(?i)view items"),
     COMPLETE("(?i)complete\\s*(-discount\\s*(\\d+))?"),
     VIEW_MENU_ORDERLOGIC("(?i)view menu"),
 
