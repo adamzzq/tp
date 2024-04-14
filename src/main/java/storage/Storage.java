@@ -87,7 +87,11 @@ public class Storage {
             try {
                 String[] restaurantDetails = ordersScanner.nextLine().split(" \\| ");
                 String[] orderDetails = ordersScanner.nextLine().split(" \\| ");
-                Order order = new Order(restaurantDetails[0], restaurantDetails[1], orderDetails[1], orderDetails[2]);
+                String orderType = orderDetails[2];
+                if (!orderType.equals("Takeaway") && !orderType.equals("Dine in")) {
+                    throw new IllegalArgumentException("Invalid order type");
+                }
+                Order order = new Order(restaurantDetails[0], restaurantDetails[1], orderDetails[1], orderType);
                 order.setOrderID(orderDetails[0]);
                 while (ordersScanner.hasNext()) {
                     String line = ordersScanner.nextLine();
@@ -95,13 +99,18 @@ public class Storage {
                         break;
                     }
                     String[] itemDetails = line.split(" \\| ");
-                    MenuItem item = new MenuItem(itemDetails[0], itemDetails[1], Double.parseDouble(itemDetails[2]));
+                    int itemID = Integer.parseInt(itemDetails[0]);
+                    double itemPrice = Double.parseDouble(itemDetails[2]);
+                    if (itemID <= 0 || itemPrice <= 0) {
+                        throw new IllegalArgumentException("Negative number received");
+                    }
+                    MenuItem item = new MenuItem(itemDetails[0], itemDetails[1], itemPrice);
                     for (int i = 0; i < Integer.parseInt(itemDetails[3]); i++) {
                         order.add(item);
                     }
                 }
                 ordersList.add(order);
-            } catch (NumberFormatException | ArrayIndexOutOfBoundsException | NullPointerException e) {
+            } catch (IllegalArgumentException | ArrayIndexOutOfBoundsException | NullPointerException e) {
                 ordersScanner.close();
                 System.out.println("Order data corrupted, erasing data...");
                 ordersFile.delete();
@@ -134,9 +143,14 @@ public class Storage {
                 }
                 String[] itemDetails = line.split(" \\| ");
                 try {
-                    MenuItem item = new MenuItem(itemDetails[0], itemDetails[1], Double.parseDouble(itemDetails[2]));
+                    int itemID = Integer.parseInt(itemDetails[0]);
+                    double itemPrice = Double.parseDouble(itemDetails[2]);
+                    if (itemID <= 0 || itemPrice <= 0) {
+                        throw new IllegalArgumentException("Negative number received");
+                    }
+                    MenuItem item = new MenuItem(itemDetails[0], itemDetails[1], itemPrice);
                     menu.add(item);
-                } catch (NumberFormatException | ArrayIndexOutOfBoundsException | NullPointerException e) {
+                } catch (IllegalArgumentException | ArrayIndexOutOfBoundsException | NullPointerException e) {
                     menusScanner.close();
                     System.out.println("Menu data corrupted, erasing data...");
                     menusFile.delete();
