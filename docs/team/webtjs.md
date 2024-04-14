@@ -6,7 +6,7 @@
 
 DinEz is a Command Line Interface (CLI) application used for managing various aspects of restaurant management such as
 order taking, menu management, and order statistics. This app is designed for users who are familiar with CLI and can
-type quickly. It is written in Java and has about 2 kLoC.  
+type quickly. It is written in Java and has about 3 kLoC.  
 
 ### Summary of contributions
 
@@ -20,9 +20,13 @@ type quickly. It is written in Java and has about 2 kLoC.
   thereby shortening the code.
 
 * **New Feature**: <<*Menu Commands*>> Added edit menu command
-  * What it does:
-  * Justification
-  * Highlights:
+  * What it does: Allows users to make changes to a menu they have created such as adding new items or deleting existing
+    items.
+  * Justification: Restaurants occasionally revamp their menus due to various reasons such as experimenting new items,
+    price adjustments, and cutting out items that are not selling well.
+  * Highlights: 
+  * Credits: Modifying the menu (e.g. adding items, deleting items etc.) reuses the code from `MenuLogic`, which was
+    mostly written by Zhengwinter and modified by all other team members.
 
 * **New Feature**: Added storage feature for restaurant details, menus, and orders
   * What it does: Allows users to store their restaurant details (restaurant name & address), menus they create, and
@@ -33,15 +37,24 @@ type quickly. It is written in Java and has about 2 kLoC.
   * Highlights: This enhancement required careful error handling due to the need to read and write to files.
 
 * **Enhancements to existing features**:
+  * Added more descriptive error messages for invalid commands (Pull requests
+    [#132](https://github.com/AY2324S2-CS2113-F14-2/tp/pull/132), [#135](https://github.com/AY2324S2-CS2113-F14-2/tp/pull/135))
+  * Feature to revert changes made to menu when editing a menu via a `cancel` command
+    (Pull request [#137](https://github.com/AY2324S2-CS2113-F14-2/tp/pull/137))
 
 * **Documentation**:
   * User Guide:
     * Added documentation for Introduction, Quick Start, Features, and Command Summary
   * Developer Guide:
-    * Added implementation details of the `OrderLogic`.
+    * Fix issues with Developer Guide raised by TA
+    * Added implementation details and sequence diagram for `OrderLogic`.
+    * Added manual testing instructions for viewing created menus and orders.
+    * Added manual testing instructions for saving data, loading data, and corrupting data.
 
 * **Community**:
   * Assisted in resolving forum issues(e.g. [forum issue #38](https://github.com/nus-cs2113-AY2324S2/forum/issues/38#issuecomment-2049258461))
+  * PRs reviewed (with non-trivial review comments): [#164](https://github.com/AY2324S2-CS2113-F14-2/tp/pull/164),
+    [#168](https://github.com/AY2324S2-CS2113-F14-2/tp/pull/168)
 
 * **Project Management**: 
   * Managed release `v2.0` on GitHub
