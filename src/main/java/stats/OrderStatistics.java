@@ -1,3 +1,5 @@
+package stats;
+
 import model.Item;
 import model.MenuItem;
 import model.Order;
@@ -14,7 +16,7 @@ public class OrderStatistics {
 
     public OrderStatistics(ArrayList<Order> orders) {
         this.orders = orders;
-        this.grossSales = getGrossSales();
+        this.grossSales = getGrossRevenue();
 
         for (Order order : orders) {
             itemList.addAll(order.getOrderItemList());
@@ -45,7 +47,7 @@ public class OrderStatistics {
         itemFrequencies.sort((item1, item2) -> item2.getSecond() - item1.getSecond());
     }
 
-    public List<Item> getBestSellingItem() {
+    public List<Item> getBestSellingItems() {
         sortFrequenciesDescending();
         List<Item> bestSellingItems = new ArrayList<>();
 
@@ -65,7 +67,7 @@ public class OrderStatistics {
         return bestSellingItems;
     }
 
-    private double getGrossSales() {
+    public double getGrossRevenue() {
         double totalSales = 0.0;
         for (Order order : orders) {
             totalSales += order.getTotalPrice();
@@ -73,11 +75,15 @@ public class OrderStatistics {
         return totalSales;
     }
 
-    public double getNetSales() {
+    public double getNetRevenue() {
         return grossSales / (1 + 0.09);
     }
 
     public double getProfit(double cost) {
-        return getNetSales() - cost;
+        return getNetRevenue() - cost;
+    }
+
+    public int getOrderCount() {
+        return orders.size();
     }
 }

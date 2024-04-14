@@ -39,6 +39,7 @@ public class MainCommandTest {
                 "\tview -menu -all: Shows a brief summary of all the created menus.\n" +
                 "\tedit restaurant: Modify restaurant name and address.\n" +
                 "\tview restaurant: Shows the restaurant name and address currently in use.\n" +
+                "\tview performance: Enters the order statistics interface.\n" +
                 "\tbye: Quits the program.\n";
 
         assertEquals(expectedOutput, outputContent.toString().replace("\r", ""));
