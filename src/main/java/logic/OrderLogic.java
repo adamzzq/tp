@@ -44,7 +44,7 @@ public class OrderLogic {
             }
             switch (commandType) {
             case ADD_ITEM:
-                newOrder = OrderAddCommand.execute(newOrder, inputText, menu);
+                OrderAddCommand.execute(newOrder, inputText, menu);
                 break;
             case DELETE_ITEM:
                 newOrder = OrderDeleteCommand.execute(newOrder, inputText, menu);
@@ -59,7 +59,7 @@ public class OrderLogic {
                 OrderHelpCommand.execute();
                 break;
             case COMPLETE:
-                isComplete = OrderCompleteCommand.execute(newOrder, input);
+                isComplete = OrderCompleteCommand.execute(newOrder, input, inputText);
                 break;
             case EXIT:
                 OrderExitCommand.execute(newOrder);

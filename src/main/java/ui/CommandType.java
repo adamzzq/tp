@@ -21,7 +21,7 @@ public enum CommandType {
     ADD_ITEM("(?i)add\\s*-item\\s*(\\d+)\\s*-quantity\\s*(\\d+)"),
     DELETE_ITEM("(?i)delete\\s*-item\\s*(\\d+)\\s*-quantity\\s*(\\d+)"),
     VIEW_ITEM("(?i)view item"),
-    COMPLETE("(?i)complete\\s*"),
+    COMPLETE("(?i)complete\\s*(-discount\\s*(\\d+))?"),
     VIEW_MENU_ORDERLOGIC("(?i)view menu"),
 
     EXIT("(?i)cancel"),

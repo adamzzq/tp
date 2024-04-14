@@ -64,13 +64,8 @@ public class MainLogic {
             isValidUser = initializeUser();
         }
 
-
-
-        //testing
+        // default menu
         initMenu(menusList);
-        System.out.println("current menu ID: " + menusList.get(0).getId());
-        testOrderAddAndRemove(ordersList);
-        testOrderAddAndRemove(ordersList);
 
         MainHelpCommand.execute();
         boolean isExit = false;
@@ -176,7 +171,7 @@ public class MainLogic {
         MenuItem dish09 = new MenuItem("9", "Hotplate beef set", 7.00);
         MenuItem dish10 = new MenuItem("10", "Kimchi noodles", 4.00);
 
-        Menu menuV1 = new Menu("01");
+        Menu menuV1 = new Menu("0");
         menuV1.add(dish01);
         menuV1.add(dish02);
         menuV1.add(dish03);
@@ -189,19 +184,5 @@ public class MainLogic {
         menuV1.add(dish10);
         menusList.add(menuV1);
 
-    }
-
-    public static void testOrderAddAndRemove(ArrayList<Order> ordersList) {
-        MenuItem dish01 = new MenuItem("D01", "Chicken Rice", 3.50);
-        MenuItem dish02 = new MenuItem("D02", "Nasi Lemak", 3.00);
-        MenuItem dish04 = new MenuItem("D04", "Mee Siam", 3.50);
-        MenuItem dish05 = new MenuItem("D04", "Mee Siam", 3.50);
-        Order order = new Order("Happy Hawker", "Street 123", "Tom",
-                "Dine in");
-        order.add(dish01);
-        order.add(dish02);
-        order.add(dish04);
-        order.add(dish05);
-        ordersList.add(order);
     }
 }

@@ -2,9 +2,9 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2024-04-12T15:03:10.174139800Z</date>
-  <millis>1712934190174</millis>
-  <nanos>139800</nanos>
+  <date>2024-04-14T13:17:28.306638200Z</date>
+  <millis>1713100648306</millis>
+  <nanos>638200</nanos>
   <sequence>0</sequence>
   <logger>OrderAddCommandLogger</logger>
   <level>INFO</level>
@@ -14,9 +14,9 @@
   <message>Adding new item to order</message>
 </record>
 <record>
-  <date>2024-04-12T15:03:10.178407700Z</date>
-  <millis>1712934190178</millis>
-  <nanos>407700</nanos>
+  <date>2024-04-14T13:17:28.310517400Z</date>
+  <millis>1713100648310</millis>
+  <nanos>517400</nanos>
   <sequence>1</sequence>
   <logger>OrderAddCommandLogger</logger>
   <level>INFO</level>
@@ -25,4 +25,3 @@
   <thread>1</thread>
   <message>Item successfully added to order</message>
 </record>
-</log>
