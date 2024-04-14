@@ -77,7 +77,7 @@ public class Menu implements ItemManager {
     }
 
     public String getMenuSummary() {
-        return this.menuID + " menu with " + this.menuItemList.size() + " items";
+        return String.format("Menu ID: %s, Number of items: %d", this.menuID, this.menuItemList.size());
     }
 
     @Override

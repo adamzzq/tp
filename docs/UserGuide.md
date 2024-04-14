@@ -452,13 +452,8 @@ former includes costs of production, but the latter excludes it.
   * Add items `add -item <item_id> -quantity <quantity_of_item>`
   * Delete items `delete -item <item_id> -quantity <quantity_of_item>`
   * Check menu items `view menu`
-<<<<<<< HEAD
-  * Check order items `view items`
-  * Complete current order `complete`
-=======
   * Check order items `view item`
   * Complete current order `complete` or `complete -discount <discount>`
->>>>>>> 418356633692f2ca52ee014c64616ad27c0373bb
   * Abort current order `cancel`
 
 ### Statistics interface sub-commands

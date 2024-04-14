@@ -29,8 +29,9 @@ import java.util.Optional;
 import java.util.Scanner;
 
 public class MainLogic {
-    private static String userName;
     private static final int MAX_NAME_LENGTH = 50;
+    private static String userName;
+
     public static void main(String[] args) {
         // Set default locale to US to ensure consistent formatting
         Locale.setDefault(Locale.US);
