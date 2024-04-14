@@ -44,6 +44,7 @@ public class MainLogic {
         ArrayList<Menu> menusList = new ArrayList<>();
 
         boolean isNewRestaurant = true;
+
         try {
             isNewRestaurant = Storage.checkNewRestaurant(restaurant);
         } catch (IOException | SecurityException e) {
@@ -58,8 +59,6 @@ public class MainLogic {
             Storage.loadData(ordersList, menusList);
         }
 
-        initMenu(menusList);
-        //initialization
         boolean isValidUser = false;
 
         while (!isValidUser) {

@@ -13,6 +13,7 @@
 !define MODEL_COLOR #brown
 !define PARSER_COLOR #orange
 !define USER_COLOR #000000
+!define ORDER_STATS_COLOR #FF66CC
 
 
 skinparam Package {
