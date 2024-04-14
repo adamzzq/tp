@@ -49,7 +49,7 @@ public class OrderLogic {
             case DELETE_ITEM:
                 newOrder = OrderDeleteCommand.execute(newOrder, inputText, menu);
                 break;
-            case VIEW_ITEM:
+            case VIEW_ITEMS:
                 OrderViewItemsCommand.execute(newOrder);
                 break;
             case VIEW_MENU_ORDERLOGIC:

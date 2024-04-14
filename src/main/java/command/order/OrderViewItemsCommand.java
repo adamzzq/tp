@@ -9,9 +9,10 @@ public class OrderViewItemsCommand implements OrderCommand {
      * @param order     the order to be listed
      */
     public static void execute(Order order) {
-        System.out.println("Order: " + order.toString());
         if (order.getSize() == 0) {
             System.out.println("Order is empty.");
+        } else {
+            System.out.println(order.viewItems());
         }
     }
 }

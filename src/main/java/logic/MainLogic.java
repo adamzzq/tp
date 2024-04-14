@@ -29,6 +29,7 @@ import java.util.Optional;
 import java.util.Scanner;
 
 public class MainLogic {
+    private static final int MAX_NAME_LENGTH = 50;
     private static String userName;
 
     public static void main(String[] args) {
@@ -57,15 +58,13 @@ public class MainLogic {
             Storage.loadData(ordersList, menusList);
         }
 
+        initMenu(menusList);
         //initialization
         boolean isValidUser = false;
 
         while (!isValidUser) {
             isValidUser = initializeUser();
         }
-
-        // default menu
-        initMenu(menusList);
 
         MainHelpCommand.execute();
         boolean isExit = false;
@@ -144,11 +143,15 @@ public class MainLogic {
      * @return true if the input was valid, false otherwise
      */
     private static boolean initializeUser() {
-
         System.out.println("Enter user name: ");
 
         Scanner input = new Scanner(System.in);
         String inputString= input.nextLine();
+        int length = inputString.length();
+        if (length > MAX_NAME_LENGTH) {
+            System.out.println("Name is too long! Please enter a name with less than 50 characters.");
+            return false;
+        }
 
         if (inputString.isBlank() || inputString.isEmpty()) {
             System.out.println("Input cannot be empty!");

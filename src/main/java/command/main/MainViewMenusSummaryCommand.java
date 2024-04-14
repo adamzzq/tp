@@ -15,7 +15,7 @@ public class MainViewMenusSummaryCommand {
      */
     public static void execute(ArrayList<Menu> menuList) {
         if (menuList.isEmpty()){
-            System.out.println("No orders available");
+            System.out.println("No menus available");
             return;
         }
         menuList.forEach(x -> System.out.println(x.getMenuSummary()));

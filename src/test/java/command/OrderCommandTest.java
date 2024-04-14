@@ -1,7 +1,13 @@
 package command;
 
 import command.menu.MenuAddCommand;
-import command.order.*;
+import command.order.OrderAddCommand;
+import command.order.OrderViewItemsCommand;
+import command.order.OrderExitCommand;
+import command.order.OrderDeleteCommand;
+import command.order.OrderCompleteCommand;
+import command.order.OrderHelpCommand;
+import command.order.OrderViewMenuCommand;
 import model.Menu;
 import model.Order;
 import org.junit.jupiter.api.Test;
@@ -312,7 +318,7 @@ public class OrderCommandTest {
         ByteArrayOutputStream outputContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputContent));
         OrderViewItemsCommand.execute(newOrder);
-        String expectedOutput = "Order: " + newOrder.getId() + "\n\n" + "Order is empty.\n";
+        String expectedOutput = "Order is empty.\n";
         assertEquals(expectedOutput,outputContent.toString().replace("\r",""));
     }
 
@@ -329,7 +335,45 @@ public class OrderCommandTest {
         ByteArrayOutputStream outputContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputContent));
         OrderViewItemsCommand.execute(newOrder);
-        String expectedOutput = "Order: " + newOrder.getId() + "\n" + "1. 2 Sundae $3.00\n";
+        String expectedOutput = "+-----------------------------------------------------+\n" +
+                "|                    Current Order                    |\n" +
+                "+-----------------------------------------------------+\n" +
+                "| 2        | Sundae          | $3.00       | 2        |\n" +
+                "+-----------------------------------------------------+\n" +
+                "| Subtotal:                                     $6.00 |\n" +
+                "+-----------------------------------------------------+\n" +
+                "| Service Charge (10.0%):                       $0.60 |\n" +
+                "| GST (9.0%):                                   $0.59 |\n" +
+                "| Grand Total:                                  $7.19 |\n" +
+                "+-----------------------------------------------------+\n" +
+                "| Cashier: mr abc                                     |\n" +
+                "+-----------------------------------------------------+\n\n" ;
+        assertEquals(expectedOutput,outputContent.toString().replace("\r",""));
+    }
+
+    @Test
+    public void testOrderViewMenu() {
+        Menu newMenu = new Menu("1");
+        MenuAddCommand.execute(newMenu,"add -item Ice Cream -price 2.00");
+        MenuAddCommand.execute(newMenu,"add -item Sundae -price 3.00");
+        MenuAddCommand.execute(newMenu,"add -item Frappe -price 4.00");
+        MenuAddCommand.execute(newMenu,"add -item Fried Chicken -price 5.00");
+
+        ByteArrayOutputStream outputContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputContent));
+
+        String expectedOutput = "+------------------------------------------+\n" +
+                                "|                   MENU                   |\n" +
+                                "+------+-----------------------------------+\n" +
+                                "| ID   |         Name          | Price     |\n" +
+                                "+------+-----------------------------------+\n" +
+                                "| 1    | Ice Cream             | $2.00     |\n" +
+                                "| 2    | Sundae                | $3.00     |\n" +
+                                "| 3    | Frappe                | $4.00     |\n" +
+                                "| 4    | Fried Chicken         | $5.00     |\n" +
+                                "+------+-----------------------------------+\n\n";
+
+        OrderViewMenuCommand.execute(newMenu);
         assertEquals(expectedOutput,outputContent.toString().replace("\r",""));
     }
 

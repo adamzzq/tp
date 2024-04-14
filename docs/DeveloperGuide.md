@@ -7,7 +7,7 @@
 ## Design
 
 ### Architecture
-![Architecture](images\Architecture.png)
+![Architecture](images/Architecture.png)
 
 The **Architecture diagram** given above shows the high-level design of the application.
 
@@ -20,9 +20,9 @@ Given below is a quick overview of main components and how they interact with ea
 
 The app's work is done by the following components:
 
-* [**`MainLogic`**](#sublogic-component): The main logic command executor.
-* [**`SubLogic`**](#sublogic-component): The sub logics(i.e. **`MenuLogic`**, **`OrderLogic`**) command executor.
-* [**`Parser`**](#parser-component): The parser that parses user input to command.
+* [**`UI`**](#UI-component): The parser that parses user input to command.
+* [**`MainLogic`**](#logic-component): The main logic command executor.
+* [**`SubLogic`**](#logic-component): The sub logics(i.e. **`MenuLogic`**, **`OrderLogic`**) command executor.
 * [**`Model`**](#model-component): The data model that stores the data.
 * [**`Command`**](#command-component): Represents a command that the user can execute.
 * [**`Storage`**](#storage-component): Reads data from, and writes data.
@@ -32,7 +32,7 @@ The app's work is done by the following components:
 The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues 
 the command `create order -menu 1`, `add -item 1` and `complete`.
 
-![Sequence Diagram](images\ArchitectureSequenceDiagram.png)
+![Sequence Diagram](images/ArchitectureSequenceDiagram.png ) 
 
 ### UI Component
 The UI component is responsible for parsing user input into commands that can be executed by the logic component.
@@ -74,8 +74,6 @@ represent food items on the menu.
 * [**`MenuItem`**](#model-component): A class inheriting item, and represents a food item on the menu. <br><br />
 * [**`Order`**](#model-component): A class representing an order to be entered into the system to be kept track of. Each 
   order has a unique ID generated from the time of order.<br><br />
-* [**`SetMenu`**](#model-component): An enumeration representing the different types of set menus available, examples of
-  which includes *breakfast*, *lunch*, *dinner*.
 
 The *Class Diagram* below shows how the model components interact with each other, including interactions such as 
 dependencies, associations and inheritance.
@@ -475,12 +473,12 @@ folder. The user should see the following:
 
 ```
 [Main interface] >>> create menu
-Initializing menu 02...
+Initializing menu 2...
 Here are the list of available commands:
     help: Shows all the commands that can be used.
     ...
     cancel: Aborts the current menu and returns to the main menu.
-[Menu: 02] >>> add -item Beef noodles -price 6
+[Menu: 2] >>> add -item Beef noodles -price 6
 Item successfully added to menu!
 +------------------------------------------+
 |                   MENU                   |
@@ -490,7 +488,7 @@ Item successfully added to menu!
 | 1    | Beef noodles          | $6.00     |
 +------+-----------------------------------+
 
-[Menu: 02] >>> add -item Prawn noodles -price 5
+[Menu: 2] >>> add -item Prawn noodles -price 5
 Item successfully added to menu!
 +------------------------------------------+
 |                   MENU                   |
@@ -501,8 +499,8 @@ Item successfully added to menu!
 | 2    | Prawn noodles         | $5.00     |
 +------+-----------------------------------+
 
-[Menu: 02] >>> complete
-Menu 02 has been saved!
+[Menu: 2] >>> complete
+Menu 2 has been saved!
 [Main interface] >>> 
 ```
 

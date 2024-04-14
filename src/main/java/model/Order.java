@@ -15,7 +15,7 @@ public class Order implements ItemManager {
     private static final String ROW_DELIMITER = "+-----------------------------------------------------+\n";
     private static final String TITLE = "RECEIPT";
     private static final String HEADERS = "| Item ID  | Name            | Unit Price  | Quantity |\n";
-    private static final int NAME_MAX_LENGTH = 15; // Default length for Name column header
+    private static final int MAX_ITEM_LENGTH = 15; // Default length for Name column header
     private static final String SHORT_ROW_START = "| %-8s | %-15s | $%-10.2";
     private static final String SHORT_ROW_END = " | %-9d|\n";
     private static final String LONG_ROW_FORMAT = "|          | %-15s |"
@@ -29,12 +29,14 @@ public class Order implements ItemManager {
     private static final int ORDER_ID_OFFSET = 14;
     private static final int MAX_CHARGE_LENGTH = 6;
     private static final int CHARGE_VALUE_OFFSET = 3;
+    private static final int MAX_TITLE_LENGTH = 50;
     private String orderID;
     private final String restaurantName;
     private final String restaurantAddress;
     private final String orderType;
     private final String userName;
     private final ArrayList<MenuItem> orderItemList = new ArrayList<>();
+    private double discount = 0;
 
     public Order(String restaurantName, String restaurantAddress, String userName, String orderType) {
         this.orderID = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
@@ -92,19 +94,16 @@ public class Order implements ItemManager {
      * @return the formatted receipt header
      */
     private StringBuilder getReceiptHeader(StringBuilder headerBuilder) {
-        return headerBuilder.append(ROW_DELIMITER)
+        headerBuilder.append(ROW_DELIMITER)
                 .append("|")
                 .append(centerAlign(TITLE))
                 .append("|\n")
-                .append(ROW_DELIMITER)
+                .append(ROW_DELIMITER);
 
-                .append("|")
-                .append(centerAlign(restaurantName))
-                .append("|\n")
+        wrapLongLine(restaurantName, headerBuilder);
+        wrapLongLine(restaurantAddress, headerBuilder);
 
-                .append("|")
-                .append(centerAlign(restaurantAddress))
-                .append("|\n")
+        return headerBuilder
                 .append("|")
                 .append(centerAlign(""))
                 .append("|\n")
@@ -122,6 +121,17 @@ public class Order implements ItemManager {
                 .append(ROW_DELIMITER)
                 .append(HEADERS)
                 .append(ROW_DELIMITER);
+    }
+
+    private void wrapLongLine(String longName, StringBuilder headerBuilder) {
+        for (int i = 0; i < longName.length(); i += MAX_TITLE_LENGTH) {
+            String partialName = longName
+                    .substring(i, Math.min(i + MAX_TITLE_LENGTH, longName.length()));
+
+            headerBuilder.append("|")
+                    .append(centerAlign(partialName))
+                    .append("|\n");
+        }
     }
 
     private String centerAlign(String word) {
@@ -235,6 +245,37 @@ public class Order implements ItemManager {
     }
 
     /**
+     * Returns a formatted item list (middle part of the receipt)
+     *
+     * @param receiptBuilder the StringBuilder to append the item list to
+     */
+    private void getItemList(StringBuilder receiptBuilder) {
+        Set<String> processedItems = new HashSet<>();
+
+        for (MenuItem item : orderItemList) {
+            String itemID = item.getID();
+
+            if (!processedItems.contains(itemID)) {
+                int quantity = getItemCount(itemID);
+                String shortName = item.getName().length() > MAX_ITEM_LENGTH
+                        ? item.getName().substring(0, MAX_ITEM_LENGTH) : item.getName();
+                String shortNameFormat = SHORT_ROW_START + chooseFormat(item.getPrice()) + SHORT_ROW_END;
+
+                receiptBuilder.append(String.format(shortNameFormat, itemID, shortName, item.getPrice(), quantity));
+
+                // iterate through the rest part of the name, keep the max length of 15
+                for (int i = MAX_ITEM_LENGTH; i < item.getName().length(); i += MAX_ITEM_LENGTH) {
+                    String partialName = item.getName()
+                            .substring(i, Math.min(i + MAX_ITEM_LENGTH, item.getName().length()));
+
+                    receiptBuilder.append(String.format(LONG_ROW_FORMAT, partialName));
+                }
+                processedItems.add(itemID);
+            }
+        }
+    }
+
+    /**
      * Returns a formatted and complete receipt
      *
      * @param discount the discount to be applied to the order in decimal form ranging from 0.1 to 0.99
@@ -246,35 +287,13 @@ public class Order implements ItemManager {
         if (discount != 0 && !(discount >= 0.01 && discount <= 0.99)) {
             throw new NumberFormatException("Discount must be between 0 and 99 (inclusive)");
         }
-
+        setDiscount(discount);
         StringBuilder receiptBuilder = new StringBuilder();
-        Set<String> processedItems = new HashSet<>();
 
         receiptBuilder = getReceiptHeader(receiptBuilder);
-
-        for (MenuItem item : orderItemList) {
-            String itemID = item.getID();
-
-            if (!processedItems.contains(itemID)) {
-                int quantity = getItemCount(itemID);
-                String shortName = item.getName().length() > NAME_MAX_LENGTH
-                        ? item.getName().substring(0, NAME_MAX_LENGTH) : item.getName();
-                String shortNameFormat = SHORT_ROW_START + chooseFormat(item.getPrice()) + SHORT_ROW_END;
-
-                receiptBuilder.append(String.format(shortNameFormat, itemID, shortName, item.getPrice(), quantity));
-
-                // iterate through the rest part of the name, keep the max length of 15
-                for (int i = NAME_MAX_LENGTH; i < item.getName().length(); i += NAME_MAX_LENGTH) {
-                    String partialName = item.getName()
-                            .substring(i, Math.min(i + NAME_MAX_LENGTH, item.getName().length()));
-
-                    receiptBuilder.append(String.format(LONG_ROW_FORMAT, partialName));
-                }
-                processedItems.add(itemID);
-            }
-        }
-
+        getItemList(receiptBuilder);
         receiptBuilder = getReceiptSummary(receiptBuilder, discount);
+
         return receiptBuilder.toString();
     }
 
@@ -296,6 +315,25 @@ public class Order implements ItemManager {
     private char chooseFormat(double value) {
         // If the value is too large, use scientific notation
         return (String.valueOf((int) (value)).length()) > MAX_CHARGE_LENGTH ? SCIENTIFIC_NOTATION : FLOAT_NOTATION;
+    }
+
+    /**
+     * Returns a formatted item list with the current order
+     *
+     * @return the formatted table of items in the order
+     */
+    public String viewItems() {
+        StringBuilder receiptBuilder = new StringBuilder();
+
+        receiptBuilder.append(ROW_DELIMITER)
+                .append("|")
+                .append(centerAlign("Current Order"))
+                .append("|\n").append(ROW_DELIMITER);
+
+        getItemList(receiptBuilder);
+
+        receiptBuilder = getReceiptSummary(receiptBuilder, 0);
+        return receiptBuilder.toString();
     }
 
     public String getRestaurantName() {
@@ -328,7 +366,11 @@ public class Order implements ItemManager {
      * @return the orderID and the total price of the order
      */
     public String getOrderSummary() {
-        return this.orderID + " {Total Price: " + this.getTotalPrice() + "}";
+        return this.orderID + " {Total Price: " + this.getTotalPrice() * (1 - this.discount) + "}";
+    }
+
+    private void setDiscount(double discount) {
+        this.discount = discount;
     }
 
     @Override
