@@ -28,7 +28,7 @@ traditional GUI.
   * [Menu help guide: `help`](#menu-help-guide-help)
   * [Add items: `add`](#add-items-add)
   * [Delete items: `delete`](#delete-items-delete)
-  * [Check menu items: `view item`](#check-menu-items-view-item)
+  * [Check menu items: `view items`](#check-menu-items-view-items)
   * [Complete current menu: `complete`](#complete-current-menu-complete)
   * [Abort current menu: `cancel`](#abort-current-menu-cancel)
 * [Features in Order Interface](#features-in-order-interface)
@@ -36,7 +36,7 @@ traditional GUI.
   * [Add items: `add`](#add-items-add-1)
   * [Delete items: `delete`](#delete-items-delete-1)
   * [Check menu items: `view menu`](#check-menu-items-view-menu)
-  * [Check order items: `view item`](#check-order-items-view-item)
+  * [Check order items: `view items`](#check-order-items-view-item)
   * [Complete current order: `complete`](#complete-current-order-complete)
   * [Abort current order: `cancel`](#abort-current-order-cancel)
 * [Features in Statistics interface](#features-in-statistics-interface)
@@ -92,6 +92,12 @@ traditional GUI.
 - `view -menu -all`: Shows a brief summary of all the created menus
 - `bye`: Exits from the program
 
+<<<<<<< HEAD
+8. Do note that by default, no menu is present and a menu has to be created before the items on the menu
+   can be added to an order.
+
+=======
+>>>>>>> 418356633692f2ca52ee014c64616ad27c0373bb
 9. Refer to the [Features](#features) below for details of each command
 
 
@@ -102,17 +108,17 @@ traditional GUI.
 
 
 Accepted formats examples:<br>
-`create order -menu 01`
-`create order-menu01`
-`createorder-menu01`
-`CREATE ORDER -MENU 01`
-`Createorder -menu 01`(Non-exhaustive list)
+`create order -menu 1`
+`create order-menu1`
+`createorder-menu1`
+`CREATE ORDER -MENU 1`
+`Createorder -menu 1`(Non-exhaustive list)
 
 
 ## Features
 
 ### User help guide: `help`
-Shows all the commands that can be used.
+Shows all the commands that can be used, including their format and their expected purpose.
 
 Format: `help`
 
@@ -133,9 +139,12 @@ Format: `edit -menu <menu_id>`
 
 Example of usage:
 
-`edit -menu 01`
+`edit -menu 1`
 
 ### Create new order: `create order`
+
+*NOTE: A menu has to be present before an order can be created. For a first-time user, a menu should be created first.*
+
 Creates a new order with a specified menu and goes to the order interface to perform sub-commands. (Refer to
 [Features for Order interface](#features-in-order-interface) for the sub-commands)
 
@@ -146,10 +155,11 @@ Format: `create order -menu <menu_id>`
 
 Example of usage:
 
-`create order -menu 01`
+`create order -menu 1`
+`create order -menu 23`
 
 ### Check orders: `view order`
-Shows all the contents of a specified order, or shows the brief summary of all orders.
+Shows all the contents of a specified order, or shows a brief summary of all orders.
 
 Format: `view -order <order_id>` and `view -order -all`
 
@@ -179,14 +189,14 @@ Shows all the contents of a specified menu, or shows the brief summary of all me
 
 Format: `view -menu <menu_id>` and `view -menu -all`
 
-* The `<menu_id>` is a unique number representing the menu. This ID can be obtained from the
-  `view -menu -all` command.
+* The `<menu_id>` is a unique number representing a selected menu. 
+This ID can be obtained from the `view -menu -all` command.
 
 Example of usage:
 
 `view -menu -all`
 
-`view -menu 02`
+`view -menu 2`
 
 ### Check restaurant info: `view restaurant`
 Shows the restaurant name and address currently in use.
@@ -251,17 +261,17 @@ Deletes an item of a specified ID from the current menu.
 
 Format: `delete -item <item_id>`
 
-* The `<item_id>` is a number representing the menu item. You can obtain this ID with the help of the `view item`
+* The `<item_id>` is a number representing the menu item. You can obtain this ID with the help of the `view items`
   command.
 
 Example of usage:
 
 `delete -item 1`
 
-### Check menu items: `view item`
+### Check menu items: `view items`
 Shows all the items in the current menu.
 
-Format: `view item`
+Format: `view items`
 
 ### Complete current menu: `complete`
 Marks the current menu as completed and returns to the main interface.
@@ -313,10 +323,10 @@ Shows the menu used by the current order.
 
 Format: `view menu`
 
-### Check order items: `view item`
+### Check order items: `view items`
 Shows all the items in the current order.
 
-Format: `view item`
+Format: `view items`
 
 ### Complete current order: `complete`
 Marks the current order as completed and returns to the main interface.
@@ -348,7 +358,7 @@ Format: `cancel`
 ### Find bestselling items: `bestselling`
 Shows the best-selling item(s) in the restaurant of all time.
 The best-selling item is defined as the item with the highest quantity sold. If there are multiple items with the same
-highest quantity sold, the top 3 items will be displayed.
+highest quantity sold, up to 3 of the best-selling items will be displayed (based on the natural order of their Id).
 
 Format: `bestselling`
 
@@ -368,7 +378,10 @@ Shows the net revenue of the restaurant. (i.e. total revenue after deducting tax
 Format: `revenue -net`
 
 ### Calculate profit: `view profit cost <cost>`
-Shows the profit based on the cost of the items in the restaurant. (i.e. total revenue after deducting costs and taxes)
+Shows the profit based on the operating costs in the restaurant as provided by the user.
+(i.e. total revenue after deducting costs and taxes) <br><br>
+The cost here is intended as the total cost of operations, which can include
+production, rental and supply costs.
 
 Format: `view profit -cost <cost>`
 
@@ -377,6 +390,7 @@ Format: `view profit -cost <cost>`
 
 Example of usage:
 `view profit -cost 150`
+`view profit -cost 20000`
 
 ### Return to main interface: `quit`
 Returns to the main interface from the statistics interface.
@@ -435,7 +449,7 @@ former includes costs of production, but the latter excludes it.
 ### Menu interface sub-commands
   * Add items `add -item <item_name> -price <price_of_item>`
   * Delete items `delete -item <item_id>`
-  * Check menu items `view item`
+  * Check menu items `view items`
   * Complete current menu `complete`
   * Abort current menu `cancel` <br>
 
@@ -443,8 +457,13 @@ former includes costs of production, but the latter excludes it.
   * Add items `add -item <item_id> -quantity <quantity_of_item>`
   * Delete items `delete -item <item_id> -quantity <quantity_of_item>`
   * Check menu items `view menu`
+<<<<<<< HEAD
+  * Check order items `view items`
+  * Complete current order `complete`
+=======
   * Check order items `view item`
   * Complete current order `complete` or `complete -discount <discount>`
+>>>>>>> 418356633692f2ca52ee014c64616ad27c0373bb
   * Abort current order `cancel`
 
 ### Statistics interface sub-commands
