@@ -31,7 +31,7 @@ public class Menu implements ItemManager {
     }
 
     public Optional<MenuItem> getItemByName(String itemName) {
-        return menuItemList.stream().filter(x -> x.getName().equals(itemName)).findAny();
+        return menuItemList.stream().filter(x -> x.getName().compareToIgnoreCase(itemName) == 0).findAny();
     }
 
     public ArrayList<MenuItem> getMenuItemList() {

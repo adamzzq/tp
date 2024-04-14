@@ -45,7 +45,10 @@ public class Order implements ItemManager {
     }
 
     @Override
-    public boolean add(MenuItem item) {
+    public boolean add(MenuItem item) throws IllegalArgumentException {
+        if (getItemCount(item.getID()) >= 9999) {
+            throw new IllegalArgumentException("The quantity of the item has reached the maximum of 9999");
+        }
         this.orderItemList.add(item);
         return true;
     }
