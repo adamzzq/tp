@@ -31,7 +31,7 @@ public class OrderCommandTest {
                 "\tdelete -item <item_id> -quantity <quantity_of_item>: "
                 + "Deletes the specified quantity \n\t\tof a particular menu item from the order.\n"+
                 "\tview menu: Shows the menu of the current order.\n" +
-                "\tview item: Shows the items in the current order.\n" +
+                "\tview items: Shows the items in the current order.\n" +
                 "\tcomplete (-discount <percentage>): Completes the order and returns to the main menu.\n"+
                 "\tcancel: Aborts the current order and returns to the main menu.\n";
 
