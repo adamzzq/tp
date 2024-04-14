@@ -1,0 +1,73 @@
+@startuml
+!include style.puml
+
+Actor User as user USER_COLOR
+
+Participant ":OrderLogic" as subLogic SUB_LOGIC_COLOR
+Participant ":Parser" as parser PARSER_COLOR
+Participant ":Command" as command COMMAND_COLOR
+Participant ":Menu" as menu MENU_COLOR
+Participant ":Order" as order ORDER_COLOR
+
+
+activate subLogic SUB_LOGIC_COLOR
+user -> subLogic : "add -item <item_id> -quantity <quantity_of_item>"
+subLogic -> parser : analyzeInput(inputText)
+activate parser PARSER_COLOR
+parser --> subLogic : return command
+deactivate parser
+subLogic -> command : execute(command)
+activate command COMMAND_COLOR
+command -> menu : getItemByID(itemID)
+activate menu MENU_COLOR
+menu --> command : item
+deactivate menu
+command -> order : add(item)
+activate order ORDER_COLOR
+order --> command
+deactivate order
+command --> subLogic
+deactivate command
+
+user -> subLogic : "view item"
+subLogic -> parser : analyzeInput(inputText)
+activate parser PARSER_COLOR
+parser --> subLogic : return command
+deactivate parser
+subLogic -> command : execute(command)
+activate command COMMAND_COLOR
+command -> order : toString()
+activate order ORDER_COLOR
+order --> command : return string representation of order
+deactivate order
+command --> subLogic
+deactivate command
+
+user -> subLogic : "delete -item <item_id> -quantity <quantity_of_item>"
+subLogic -> parser : analyzeInput(inputText)
+activate parser PARSER_COLOR
+parser --> subLogic : return command
+deactivate parser
+subLogic -> command : execute(command)
+activate command COMMAND_COLOR
+command -> order : remove(itemID)
+activate order ORDER_COLOR
+order --> command
+deactivate order
+command --> subLogic
+deactivate command
+
+user -> subLogic : "view menu"
+subLogic -> parser : analyzeInput(inputText)
+activate parser PARSER_COLOR
+parser --> subLogic : return command
+deactivate parser
+subLogic -> command : execute(command)
+activate command COMMAND_COLOR
+command -> menu : toString()
+activate menu MENU_COLOR
+menu --> command : return string representation of menu
+deactivate menu
+command --> subLogic
+deactivate command
+@enduml
