@@ -6,6 +6,8 @@ Actor User as user USER_COLOR
 Participant ":MainLogic" as mainLogic MAIN_LOGIC_COLOR
 Participant ":Parser" as parser PARSER_COLOR
 Participant ":Command" as command COMMAND_COLOR
+Participant ":MenuLogic" as menuLogic SUB_LOGIC_COLOR
+Participant ":OrderLogic" as orderLogic SUB_LOGIC_COLOR
 Participant ":Model" as model MODEL_COLOR
 Participant ":Storage" as storage STORAGE_COLOR
 

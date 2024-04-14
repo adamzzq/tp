@@ -100,9 +100,9 @@ When new orders and menus have been created and completed, once control is passe
 `MainLogic` will then call either `saveOrder()` or `saveMenu()` depending on what was created. The newly created
 order/menu will then be saved into their respective save file.
 
-After the user edits a menu and completes it with the `complete` command, the `Command` object that was created by
-`MainLogic` will then call the `updateMenus()` method in `Storage`. This will save all the changes made to the menu into
-the `menus.txt` save file.
+After the user edits a menu and completes it with the `complete` command, the `execute()` method of the `Command` object
+created by `MainLogic` will then call the `updateMenus()` method in `Storage`. This will save all the changes made to
+the menu into the `menus.txt` save file. The `execute()` method then returns to `MainLogic` for further commands.
 
 The following _sequence diagram_ shows an example of how `Storage` interacts with the other components as described
 above.
