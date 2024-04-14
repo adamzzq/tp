@@ -28,7 +28,7 @@ traditional GUI.
   * [Menu help guide: `help`](#menu-help-guide-help)
   * [Add items: `add`](#add-items-add)
   * [Delete items: `delete`](#delete-items-delete)
-  * [Check menu items: `view items`](#check-menu-items-view-item)
+  * [Check menu items: `view items`](#check-menu-items-view-items)
   * [Complete current menu: `complete`](#complete-current-menu-complete)
   * [Abort current menu: `cancel`](#abort-current-menu-cancel)
 * [Features in Order Interface](#features-in-order-interface)
@@ -66,7 +66,6 @@ traditional GUI.
     Avenue 0
     Enter user name:
     Tom
-    current menu ID: 01
     Here are the list of available commands:
     help: Shows all the commands that can be used.
     create order -menu <menu_id>: Creates a new order using the specified menu.
@@ -83,7 +82,8 @@ traditional GUI.
 6. **IMPORTANT!!!** Our application consists of **three interfaces**(i.e. main,order and menu) which consists of
    different commands. `create order` enters order interface, `create menu` enters menu interface. Type `help` to check
    available commands at current interface.
-7. Type the command in the CLI and press Enter to execute it e.g. typing `help` then pressing
+7. **IMPORTANT!!!** We include a default menu with ID 0 for user to test our application.
+8. Type the command in the CLI and press Enter to execute it e.g. typing `help` then pressing
    Enter will display the help menu.
    Here are some example commands you can try:
 - `help`: Displays all the commands that can be used
@@ -92,9 +92,12 @@ traditional GUI.
 - `view -menu -all`: Shows a brief summary of all the created menus
 - `bye`: Exits from the program
 
+<<<<<<< HEAD
 8. Do note that by default, no menu is present and a menu has to be created before the items on the menu
    can be added to an order.
 
+=======
+>>>>>>> 418356633692f2ca52ee014c64616ad27c0373bb
 9. Refer to the [Features](#features) below for details of each command
 
 
@@ -454,8 +457,13 @@ former includes costs of production, but the latter excludes it.
   * Add items `add -item <item_id> -quantity <quantity_of_item>`
   * Delete items `delete -item <item_id> -quantity <quantity_of_item>`
   * Check menu items `view menu`
+<<<<<<< HEAD
   * Check order items `view items`
   * Complete current order `complete`
+=======
+  * Check order items `view item`
+  * Complete current order `complete` or `complete -discount <discount>`
+>>>>>>> 418356633692f2ca52ee014c64616ad27c0373bb
   * Abort current order `cancel`
 
 ### Statistics interface sub-commands
