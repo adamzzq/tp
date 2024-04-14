@@ -1,0 +1,52 @@
+@startuml
+!include style.puml
+
+Actor User as user USER_COLOR
+
+Participant ":MainLogic" as mainLogic MAIN_LOGIC_COLOR
+Participant ":Parser" as parser PARSER_COLOR
+Participant ":Command" as command COMMAND_COLOR
+Participant ":Model" as model MODEL_COLOR
+Participant ":Storage" as storage STORAGE_COLOR
+
+activate mainLogic MAIN_LOGIC_COLOR
+mainLogic -> storage : loadRestaurant(...)
+activate storage STORAGE_COLOR
+storage --> mainLogic
+deactivate storage
+
+mainLogic -> storage : loadData(...)
+activate storage STORAGE_COLOR
+storage --> mainLogic
+deactivate storage
+
+user -> mainLogic : "edit restaurant"
+ref over mainLogic, model : enter new restaurant name and address
+mainLogic --> storage : saveRestaurant(...)
+activate storage STORAGE_COLOR
+storage --> mainLogic
+deactivate storage
+
+user -> mainLogic : "create menu"
+ref over mainLogic, parser, command, model : create new menu and complete it
+mainLogic -> storage : saveMenu(...)
+activate storage STORAGE_COLOR
+storage --> mainLogic
+deactivate storage
+
+user -> mainLogic : "create order -menu 1"
+ref over mainLogic, parser, command, model : create new order and complete it
+mainLogic -> storage : saveOrder(...)
+activate storage STORAGE_COLOR
+storage --> mainLogic
+deactivate storage
+
+user -> mainLogic : "edit -menu 1"
+ref over mainLogic, parser, command, model : edit menu 1 and complete it
+command -> storage : updateMenus(...)
+activate storage STORAGE_COLOR
+storage --> command
+deactivate storage
+command --> mainLogic
+
+@enduml

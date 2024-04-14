@@ -82,6 +82,33 @@ dependencies, associations and inheritance.
 
 ![Class Diagram](images/modelcomponent.png)
 
+### Storage component
+The storage component consists of a `Storage` class with various static methods that will be called by `MainLogic` and
+the `Command` objects created in `MainLogic`. These methods will be called whenever restaurant information is updated,
+a new order or menu is completed, and when an existing menu is edited and completed. Restaurant information, orders,
+and menus are saved in three separate text files: `restaurant.txt`, `orders.txt`, and `menus.txt`.
+
+When the application is launched, `MainLogic` calls the `loadRestaurant()` method to check for an existing restaurant
+data file in the data folder. If the `restaurant.txt` file is missing from the data folder, the user will be prompted to
+enter a restaurant name and address, which is then automatically saved in the save file.
+
+`MainLogic` then calls the `loadData()` method in `Storage` to load existing order and menu data from `orders.txt` and
+`menus.txt` into the application. If `Storage` detects that the save files are corrupted, the corresponding save file
+will be deleted from the data folder.
+
+When new orders and menus have been created and completed, once control is passed back from `SubLogic` to `MainLogic`,
+`MainLogic` will then call either `saveOrder()` or `saveMenu()` depending on what was created. The newly created
+order/menu will then be saved into their respective save file.
+
+After the user edits a menu and completes it with the `complete` command, the `Command` object that was created by
+`MainLogic` will then call the `updateMenus()` method in `Storage`. This will save all the changes made to the menu into
+the `menus.txt` save file.
+
+The following _sequence diagram_ shows an example of how `Storage` interacts with the other components as described
+above.
+
+![Storage sequence diagram](images/Storage.png)
+
 ## Implementation
 
 ### `MainLogic`
