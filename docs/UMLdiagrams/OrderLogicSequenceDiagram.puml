@@ -14,7 +14,7 @@ activate subLogic SUB_LOGIC_COLOR
 user -> subLogic : "add -item <item_id> -quantity <quantity_of_item>"
 subLogic -> parser : analyzeInput(inputText)
 activate parser PARSER_COLOR
-parser --> subLogic : return command
+parser --> subLogic
 deactivate parser
 subLogic -> command : execute(command)
 activate command COMMAND_COLOR
@@ -32,13 +32,13 @@ deactivate command
 user -> subLogic : "view item"
 subLogic -> parser : analyzeInput(inputText)
 activate parser PARSER_COLOR
-parser --> subLogic : return command
+parser --> subLogic
 deactivate parser
 subLogic -> command : execute(command)
 activate command COMMAND_COLOR
 command -> order : toString()
 activate order ORDER_COLOR
-order --> command : return string representation of order
+order --> command
 deactivate order
 command --> subLogic
 deactivate command
@@ -46,7 +46,7 @@ deactivate command
 user -> subLogic : "delete -item <item_id> -quantity <quantity_of_item>"
 subLogic -> parser : analyzeInput(inputText)
 activate parser PARSER_COLOR
-parser --> subLogic : return command
+parser --> subLogic
 deactivate parser
 subLogic -> command : execute(command)
 activate command COMMAND_COLOR
@@ -60,13 +60,13 @@ deactivate command
 user -> subLogic : "view menu"
 subLogic -> parser : analyzeInput(inputText)
 activate parser PARSER_COLOR
-parser --> subLogic : return command
+parser --> subLogic
 deactivate parser
 subLogic -> command : execute(command)
 activate command COMMAND_COLOR
 command -> menu : toString()
 activate menu MENU_COLOR
-menu --> command : return string representation of menu
+menu --> command
 deactivate menu
 command --> subLogic
 deactivate command
