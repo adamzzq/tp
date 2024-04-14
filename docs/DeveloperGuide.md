@@ -20,9 +20,9 @@ Given below is a quick overview of main components and how they interact with ea
 
 The app's work is done by the following components:
 
+* [**`UI`**](#UI-component): The parser that parses user input to command.
 * [**`MainLogic`**](#logic-component): The main logic command executor.
 * [**`SubLogic`**](#logic-component): The sub logics(i.e. **`MenuLogic`**, **`OrderLogic`**) command executor.
-* [**`Parser`**](#parser-component): The parser that parses user input to command.
 * [**`Model`**](#model-component): The data model that stores the data.
 * [**`Command`**](#command-component): Represents a command that the user can execute.
 * [**`Storage`**](#storage-component): Reads data from, and writes data.
@@ -74,8 +74,6 @@ represent food items on the menu.
 * [**`MenuItem`**](#model-component): A class inheriting item, and represents a food item on the menu. <br><br />
 * [**`Order`**](#model-component): A class representing an order to be entered into the system to be kept track of. Each 
   order has a unique ID generated from the time of order.<br><br />
-* [**`SetMenu`**](#model-component): An enumeration representing the different types of set menus available, examples of
-  which includes *breakfast*, *lunch*, *dinner*.
 
 The *Class Diagram* below shows how the model components interact with each other, including interactions such as 
 dependencies, associations and inheritance.
