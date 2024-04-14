@@ -291,7 +291,7 @@ Manage orders and menus faster and more efficiently than traditional GUI applica
 
 ## Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, MacOS.
+* **Mainstream OS**: Windows, Linux, Unix, macOS.
 
 
 ## Instructions for manual testing
