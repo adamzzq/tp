@@ -15,7 +15,7 @@ public class Menu implements ItemManager {
     private static final String MENU_HEADER = "+------------------------------------------+\n" +
             "|                   MENU                   |\n" +
             ROW_DELIMITER +
-            "| ID   |         Name          |   Price   |\n" +
+            "| ID   |         Name          | Price     |\n" +
             ROW_DELIMITER;
     private static final Logger logr = Logger.getLogger("MenuLogger");
     private final ArrayList<MenuItem> menuItemList = new ArrayList<>();
@@ -57,7 +57,19 @@ public class Menu implements ItemManager {
     public boolean remove(String itemID) {
         assert itemID != null: "itemID of item to be removed should not be null";
         this.menuItemList.removeIf(x -> x.getID().equals(itemID));
+        sortId(itemID);
         return true;
+    }
+
+    /**
+     * Sorts the id of the items in the menu after an item is removed
+     * @param startId The id of the item that is removed
+     */
+    private void sortId(String startId) {
+        for (int id = Integer.parseInt(startId); id <= menuItemList.size(); id++) {
+            Item item = menuItemList.get(id - 1);
+            item.setID(id + "");
+        }
     }
 
     public int getSize() {
@@ -80,7 +92,7 @@ public class Menu implements ItemManager {
                         ? item.getName().substring(0, NAME_MAX_LENGTH) : item.getName();
 
                 String priceFormat = (String.valueOf(item.getPrice()).length() > 7) ?
-                        "| %-5s| %-22s|$%-10.2e|\n" : "| %-5s| %-22s|$%-10.2f|\n";
+                        "| %-5s| %-22s|$%-10.2e|\n" : "| %-5s| %-22s| $%-9.2f|\n";
 
                 menuString.append(String.format(priceFormat,
                             item.getID(), shortName, item.getPrice()));

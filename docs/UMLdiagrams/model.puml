@@ -2,8 +2,10 @@
 'https://plantuml.com/class-diagram
 
 skinparam dpi 600
+hide circle
+skinparam classAttributeIconSize 0
 
-abstract class Item {
+abstract class Item  << abstract >>{
     -id
     - name
     - unitPrice
@@ -14,7 +16,7 @@ abstract class Item {
     +getPrice() : double
 
 }
-interface ItemManager {
+interface ItemManager << interface >>{
     add(var1: MenuItem) : boolean
     remove(var1: String) : boolean
     getID() : String
@@ -22,9 +24,14 @@ interface ItemManager {
 class Menu {
 - logr
 - menuID
+- menuItemList
 - setupLogger() : void
 + Menu(menuID: String)
-+ getItem(itemID: String) : Optional<MenuItem>
++ getItemByID(itemID: String) : Optional<MenuItem>
++ getItemByName(itemName: String) : Optional<MenuItem>
++ getMenuItemList() : ArrayList<MenuItem>
++ getSize() : int
++ getMenuSummary() : String
 + getID() : String
 + add(item: MenuItem) : boolean
 + remove(itemID: String) : boolean
@@ -39,6 +46,11 @@ class Order {
 - SERVICE_CHARGE
 - GST
 - orderID
+- restaurantName
+- restaurantAddress
+- orderType
+- userName
+- orderItemList
 + add(item: MenuItem) : boolean
 + remove(itemID: String) : boolean
 + remove(item: MenuItem) : boolean
@@ -47,13 +59,13 @@ class Order {
 + getSize() : int
 + getTotalPrice() : double
 + getReceipt() : String
++ getRestaurantName() : String
++ getRestaurantAddress() : String
++ getUserName() : String
++ getOrderType() : String
++ getOrderItemList() : ArrayList<MenuItem>
 + getOrderSummary() : String
 + toString() : String
-}
-enum SetMenu {
-    Breakfast
-    Lunch
-    Dinner
 }
 
 Item <|-- MenuItem
@@ -61,10 +73,9 @@ Item <|-- MenuItem
 ItemManager <|.. Menu
 ItemManager <|.. Order
 
-MenuItem "1" <..  Order : order
-MenuItem "1" <.. Menu : menu
+MenuItem "1..*" --* Order
+MenuItem "1..*" -* Menu
 
-SetMenu <.. Menu
 
 
 

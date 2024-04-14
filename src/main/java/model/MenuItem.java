@@ -1,7 +1,7 @@
 package model;
 
 
-public class MenuItem extends Item implements Comparable<MenuItem>{
+public class MenuItem extends Item implements Comparable<MenuItem> {
     public MenuItem(String id, String name, double unitPrice) {
         super(id, name, unitPrice);
     }
