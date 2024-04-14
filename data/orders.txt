@@ -1,8 +1,0 @@
-Fine Food | Avenue 0
-20240412230300 | Tom | Takeway sssssssssssssssssssssssss
-001 | Chicken Rice | 3.5 | 1
--
-Fine Food | Avenue 0
-20240414201719 | a | Dine in
-9 | Hotplate beef set | 7.0 | 9999
--

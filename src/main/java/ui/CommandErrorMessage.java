@@ -4,8 +4,8 @@ public class CommandErrorMessage {
     private static final String INVALID_PARAMS =
             "Please ensure that you have entered the necessary parameters correctly.";
     private static final String ORDER_VIEW = "Invalid format for view command. "
-            + "Please enter either \"view menu\" or \"view item\".";
-    private static final String MENU_VIEW = "Invalid format for view command. Please enter \"view item\".";
+            + "Please enter either \"view menus\" or \"view items\".";
+    private static final String MENU_VIEW = "Invalid format for view command. Please enter \"view items\".";
     private static final String INVALID_COMMAND =
             "Command not recognised. Type \"help\" to see the list of available commands.";
 

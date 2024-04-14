@@ -82,8 +82,8 @@ traditional GUI.
 6. **IMPORTANT!!!** Our application consists of **three interfaces**(i.e. main,order and menu) which consists of
    different commands. `create order` enters order interface, `create menu` enters menu interface. Type `help` to check
    available commands at current interface.
-7. **IMPORTANT!!!** We include a default menu with ID 0 for user to test our application.
-8. Type the command in the CLI and press Enter to execute it e.g. typing `help` then pressing
+
+7. Type the command in the CLI and press Enter to execute it e.g. typing `help` then pressing
    Enter will display the help menu.
    Here are some example commands you can try:
 - `help`: Displays all the commands that can be used
@@ -91,13 +91,8 @@ traditional GUI.
   and navigates to the order interface to perform sub-commands
 - `view -menu -all`: Shows a brief summary of all the created menus
 - `bye`: Exits from the program
-
-<<<<<<< HEAD
 8. Do note that by default, no menu is present and a menu has to be created before the items on the menu
    can be added to an order.
-
-=======
->>>>>>> 418356633692f2ca52ee014c64616ad27c0373bb
 9. Refer to the [Features](#features) below for details of each command
 
 
