@@ -36,15 +36,14 @@ traditional GUI.
   * [Add items: `add`](#add-items-add-1)
   * [Delete items: `delete`](#delete-items-delete-1)
   * [Check menu items: `view menu`](#check-menu-items-view-menu)
-  * [Check order items: `view items`](#check-order-items-view-item)
+  * [Check order items: `view items`](#check-order-items-view-items)
   * [Complete current order: `complete`](#complete-current-order-complete)
   * [Abort current order: `cancel`](#abort-current-order-cancel)
 * [Features in Statistics interface](#features-in-statistics-interface)
   * [Bestselling item: `bestselling`](#find-bestselling-items-bestselling)
   * [Total orders: `total orders`](#get-total-orders-count-total-orders)
-  * [Gross revenue: `revenue gross`](#calculate-gross-revenue-revenue--gross)
-  * [Net revenue: `revenue net`](#calculate-net-revenue-revenue--net)
-  * [View profit: `view profit cost <cost>`](#calculate-profit-view-profit-cost-cost)
+  * [Calculate gross or net revenue: `revenue`](#calculate-gross-or-net-revenue-revenue)
+  * [View profit: `view profit`](#calculate-profit-view-profit)
   * [Return to main interface: `quit`](#return-to-main-interface-quit)
 * [FAQ](#faq)
 * [Command summary](#command-summary)
@@ -79,18 +78,16 @@ traditional GUI.
     view performance: Enters the order statistics interface.
     bye: Quits the program.
    ```
-6. **IMPORTANT!!!** Our application consists of **three interfaces**(i.e. main,order and menu) which consists of
-   different commands. `create order` enters order interface, `create menu` enters menu interface. Type `help` to check
-   available commands at current interface.
-
-7. Type the command in the CLI and press Enter to execute it e.g. typing `help` then pressing
+6. Type the command in the CLI and press Enter to execute it e.g. typing `help` then pressing
    Enter will display the help menu.
    Here are some example commands you can try:
-- `help`: Displays all the commands that can be used
-- `create order -menu 01`: Creates a new order which uses the menu of ID `01`
-  and navigates to the order interface to perform sub-commands
-- `view -menu -all`: Shows a brief summary of all the created menus
-- `bye`: Exits from the program
+    - `help`: Displays all the commands that can be used
+    - `create order -menu 1`: Creates a new order which uses the menu of ID `1`
+      and navigates to the order interface to perform sub-commands
+    - `view -menu -all`: Shows a brief summary of all the created menus
+    - `bye`: Exits from the program
+7. **IMPORTANT!!!** Our application consists of **four interfaces**(i.e. main, order, menu and statistics) with different
+   commands available. Remember to type `help` to check available commands at current interface.
 8. Do note that by default, no menu is present and a menu has to be created before the items on the menu
    can be added to an order.
 9. Refer to the [Features](#features) below for details of each command
@@ -241,9 +238,8 @@ Adds an item with specified ID, name, and price to the current menu.
 
 Format: `add -item <item_name> -price <price_of_item>`
 
-* The `<item_id>` is unique a number to identify the item. You cannot add two items with the same ID.
-* The `<item_name>` should contain English alphabets and spaces only.
-* The `<price_of_item>` should be the price of the item without the `$` symbol.
+* The `<item_name>` should contain **English alphabets and spaces** only.
+* The `<price_of_item>` should be the price of the item without the `$` symbol between 0 and 10000(both exclusive).
 
 Example of usage:
 
@@ -362,17 +358,14 @@ Shows the total number of orders that have been created.
 
 Format: `total orders`
 
-### Calculate Gross revenue: `revenue -gross`
-Shows the gross revenue of the restaurant. (i.e. total revenue before deducting costs and taxes)
+### Calculate gross or net revenue: `revenue`
+Shows the gross revenue of the restaurant. (i.e. total revenue before deducting costs and taxes),
+or shows the net revenue of the restaurant. (i.e. total revenue after deducting taxes)
 
-Format: `revenue -gross`
+Format: `revenue -gross` or `revenue -net`
 
-### Calculate Net revenue: `revenue -net`
-Shows the net revenue of the restaurant. (i.e. total revenue after deducting taxes)
 
-Format: `revenue -net`
-
-### Calculate profit: `view profit cost <cost>`
+### Calculate profit: `view profit`
 Shows the profit based on the operating costs in the restaurant as provided by the user.
 (i.e. total revenue after deducting costs and taxes) <br><br>
 The cost here is intended as the total cost of operations, which can include

@@ -16,9 +16,9 @@ Given below is a quick overview of main components and how they interact with ea
 
 The app's work is done by the following components:
 
+* [**`UI`**](#UI-component): The parser that parses user input to command.
 * [**`MainLogic`**](#logic-component): The main logic command executor.
 * [**`SubLogic`**](#logic-component): The sub logics(i.e. **`MenuLogic`**, **`OrderLogic`**) command executor.
-* [**`Parser`**](#parser-component): The parser that parses user input to command.
 * [**`Model`**](#model-component): The data model that stores the data.
 * [**`Command`**](#command-component): Represents a command that the user can execute.
 * [**`Storage`**](#storage-component): Reads data from, and writes data.
@@ -70,13 +70,38 @@ represent food items on the menu.
 * [**`MenuItem`**](#model-component): A class inheriting item, and represents a food item on the menu. <br><br />
 * [**`Order`**](#model-component): A class representing an order to be entered into the system to be kept track of. Each 
   order has a unique ID generated from the time of order.<br><br />
-* [**`SetMenu`**](#model-component): An enumeration representing the different types of set menus available, examples of
-  which includes *breakfast*, *lunch*, *dinner*.
 
 The *Class Diagram* below shows how the model components interact with each other, including interactions such as 
 dependencies, associations and inheritance.
 
 ![Class Diagram](images/modelcomponent.png)
+
+### Storage component
+The storage component consists of a `Storage` class with various static methods that will be called by `MainLogic` and
+the `Command` objects created in `MainLogic`. These methods will be called whenever restaurant information is updated,
+a new order or menu is completed, and when an existing menu is edited and completed. Restaurant information, orders,
+and menus are saved in three separate text files: `restaurant.txt`, `orders.txt`, and `menus.txt`.
+
+When the application is launched, `MainLogic` calls the `loadRestaurant()` method to check for an existing restaurant
+data file in the data folder. If the `restaurant.txt` file is missing from the data folder, the user will be prompted to
+enter a restaurant name and address, which is then automatically saved in the save file.
+
+`MainLogic` then calls the `loadData()` method in `Storage` to load existing order and menu data from `orders.txt` and
+`menus.txt` into the application. If `Storage` detects that the save files are corrupted, the corresponding save file
+will be deleted from the data folder.
+
+When new orders and menus have been created and completed, once control is passed back from `SubLogic` to `MainLogic`,
+`MainLogic` will then call either `saveOrder()` or `saveMenu()` depending on what was created. The newly created
+order/menu will then be saved into their respective save file.
+
+After the user edits a menu and completes it with the `complete` command, the `execute()` method of the `Command` object
+created by `MainLogic` will then call the `updateMenus()` method in `Storage`. This will save all the changes made to
+the menu into the `menus.txt` save file. The `execute()` method then returns to `MainLogic` for further commands.
+
+The following _sequence diagram_ shows an example of how `Storage` interacts with the other components as described
+above.
+
+![Storage sequence diagram](images/Storage.png)
 
 ## Implementation
 
