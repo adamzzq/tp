@@ -42,7 +42,8 @@ It is written in Java and has about 2kLoC.
  
 * **Community**: 
      * PR reviewed (with no trivial review comments): [#143](https://github.com/AY2324S2-CS2113-F14-2/tp/pull/143),
-                                                    [#144](https://github.com/AY2324S2-CS2113-F14-2/tp/pull/144)
+                                                    [#144](https://github.com/AY2324S2-CS2113-F14-2/tp/pull/144),
+                                                    [#168](https://github.com/AY2324S2-CS2113-F14-2/tp/pull/168)
      * Provided detailed explanation and justification for the majority of PRs (a few examples shown below):
         [#72](https://github.com/AY2324S2-CS2113-F14-2/tp/pull/72), 
         [#85](https://github.com/AY2324S2-CS2113-F14-2/tp/pull/85), 

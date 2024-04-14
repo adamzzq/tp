@@ -411,6 +411,10 @@ as they are important for the restaurant's records.
 **A**: To preserve the integrity of the generated orders, we do not offer a feature to edit orders that have been 
 entered. A confirmation message is hence present for the user to verify that their inputs are correct.
 
+**Q**: What is the difference between net revenue and profit?
+
+**A**: As mentioned in the user guide for those features, the difference between net revenue and profit is that the 
+former includes costs of production, but the latter excludes it.
 
 
 ## Command Summary
