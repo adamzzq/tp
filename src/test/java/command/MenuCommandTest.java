@@ -24,7 +24,7 @@ public class MenuCommandTest {
                 "\tadd -item <item_name> -price <price_of_item> : " +
                 "Adds a new item to the menu.\n" +
                 "\tdelete -item <item_id> : Deletes an item from the menu.\n" +
-                "\tview item: Shows all the items in the current menu.\n" +
+                "\tview items: Shows all the items in the current menu.\n" +
                 "\tcomplete: Completes the menu and returns to the main menu.\n" +
                 "\tcancel: Aborts the current menu and returns to the main menu.\n";
 
