@@ -3,7 +3,7 @@
 
 Actor User as user USER_COLOR
 Participant ":MainLogic" as mainLogic MAIN_LOGIC_COLOR
-Participant ":SubLogic(OrderLogic)" as subLogic SUB_LOGIC_COLOR
+Participant ":OrderLogic" as subLogic SUB_LOGIC_COLOR
 Participant ":Parser" as parser PARSER_COLOR
 Participant ":Command" as command COMMAND_COLOR
 Participant ":Model" as model MODEL_COLOR
