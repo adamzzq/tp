@@ -133,6 +133,9 @@ public class MainLogic {
             case VIEW_RESTAURANT_INFO:
                 MainViewRestaurantInfoCommand.execute(restaurant);
                 break;
+            case VIEW_PERFORMANCE_INFO:
+                StatsLogic.showStats(input, ordersList);
+                break;
             default:
                 CommandErrorMessage.printMainError(inputText);
             }
