@@ -66,7 +66,6 @@ traditional GUI.
     Avenue 0
     Enter user name:
     Tom
-    current menu ID: 01
     Here are the list of available commands:
     help: Shows all the commands that can be used.
     create order -menu <menu_id>: Creates a new order using the specified menu.
@@ -83,7 +82,8 @@ traditional GUI.
 6. **IMPORTANT!!!** Our application consists of **three interfaces**(i.e. main,order and menu) which consists of
    different commands. `create order` enters order interface, `create menu` enters menu interface. Type `help` to check
    available commands at current interface.
-7. Type the command in the CLI and press Enter to execute it e.g. typing `help` then pressing
+7. **IMPORTANT!!!** We include a default menu with ID 0 for user to test our application.
+8. Type the command in the CLI and press Enter to execute it e.g. typing `help` then pressing
    Enter will display the help menu.
    Here are some example commands you can try:
 - `help`: Displays all the commands that can be used
@@ -92,7 +92,7 @@ traditional GUI.
 - `view -menu -all`: Shows a brief summary of all the created menus
 - `bye`: Exits from the program
 
-8. Refer to the [Features](#features) below for details of each command
+9. Refer to the [Features](#features) below for details of each command
 
 
 > [!NOTE]
@@ -256,7 +256,7 @@ Format: `delete -item <item_id>`
 
 Example of usage:
 
-`delete -item 001`
+`delete -item 1`
 
 ### Check menu items: `view item`
 Shows all the items in the current menu.
@@ -294,7 +294,7 @@ Format: ` add -item <item_id> -quantity <quantity_of_item>`
 
 Example of usage:
 
-`add -item 001 -quantity 2`
+`add -item 1 -quantity 2`
 
 ### Delete items: `delete`
 Deletes a specified quantity of a specified item in the order.
@@ -306,7 +306,7 @@ Format: `delete -item <item_id> -quantity <quantity_of_item>`
 
 Example of usage:
 
-`delete -item 001 -quantity 1`
+`delete -item 1 -quantity 1`
 
 ### Check menu items: `view menu`
 Shows the menu used by the current order.
@@ -444,7 +444,7 @@ former includes costs of production, but the latter excludes it.
   * Delete items `delete -item <item_id> -quantity <quantity_of_item>`
   * Check menu items `view menu`
   * Check order items `view item`
-  * Complete current order `complete`
+  * Complete current order `complete` or `complete -discount <discount>`
   * Abort current order `cancel`
 
 ### Statistics interface sub-commands
