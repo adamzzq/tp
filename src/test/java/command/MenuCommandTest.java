@@ -106,10 +106,10 @@ public class MenuCommandTest {
                 "+------------------------------------------+\n" +
                 "|                   MENU                   |\n" +
                 "+------+-----------------------------------+\n" +
-                "| ID   |         Name          |   Price   |\n" +
+                "| ID   |         Name          | Price     |\n" +
                 "+------+-----------------------------------+\n" +
-                "| 1    | Ice Cream             |$2.00      |\n" +
-                "| 2    | Frappe                |$4.00      |\n" +
+                "| 1    | Ice Cream             | $2.00     |\n" +
+                "| 2    | Frappe                | $4.00     |\n" +
                 "+------+-----------------------------------+\n\n";
         assertEquals(expectedOutput,outputContent.toString().replace("\r",""));
     }
