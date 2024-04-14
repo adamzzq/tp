@@ -35,6 +35,7 @@ public class Order implements ItemManager {
     private final String orderType;
     private final String userName;
     private final ArrayList<MenuItem> orderItemList = new ArrayList<>();
+    private double discount = 0;
 
     public Order(String restaurantName, String restaurantAddress, String userName, String orderType) {
         this.orderID = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
@@ -277,7 +278,7 @@ public class Order implements ItemManager {
         if (discount != 0 && !(discount >= 0.01 && discount <= 0.99)) {
             throw new NumberFormatException("Discount must be between 0 and 99 (inclusive)");
         }
-
+        setDiscount(discount);
         StringBuilder receiptBuilder = new StringBuilder();
 
         receiptBuilder = getReceiptHeader(receiptBuilder);
@@ -356,7 +357,11 @@ public class Order implements ItemManager {
      * @return the orderID and the total price of the order
      */
     public String getOrderSummary() {
-        return this.orderID + " {Total Price: " + this.getTotalPrice() + "}";
+        return this.orderID + " {Total Price: " + this.getTotalPrice() * (1 - this.discount) + "}";
+    }
+
+    private void setDiscount(double discount) {
+        this.discount = discount;
     }
 
     @Override
