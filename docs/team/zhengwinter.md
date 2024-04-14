@@ -2,10 +2,10 @@
 
 ## Overview
 
-### Project: DinEZ
+### Project: DinEz
 
 DinEz is a CLI application intended to help someone manage the menus and orders of a restaurant.
-It is written in Java and has about 2kLoC.
+It is written in Java and has about 4kLoC.
 
 ### Summary of Contributions
 

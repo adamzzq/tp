@@ -30,7 +30,7 @@ The app's work is done by the following components:
 **How the architecture components interact with each other**
 
 The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues 
-the command `create order -menu 01`, `add -item 001` and `complete`.
+the command `create order -menu 1`, `add -item 1` and `complete`.
 
 ![Sequence Diagram](images\ArchitectureSequenceDiagram.png)
 
@@ -106,7 +106,7 @@ by querying the orderList.
 `Mainlogic` takes in the command and calls the `ViewReceiptCommand` class to execute the command
 
 ### `OrderLogic`
-The following *sequence diagram* shows an example of how the user's input is proccessed by `OrderLogic`.
+The following *sequence diagram* shows an example of how the user's input is processed by `OrderLogic`.
 
 ![OrderLogic sequence diagram](images/OrderLogicSequenceDiagram.png)
 
@@ -261,14 +261,14 @@ Written below are instructions to test the app manually.
 
 ### Create order and add/delete/view item
 * To create an order
-  1. Prerequisite: Have already created one menu. Type `create order -menu 01` in Main interface to enter the Order
-     interface, 01 is the ID of the previously created menu.
+  1. Prerequisite: Have already created one menu. Type `create order -menu 1` in Main interface to enter the Order
+     interface, 1 is the ID of the previously created menu.
   2. Test Case: `Add -item 1 -quantity 2`  
-     Expected: Item 001 is added to the order with quantity 2
+     Expected: Item 1 is added to the order with quantity 2
   3. Test Case: `View item`  
-     Expected: Item 001 is displayed with quantity 2
+     Expected: Item 1 is displayed with quantity 2
   3. Test Case: `Delete -item 1 -quantity 1`  
-     Expected: Item 001 is removed from the order with quantity 1
+     Expected: Item 1 is removed from the order with quantity 1
 
 ### View created orders
 * To view all orders or details of a specific order that has been created
@@ -289,7 +289,7 @@ Written below are instructions to test the app manually.
   1. Prerequisite: Must have already created and completed menus.
   2. Test case: `view -menu -all`  
      Expected: A list of menu IDs should appear with their corresponding amount of items that the menu contains
-  3. Test case: `view -menu 01`  
+  3. Test case: `view -menu 1`  
      Expected: Details of the menu should appear which includes the ID, name and price of every item in the menu.
   4. Test case: `view -menu abc`  
      Expected: Error message appears asking users to check if they have entered the necessary parameters correctly.
@@ -327,17 +327,17 @@ Techno Edge | 2 Engineering Drive 4
 #### Load menu data
 In the data folder, create a file named `menus.txt` and enter the following data:
 ```
-01
-001 | Chicken Rice | 3.5
-002 | Nasi Lemak | 3.0
-003 | Hokkien Mee | 4.0
-004 | Mee Siam | 3.5
-005 | Fishball Noodles | 3.0
-006 | Chicken Curry Rice | 5.0
-007 | Seafood Fried Rice | 5.5
-008 | Roasted delight set | 6.5
-009 | Hotplate beef set | 7.0
-010 | Kimchi noodles | 4.0
+1
+1 | Chicken Rice | 3.5
+2 | Nasi Lemak | 3.0
+3 | Hokkien Mee | 4.0
+4 | Mee Siam | 3.5
+5 | Fishball Noodles | 3.0
+6 | Chicken Curry Rice | 5.0
+7 | Seafood Fried Rice | 5.5
+8 | Roasted delight set | 6.5
+9 | Hotplate beef set | 7.0
+10 | Kimchi noodles | 4.0
 -
 
 ```
@@ -389,7 +389,7 @@ in the main interface:
 
 ```
 
-The user should see the following when `view -menu 01` is entered in the main
+The user should see the following when `view -menu 1` is entered in the main
 interface:
 ```
 +------------------------------------------+
@@ -430,7 +430,7 @@ Restaurant info has been updated.
 ```
 
 #### Saving orders
-After launching the application, enter `create order -menu 01` in the main interface. Enter `1` when prompted for the
+After launching the application, enter `create order -menu 1` in the main interface. Enter `1` when prompted for the
 order type (dine in/takeaway). Enter the following commands in sequence inside the order interface:
 `add -item 2 -quantity 3`, `add -item 4 -quantity 1`. Afterwards, enter `complete`in the order interface and type `y`
 when the confirmation message appears. The completed order is then automatically saved in the `orders.txt` file inside
@@ -441,7 +441,7 @@ the data folder. The user should see the following:
 > * `...` represents abbreviated messages to shorten the example output
 
 ```
-[Main interface] >>> create order -menu 01
+[Main interface] >>> create order -menu 1
 Would you like your order to be
     1) dine in
     2) takeaway
@@ -452,11 +452,11 @@ Here are the list of available commands:
     help: Shows all the commands that can be used.
     ...
     cancel: Aborts the current order and returns to the main menu.
-[Order: order_id] [Menu: 01] >>> add -item 2 -quantity 3
+[Order: order_id] [Menu: 1] >>> add -item 2 -quantity 3
 3 Nasi Lemak is added to order
-[Order: order_id] [Menu: 01] >>> add -item 4 -quantity 1
+[Order: order_id] [Menu: 1] >>> add -item 4 -quantity 1
 1 Mee Siam is added to order
-[Order: order_id] [Menu: 01] >>> complete
+[Order: order_id] [Menu: 1] >>> complete
 ...
 WARNING: Once an order is completed, you are NOT ALLOWED to edit or delete it.
 Do you want to complete the order? (type 'y' to complete, anything else to cancel)
@@ -527,19 +527,19 @@ Fine Food | Avenue 0
 ```
 Inside the data folder, open `menus.txt`. It should be populated with the following data:
 ```
-01
-001 | Chicken Rice | 3.5
-002 | Nasi Lemak | 3.0
-003 | Hokkien Mee | 4.0
-004 | Mee Siam | 3.5
-005 | Fishball Noodles | 3.0
-006 | Chicken Curry Rice | 5.0
-007 | Seafood Fried Rice | 5.5
-008 | Roasted delight set | 6.5
-009 | Hotplate beef set | 7.0
-010 | Kimchi noodles | 4.0
+1
+1 | Chicken Rice | 3.5
+2 | Nasi Lemak | 3.0
+3 | Hokkien Mee | 4.0
+4 | Mee Siam | 3.5
+5 | Fishball Noodles | 3.0
+6 | Chicken Curry Rice | 5.0
+7 | Seafood Fried Rice | 5.5
+8 | Roasted delight set | 6.5
+9 | Hotplate beef set | 7.0
+10 | Kimchi noodles | 4.0
 -
-02
+2
 1 | Beef noodles | 6.0
 2 | Prawn noodles | 5.0
 -
