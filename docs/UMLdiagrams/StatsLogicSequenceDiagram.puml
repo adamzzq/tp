@@ -1,0 +1,83 @@
+@startuml
+!include style.puml
+
+Actor User as user USER_COLOR
+
+Participant ":StatsLogic" as subLogic SUB_LOGIC_COLOR
+Participant ":Parser" as parser PARSER_COLOR
+Participant ":Command" as command COMMAND_COLOR
+Participant ":OrderStatistics" as stats ORDER_STATS_COLOR
+
+
+activate subLogic SUB_LOGIC_COLOR
+user -> subLogic : "bestselling"
+subLogic -> parser : analyzeInput(inputText)
+activate parser PARSER_COLOR
+parser --> subLogic
+deactivate parser
+subLogic -> command : execute(command)
+activate command COMMAND_COLOR
+command -> stats : getBestSellingItems()
+activate stats ORDER_STATS_COLOR
+stats --> command : return bestSellingItems
+deactivate stats
+command --> subLogic
+deactivate command
+
+user -> subLogic : "revenue -gross"
+subLogic -> parser : analyzeInput(inputText)
+activate parser PARSER_COLOR
+parser --> subLogic
+deactivate parser
+subLogic -> command : execute(command)
+activate command COMMAND_COLOR
+command -> stats : getGrossRevenue()
+activate stats ORDER_STATS_COLOR
+stats --> command : return grossRevenue
+deactivate stats
+command --> subLogic
+deactivate command
+
+user -> subLogic : "revenue -net"
+subLogic -> parser : analyzeInput(inputText)
+activate parser PARSER_COLOR
+parser --> subLogic
+deactivate parser
+subLogic -> command : execute(command)
+activate command COMMAND_COLOR
+command -> stats : getNetRevenue()
+activate stats ORDER_STATS_COLOR
+stats --> command : return netRevenue
+deactivate stats
+command --> subLogic
+deactivate command
+
+user -> subLogic : "view profit -cost"
+subLogic -> parser : analyzeInput(inputText)
+activate parser PARSER_COLOR
+parser --> subLogic
+deactivate parser
+subLogic -> command : execute(command)
+activate command COMMAND_COLOR
+command -> stats : getProfit(cost)
+activate stats ORDER_STATS_COLOR
+stats --> command : return profit
+deactivate stats
+command --> subLogic
+deactivate command
+
+user -> subLogic : "total orders"
+subLogic -> parser : analyzeInput(inputText)
+activate parser PARSER_COLOR
+parser --> subLogic
+deactivate parser
+subLogic -> command : execute(command)
+activate command COMMAND_COLOR
+command -> stats : getOrderCount()
+activate stats ORDER_STATS_COLOR
+stats --> command : return orderCount
+deactivate stats
+command --> subLogic
+deactivate command
+
+@enduml

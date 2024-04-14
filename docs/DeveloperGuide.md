@@ -1,9 +1,5 @@
 # Developer Guide
 
-## Acknowledgements
-
-{list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
-
 ## Design
 
 ### Architecture
@@ -211,6 +207,56 @@ and the program returns back to `MainLogic` for subsequent command executions.
 In `MenuLogic`, the user can cancel the current menu by executing the `cancel` command.
 This will abort the current menu created and return to the main menu.
 
+<!-- for reference in stats feature
+        System.out.println("Available commands:");
+        System.out.println("\tbestselling - View the best selling item(s)");
+        System.out.println("\ttotal orders - View the total number of orders");
+        System.out.println("\trevenue -gross - View the gross revenue");
+        System.out.println("\trevenue -net - View the net revenue");
+        System.out.println("\tview profit -cost <cost> - View the profit based on the cost");
+        System.out.println("\tquit - return to main interface");
+-->
+### `StatsLogic`
+![StatsLogic Diagram](images/StatsLogicSequenceDiagram.png)
+
+Generally, the stats logic works similar to order logic:
+1. User enters an input which is received in the *ui* and parsed by the `Parser`.
+2. The `Parser` classifies the command based on `CommandType`
+3. Within `StatsLogic`, `execute` is called on the corresponding class
+4. Control is passed to OrderStatistics class to calculate the performance statistics
+
+**Bestselling** <br>
+In `StatsLogic`, the best-selling item(s) can be viewed by executing the `bestselling` command.
+It calls the `getBestSellingItem()` method from an `OrderStatistics` instance to calculate the best-selling item(s)
+based on the total count of the items in the ordersList. The ordersList is stored in an ArrayList in MainLogic.
+
+**Total Orders** <br>
+In `StatsLogic`, the total number of orders can be viewed by executing the `total orders` command.
+It calls the `getOrderCount()` method from an `OrderStatistics` instance,
+which will iterate through the orders in the ArrayList stored in MainLogic to count the total number of orders.
+
+**Revenue - Gross** <br>
+In `StatsLogic`, the gross revenue can be viewed by executing the `revenue -gross` command.
+It calls the `getGrossRevenue()` method from an `OrderStatistics` instance, which will iterate through the orders in the ArrayList
+stored in MainLogic and aggregate the total revenue of each order by calling the `getTotalPrice()` method in the Order class.
+
+**Revenue - Net** <br>
+In `StatsLogic`, the net revenue can be viewed by executing the `revenue -net` command.
+It calls the `getNetRevenue()` method from an `OrderStatistics` instance, which will iterate through the orders in the ArrayList
+stored in MainLogic and aggregate the total revenue of each order by calling the `getTotalPrice()` method in the Order class.
+The net revenue is calculated by subtracting the total revenue from the total service charge and GST.
+
+**View Profit - Cost** <br>
+In `StatsLogic`, the profit can be viewed by executing the `view profit -cost <cost>` command.
+It calls the `getProfit()` method from an `OrderStatistics` instance, which will iterate through the orders in the ArrayList
+stored in MainLogic and aggregate the total revenue of each order by calling the `getTotalPrice()` method in the Order class.
+The profit is calculated by subtracting the total revenue from the total service charge and GST, and then subtracting the cost
+of the items sold.
+
+**Quit** <br>
+In `StatsLogic`, the user can return to the main interface by executing the `quit` command.
+
+
 ## Product scope
 ### Target user profile
 
@@ -245,7 +291,7 @@ Manage orders and menus faster and more efficiently than traditional GUI applica
 
 ## Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, MacOS.
+* **Mainstream OS**: Windows, Linux, Unix, macOS.
 
 
 ## Instructions for manual testing
@@ -257,7 +303,7 @@ Written below are instructions to test the app manually.
   2. Open a terminal and navigate to the folder containing the jar file
   3. Run the command `java -jar DinEz.jar` to launch the application
 * Shutdown
-  1. Type `exit` and press enter to shutdown the application
+  1. Type `exit` and press enter to shut down the application
 
 ### Add item to a menu
 * Adding an item to a menu
@@ -292,7 +338,7 @@ Written below are instructions to test the app manually.
      Expected: Item 1 is added to the order with quantity 2
   3. Test Case: `View item`  
      Expected: Item 1 is displayed with quantity 2
-  3. Test Case: `Delete -item 1 -quantity 1`  
+  4. Test Case: `Delete -item 1 -quantity 1`  
      Expected: Item 1 is removed from the order with quantity 1
 
 ### View created orders
