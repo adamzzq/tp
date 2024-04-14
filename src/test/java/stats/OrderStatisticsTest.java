@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class OrderStatisticsTest {
 
@@ -77,7 +77,8 @@ class OrderStatisticsTest {
     void testGetGrossSales() {
         ArrayList<Order> orders = createOrderForTest();
         OrderStatistics orderStatistics = new OrderStatistics(createOrderForTest());
-        assertEquals(String.format("%.2f", 36 * SERVICE_CHARGE * GST), String.format("%.2f", orderStatistics.getGrossRevenue()));
+        assertEquals(String.format("%.2f", 36 * SERVICE_CHARGE * GST),
+                String.format("%.2f", orderStatistics.getGrossRevenue()));
         Order newOrder = new Order("restaurant3", "address3", "user3", "orderType3");
         newOrder.add(new MenuItem("1", "item1", 1.0));
         newOrder.add(new MenuItem("1", "item1", 1.0));
@@ -85,7 +86,8 @@ class OrderStatisticsTest {
         newOrder.add(new MenuItem("5", "item5", 999.0));
         orders.add(newOrder);
         orderStatistics = new OrderStatistics(orders);
-        assertEquals(String.format("%.2f", 1038 * SERVICE_CHARGE * GST), String.format("%.2f", orderStatistics.getGrossRevenue()));
+        assertEquals(String.format("%.2f", 1038 * SERVICE_CHARGE * GST),
+                String.format("%.2f", orderStatistics.getGrossRevenue()));
     }
 
     // test for getGrossSales with empty orders
@@ -101,7 +103,8 @@ class OrderStatisticsTest {
     void testGetNetSales() {
         ArrayList<Order> orders = createOrderForTest();
         OrderStatistics orderStatistics = new OrderStatistics(createOrderForTest());
-        assertEquals(String.format("%.2f", 36 * SERVICE_CHARGE), String.format("%.2f", orderStatistics.getNetRevenue()));
+        assertEquals(String.format("%.2f", 36 * SERVICE_CHARGE),
+                String.format("%.2f", orderStatistics.getNetRevenue()));
         Order newOrder = new Order("restaurant3", "address3", "user3", "orderType3");
         newOrder.add(new MenuItem("1", "item1", 1.0));
         newOrder.add(new MenuItem("1", "item1", 1.0));
@@ -109,7 +112,8 @@ class OrderStatisticsTest {
         newOrder.add(new MenuItem("5", "item5", 999.0));
         orders.add(newOrder);
         orderStatistics = new OrderStatistics(orders);
-        assertEquals(String.format("%.2f", 1038 * SERVICE_CHARGE), String.format("%.2f", orderStatistics.getNetRevenue()));
+        assertEquals(String.format("%.2f", 1038 * SERVICE_CHARGE),
+                String.format("%.2f", orderStatistics.getNetRevenue()));
     }
 
     // test for getNetSales with empty orders
@@ -121,19 +125,21 @@ class OrderStatisticsTest {
     }
 
 
-//    // test for getProfit
-//    @Test
-//    void testGetProfit() {
-//        ArrayList<Order> orders = createOrderForTest();
-//        OrderStatistics orderStatistics = new OrderStatistics(createOrderForTest());
-//        assertEquals(String.format("%.2f", 36 * SERVICE_CHARGE- 36 * SERVICE_CHARGE), String.format("%.2f", orderStatistics.getProfit(1)));
-//        Order newOrder = new Order("restaurant3", "address3", "user3", "orderType3");
-//        newOrder.add(new MenuItem("1", "item1", 1.0));
-//        newOrder.add(new MenuItem("1", "item1", 1.0));
-//        newOrder.add(new MenuItem("1", "item1", 1.0));
-//        newOrder.add(new MenuItem("5", "item5", 999.0));
-//        orders.add(newOrder);
-//        orderStatistics = new OrderStatistics(orders);
-//        assertEquals(String.format("%.2f", 1038 * SERVICE_CHARGE - 1038 * SERVICE_CHARGE), String.format("%.2f", orderStatistics.getProfit(1038 * SERVICE_CHARGE)));
-//    }
+    //    test for getProfit
+    //    @Test
+    //    void testGetProfit() {
+    //        ArrayList<Order> orders = createOrderForTest();
+    //        OrderStatistics orderStatistics = new OrderStatistics(createOrderForTest());
+    //        assertEquals(String.format("%.2f", 36 * SERVICE_CHARGE- 36 * SERVICE_CHARGE),
+    //        String.format("%.2f", orderStatistics.getProfit(1)));
+    //        Order newOrder = new Order("restaurant3", "address3", "user3", "orderType3");
+    //        newOrder.add(new MenuItem("1", "item1", 1.0));
+    //        newOrder.add(new MenuItem("1", "item1", 1.0));
+    //        newOrder.add(new MenuItem("1", "item1", 1.0));
+    //        newOrder.add(new MenuItem("5", "item5", 999.0));
+    //        orders.add(newOrder);
+    //        orderStatistics = new OrderStatistics(orders);
+    //        assertEquals(String.format("%.2f", 1038 * SERVICE_CHARGE - 1038 * SERVICE_CHARGE),
+    //        String.format("%.2f", orderStatistics.getProfit(1038 * SERVICE_CHARGE)));
+    //    }
 }

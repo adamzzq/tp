@@ -30,7 +30,7 @@ import java.util.Scanner;
 
 public class MainLogic {
     private static String userName;
-
+    private static final int MAX_NAME_LENGTH = 50;
     public static void main(String[] args) {
         // Set default locale to US to ensure consistent formatting
         Locale.setDefault(Locale.US);
@@ -146,6 +146,11 @@ public class MainLogic {
 
         Scanner input = new Scanner(System.in);
         String inputString= input.nextLine();
+        int length = inputString.length();
+        if (length > MAX_NAME_LENGTH) {
+            System.out.println("Name is too long! Please enter a name with less than 50 characters.");
+            return false;
+        }
 
         if (inputString.isBlank() || inputString.isEmpty()) {
             System.out.println("Input cannot be empty!");
