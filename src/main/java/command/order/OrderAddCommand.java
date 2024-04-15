@@ -5,18 +5,15 @@ import model.MenuItem;
 import model.Order;
 import ui.Parser;
 
-import java.io.IOException;
+
 import java.util.Optional;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.FileHandler;
-import java.util.logging.Level;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
+
+
 
 
 public class OrderAddCommand implements OrderCommand {
     private static final String LOGGER_NAME = "OrderAddCommandLogger";
-    private static final Logger logr = Logger.getLogger(LOGGER_NAME);
+    //private static final Logger logr = Logger.getLogger(LOGGER_NAME);
     /**
      * Executes the command to add a specified quantity of an item to an order.
      *
@@ -25,9 +22,9 @@ public class OrderAddCommand implements OrderCommand {
      * @param menu        the menu with the item to be added
      */
     public static void execute(Order newOrder, String inputText, Menu menu) {
-        OrderAddCommand.setUpLogger();
+        //OrderAddCommand.setUpLogger();
 
-        logr.info("Adding new item to order");
+        //logr.info("Adding new item to order");
         String[] indexString = Parser.splitInput(Parser.analyzeInput(inputText), inputText);
         String itemID = indexString[0];
         String itemQuantity = indexString[1];
@@ -35,7 +32,7 @@ public class OrderAddCommand implements OrderCommand {
 
         // limit quantity to 1 - 9999
         if (Integer.parseInt(itemQuantity) < 1 || Integer.parseInt(itemQuantity) > 9999) {
-            logr.warning("Quantity of item is out of range");
+            //logr.warning("Quantity of item is out of range");
             System.out.println("Quantity must be between 0 and 10000 (both exclusive)");
             return;
         }
@@ -45,14 +42,14 @@ public class OrderAddCommand implements OrderCommand {
                     newOrder.add(item.get());
                 }
             } catch (IllegalArgumentException e) {
-                logr.warning("Item count already at maximum");
+                //logr.warning("Item count already at maximum");
                 System.out.println(e.getMessage());
                 return;
             }
-            logr.info("Item successfully added to order");
+            //logr.info("Item successfully added to order");
             System.out.println(itemQuantity + " " + item.get().getName() + " is added to order");
         } else {
-            logr.warning("Item not in menu, not added to order");
+            //logr.warning("Item not in menu, not added to order");
             System.out.println("Item not found in menu");
         }
     }
@@ -60,6 +57,8 @@ public class OrderAddCommand implements OrderCommand {
     /**
      * Sets up the logger for the OrderAddCommand class.
      */
+
+    /*
     private static void setUpLogger() {
         LogManager.getLogManager().reset();
         logr.setLevel(Level.INFO);
@@ -75,5 +74,5 @@ public class OrderAddCommand implements OrderCommand {
         } catch (IOException e) {
             logr.log(Level.SEVERE, "File logger not working", e);
         }
-    }
+    }*/
 }
