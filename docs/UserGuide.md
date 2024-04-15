@@ -6,7 +6,7 @@ DinEz is an integrated system solution which aims to address certain aspects of 
 the daily operation of a restaurant in a digitalised way, including order taking, menu management and order statistics.
 
 If you are well-versed with CLI and can type fast, DinEz can help to coordinate the various tasks and allow you to
-access all the necessary information in one application. The CLI is also reliable and simpler to operate than a
+access all the necessary information in one application. The CLI is also more reliable and simpler to operate than a
 traditional GUI.
 
 * [Quick start](#quick-start)
