@@ -69,6 +69,8 @@ represent food items on the menu.
 * **`MenuItem`**: A class inheriting from `Item`, and represents a food item on the menu. <br><br />
 * **`Order`**: A class representing an order to be entered into the system to be kept track of. Each 
   order has a unique ID generated from the time of order.<br><br />
+* **`Restaurant`**: A class representing the restaurant which stores the restaurant information such as name and
+  address.<br><br />
 
 The *Class Diagram* below shows how the model components interact with each other, including interactions such as 
 dependencies, associations and inheritance.
