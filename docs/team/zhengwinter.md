@@ -5,7 +5,7 @@
 ### Project: DinEz
 
 DinEz is a CLI application intended to help someone manage the menus and orders of a restaurant.
-It is written in Java and has about 4kLoC.
+It is written in Java and has about 5kLoC.
 
 ### Summary of Contributions
 
@@ -42,6 +42,10 @@ It is written in Java and has about 4kLoC.
         * Added FAQ to justify why edit order is not implemented
         * Reiterate difference between net revenue and profit in FAQ
         * Update command summary
+     * **Proofreading**:
+        * Caught grammatical and formatting errors in both the UG and DG, relevant PRs: 
+        * [#200](https://github.com/AY2324S2-CS2113-F14-2/tp/pull/200)
+        * [#201](https://github.com/AY2324S2-CS2113-F14-2/tp/pull/201)
  
 * **Community**: 
      * PR reviewed (with no trivial review comments): [#143](https://github.com/AY2324S2-CS2113-F14-2/tp/pull/143),
