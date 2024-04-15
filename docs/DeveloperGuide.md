@@ -126,6 +126,7 @@ by querying the orderList.
 
 **View Receipt** <br>
 `Mainlogic` takes in the command and calls the `ViewReceiptCommand` class to execute the command
+<div style="page-break-after: always;"></div>
 
 ### `OrderLogic`
 The following *sequence diagram* shows an example of how the user's input is processed by `OrderLogic`.
