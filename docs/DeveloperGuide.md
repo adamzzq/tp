@@ -126,12 +126,13 @@ by querying the orderList.
 
 **View Receipt** <br>
 `Mainlogic` takes in the command and calls the `ViewReceiptCommand` class to execute the command
+
 <div style="page-break-after: always;"></div>
 
 ### `OrderLogic`
 The following *sequence diagram* shows an example of how the user's input is processed by `OrderLogic`.
 
-<img src="images/OrderLogicSequenceDiagram.png" width="600">
+![OrderLogic sequence diagram](images/OrderLogicSequenceDiagram.png)
 
 Generally, the order logic works as follows: 
 1. User enters an input which is received in the *ui* and parsed by the `Parser`. 
@@ -170,7 +171,7 @@ This will abort the current order created and return to the main menu.
 <div style="page-break-after: always;"></div>
 
 ### `MenuLogic`
-<img src="images/MenuLogicSequenceDiagram.png" width="600">
+![MenuLogic sequence diagram](images/MenuLogicSequenceDiagram.png)
 
 Generally, the menu logic works similar to order logic:
 1. User enters an input which is received in the *ui* and parsed by the `Parser`.
