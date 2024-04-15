@@ -97,11 +97,12 @@ order/menu will then be saved into their respective save file.
 After the user edits a menu and completes it with the `complete` command, the `execute()` method of the `Command` object
 created by `MainLogic` will then call the `updateMenus()` method in `Storage`. This will save all the changes made to
 the menu into the `menus.txt` save file. The `execute()` method then returns to `MainLogic` for further commands.
+<div class="pagebreak"> </div>
 
 The following _sequence diagram_ shows an example of how `Storage` interacts with the other components as described
 above.
 
-<img src="images/Storage.png" width="500">
+![Storage sequence diagram](images/Storage.png)
 
 ## Implementation
 
@@ -129,7 +130,7 @@ by querying the orderList.
 ### `OrderLogic`
 The following *sequence diagram* shows an example of how the user's input is processed by `OrderLogic`.
 
-<img src="images/OrderLogicSequenceDiagram.png" width="500">
+<img src="images/OrderLogicSequenceDiagram.png" width="600">
 
 Generally, the order logic works as follows: 
 1. User enters an input which is received in the *ui* and parsed by the `Parser`. 
@@ -167,7 +168,8 @@ In "OrderLogic", the user can cancel the current order by executing the `cancel`
 This will abort the current order created and return to the main menu.
 
 ### `MenuLogic`
-<img src="images/MenuLogicSequenceDiagram.png" width="500">
+<img src="images/MenuLogicSequenceDiagram.png" width="600">
+
 Generally, the menu logic works similar to order logic:
 1. User enters an input which is received in the *ui* and parsed by the `Parser`.
 2. The `Parser` classifies the command based on `CommandType`
@@ -206,8 +208,10 @@ This will abort the current menu created and return to the main menu.
         System.out.println("\tview profit -cost <cost> - View the profit based on the cost");
         System.out.println("\tquit - return to main interface");
 -->
+<div class="pagebreak"> </div>
+
 ### `StatsLogic`
-<img src="images/StatsLogicSequenceDiagram.png" width="500">
+![Statistics sequence diagram](images/StatsLogicSequenceDiagram.png)
 
 Generally, the stats logic works similar to order logic:
 1. User enters an input which is received in the *ui* and parsed by the `Parser`.
