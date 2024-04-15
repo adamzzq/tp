@@ -18,10 +18,10 @@ The app's work is done by the following components:
 
 * [**`UI`**](#UI-component): The parser that parses user input to command.
 * [**`MainLogic`**](#logic-component): The main logic command executor.
-* [**`SubLogic`**](#logic-component): The sub logics(i.e. **`MenuLogic`**, **`OrderLogic`**) command executor.
+* [**`SubLogic`**](#logic-component): The sub logics(i.e. **`MenuLogic`**, **`OrderLogic`**, **`StatsLogic`**) command executor.
 * [**`Model`**](#model-component): The data model that stores the data.
 * [**`Command`**](#command-component): Represents a command that the user can execute.
-* [**`Storage`**](#storage-component): Reads data from, and writes data.
+* [**`Storage`**](#storage-component): Reads data from and writes data to the save data file.
 
 **How the architecture components interact with each other**
 
@@ -39,19 +39,18 @@ It returns an array containing any arguments that are needed to execute the comm
 
 ### Logic Component
 The logic component consists of classes that handle the logic of the application. The logic component is divided into
-`MainLogic` and `SubLogic` which consists of `OrderLogic` and `MenuLogic`.
+`MainLogic` and `SubLogic` which consists of `OrderLogic`, `MenuLogic` and `StatsLogic`.
 
 * [**`MainLogic`**](#model-component): A class to handle the first level commands, and pass the user input to corresponding
 classes for analysis and execution.
-* [**`OrderLogic`**](#model-component) and [**`MenuLogic`**](#model-component): A class to handle the second level commands,
+* [**`OrderLogic`**](#model-component),[**`MenuLogic`**](#model-component) and [**`StatsLogic`**](#model-component): A class to handle the second level commands,
 and pass the user input to corresponding classes for analysis and execution.
 
 ### Command Component
-The command component consists of two different command interfaces: `MainCommand` and `OrderCommand`. The `MainCommand`
+The command component consists of Four different command interfaces: `MainCommand`, `OrderCommand`, `MenuCommand` and `StatsCommand`. The `MainCommand`
 interface is for the various command classes that are used in the `MainLogic`, while the `OrderCommand` interface is for
-command classes used in `OrderLogic`.  
+command classes used in `OrderLogic`, and the `MenuCommand` interface is for command classes used in `MenuLogic`. The `StatsCommand` interface is for command classes used in `StatsLogic`.
 
-A `Command` object will be created in either the `MainLogic` or `OrderLogic`
 based on what command the user has inputted(e.g., `MainHelpCommand` object is created when the user inputs the `help`
 command). The `execute()` method of the `Command` object is then called to execute the command, which may require
 certain arguments based on the type of command.
@@ -61,14 +60,14 @@ The model consists of classes describing the objects used in this application.
 The general structure is that menu and order are separate, but they both work with `menuItem(s)`, which 
 represent food items on the menu.
 
-* [**`ItemManager`**](#model-component): An interface containing methods representing operations common to **`Menu`** 
+* **`ItemManager`**: An interface containing methods representing operations common to **`Menu`** 
   and **`Order`**. <br><br />
-* [**`Item`**](#model-component): An abstract class representing a food item. It should be implemented by **`MenuItem`**.
+* **`Item`**: An abstract class representing a food item. It should be implemented by **`MenuItem`**.
   <br><br />
-* [**`Menu`**](#model-component): A class representing the menu(s) of the restaurant, where each contains menuItem(s)
+* **`Menu`**: A class representing the menu(s) of the restaurant, where each contains menuItem(s)
  that can be ordered. Multiple menus can exist and each has a unique ID. <br><br />
-* [**`MenuItem`**](#model-component): A class inheriting item, and represents a food item on the menu. <br><br />
-* [**`Order`**](#model-component): A class representing an order to be entered into the system to be kept track of. Each 
+* **`MenuItem`**: A class inheriting item, and represents a food item on the menu. <br><br />
+* **`Order`**: A class representing an order to be entered into the system to be kept track of. Each 
   order has a unique ID generated from the time of order.<br><br />
 
 The *Class Diagram* below shows how the model components interact with each other, including interactions such as 
@@ -142,7 +141,7 @@ Generally, the order logic works as follows:
 Within the construct of the order logic, the menu can be accessed for viewing in order to select items from 
 available menus. This is carried out with the `view menu` command.
 
-**View Item**  
+**View Items**  
 
 Within `OrderLogic`, a list containing all the items that have been added to the current active order can be viewed by executing
 the `view item` command.
@@ -180,7 +179,7 @@ Generally, the menu logic works similar to order logic:
 3. Within `MenuLogic`, `execute` is called on the corresponding class
 4. Control is passed to other sections of the code
 
-**View Item**  
+**View Items**  
 
 Within `MenuLogic`, a list containing all the items that have been added to the current active order can be viewed by executing
 the `view item` command.
@@ -263,13 +262,15 @@ In `StatsLogic`, the user can return to the main interface by executing the `qui
 * has a need to manage orders in a restaurant
 * has a need to manage menus in a restaurant
 * has a need to manage cashiering duty in a restaurant
+* has a need to check the restaurant's daily performance
 * prefer CLI apps than GUI apps
 * can type fast
 
 
 ### Value proposition
 
-Manage orders and menus faster and more efficiently than traditional GUI applications for faster typers.
+* Manage orders and menus faster and more efficiently than traditional GUI applications for faster typers.
+* Keep track of the restaurant's daily performance with the stats feature.
 
 ## User Stories
 
@@ -281,7 +282,7 @@ Manage orders and menus faster and more efficiently than traditional GUI applica
 | `* * *`  | restaurant owner | manage cashiering duties in my restaurant | keep track of the money that comes in and out of the restaurant |
 | `*   *`  | restaurant owner | manage menus in my restaurant             | keep track of the dishes that are available in the restaurant   |
 | `*    `  | restaurant owner | view the order/menu                       | check the dishes that are available in the restaurant           |
-
+| `*    `  | restaurant owner | view the performance of the restaurant    | know which dishes are popular among the customers               |
 
 ## Non-Functional Requirements
 
@@ -291,7 +292,7 @@ Manage orders and menus faster and more efficiently than traditional GUI applica
 
 ## Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, macOS.
+* **Mainstream OS**: Windows, Linux, macOS.
 
 
 ## Instructions for manual testing
@@ -307,7 +308,7 @@ Written below are instructions to test the app manually.
 
 ### Add item to a menu
 * Adding an item to a menu
-  1. Prerequesite: Type `create menu` in the Main interface to go into the Menu interface.
+  1. Prerequisite: Type `create menu` in the Main interface to go into the Menu interface.
   2. Test case: `add -item Beef noodles -price 6`  
      Expected: A new item with the name `Beef noodles` and a price of `$6.00` is added to the menu. A success message
      should also appear.
@@ -503,7 +504,7 @@ Restaurant info has been updated.
 #### Saving orders
 After launching the application, enter `create order -menu 1` in the main interface. Enter `1` when prompted for the
 order type (dine in/takeaway). Enter the following commands in sequence inside the order interface:
-`add -item 2 -quantity 3`, `add -item 4 -quantity 1`. Afterwards, enter `complete`in the order interface and type `y`
+`add -item 2 -quantity 3`, `add -item 4 -quantity 1`. Afterwards, enter `complete` in the order interface and type `y`
 when the confirmation message appears. The completed order is then automatically saved in the `orders.txt` file inside
 the data folder. The user should see the following:
 > [!NOTE]
