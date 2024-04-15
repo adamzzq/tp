@@ -44,8 +44,8 @@ It is written in Java and has about 5kLoC.
         * Update command summary
      * **Proofreading**:
         * Caught grammatical and formatting errors in both the UG and DG, relevant PRs: 
-        * [#200](https://github.com/AY2324S2-CS2113-F14-2/tp/pull/200)
-        * [#201](https://github.com/AY2324S2-CS2113-F14-2/tp/pull/201)
+          [#200](https://github.com/AY2324S2-CS2113-F14-2/tp/pull/200),
+          [#201](https://github.com/AY2324S2-CS2113-F14-2/tp/pull/201)
  
 * **Community**: 
      * PR reviewed (with no trivial review comments): [#143](https://github.com/AY2324S2-CS2113-F14-2/tp/pull/143),
