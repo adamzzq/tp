@@ -88,9 +88,10 @@ the `Command` objects created in `MainLogic`. These methods will be called whene
 a new order or menu is completed, and when an existing menu is edited and completed. Restaurant information, orders,
 and menus are saved in three separate text files: `restaurant.txt`, `orders.txt`, and `menus.txt`.
 
-When the application is launched, `MainLogic` calls the `loadRestaurant()` method to check for an existing restaurant
-data file in the data folder. If the `restaurant.txt` file is missing from the data folder, the user will be prompted to
-enter a restaurant name and address, which is then automatically saved in the save file.
+When the application is launched, `MainLogic` calls the `checkRestaurantData()` method in `Storage ` to check for an
+existing restaurant data file in the data folder and attempt to load its data. If the `restaurant.txt` file is missing
+or corrupted, the user will be prompted to enter a restaurant name and address, which is then automatically saved in the
+save file.
 
 `MainLogic` then calls the `loadData()` method in `Storage` to load existing order and menu data from `orders.txt` and
 `menus.txt` into the application. If `Storage` detects that the save files are corrupted, the corresponding save file
@@ -332,9 +333,6 @@ In the data folder, create a file named `restaurant.txt` and enter the following
 ```
 Techno Edge | 2 Engineering Drive 4
 ```
-> [!NOTE]
-> * If the `restaurant.txt` file is not present in the data folder when the program is run, it assumes the user is a
-> first-time user and will not load data from `orders.txt` and `menus.txt` if present.
 
 #### Load order data
 In the data folder, create a file named `orders.txt` and enter the following data:
