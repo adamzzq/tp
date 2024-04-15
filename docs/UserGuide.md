@@ -201,7 +201,7 @@ Changes the restaurant name and address.
 Format: `edit restaurant`
 
 ### Check order statistics: `view performance`
-Enters the order statistics interface where various statistics based on all completed orders can be viewed.(Refer to
+Enters the order statistics interface where various statistics based on all completed orders can be viewed. (Refer to
 [Features in statistics interface](#features-in-statistics-interface) for the sub-commands)
 
 Format: `view performance`
@@ -220,7 +220,7 @@ Data for restaurant information, orders, and menus are saved automatically in 3 
 `orders.txt`, and `menus.txt`. These 3 files are located in `[JAR file location]/data/*.txt` (where `*.txt` represents
 the name of the data file). **ONLY** edit the data files directly **if** you are an advanced user.
 > [!CAUTION]
-> * If your changes to the data files makes its format invalid, our application will discard the files that have been
+> * If your changes to the data files make its format invalid, our application will discard the files that have been
     corrupted and start with the respective empty data files at the next run. Therefore, it is recommended to make a
     backup of your data files before editing it.
 > * Additionally, some edits can cause DinEz to behave in unexpected ways (e.g., if order ID is changed to a string,
@@ -240,7 +240,7 @@ Adds an item with specified ID, name, and price to the current menu.
 Format: `add -item <item_name> -price <price_of_item>`
 
 * The `<item_name>` should contain **English alphabets and spaces** only.
-* The `<price_of_item>` should be the price of the item without the `$` symbol between 0 and 10000(both exclusive).
+* The `<price_of_item>` should be the price of the item without the `$` symbol between 0 and 10000 (both exclusive).
 
 Example of usage:
 
@@ -291,7 +291,7 @@ Adds a specified quantity of a specific menu item into the order.
 
 Format: ` add -item <item_id> -quantity <quantity_of_item>`
 
-* The `<item_id>` is unique a number to identify the item. You can obtain this ID using the `view menu` command.
+* The `<item_id>` is a unique number that identifies the item. You can obtain this ID using the `view menu` command.
 * The `<quantity_of_item>` is a number representing the amount of the specified item to add
 
 Example of usage:
@@ -446,7 +446,7 @@ former includes costs of production, but the latter excludes it.
   * Add items `add -item <item_id> -quantity <quantity_of_item>`
   * Delete items `delete -item <item_id> -quantity <quantity_of_item>`
   * Check menu items `view menu`
-  * Check order items `view item`
+  * Check order items `view items`
   * Complete current order `complete` or `complete -discount <discount>`
   * Abort current order `cancel`
 
