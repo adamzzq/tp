@@ -101,7 +101,7 @@ the menu into the `menus.txt` save file. The `execute()` method then returns to 
 The following _sequence diagram_ shows an example of how `Storage` interacts with the other components as described
 above.
 
-![Storage sequence diagram](images/Storage.png)
+<img src="images/Storage.png" width="500">
 
 ## Implementation
 
@@ -129,7 +129,7 @@ by querying the orderList.
 ### `OrderLogic`
 The following *sequence diagram* shows an example of how the user's input is processed by `OrderLogic`.
 
-![OrderLogic sequence diagram](images/OrderLogicSequenceDiagram.png)
+<img src="images/OrderLogicSequenceDiagram.png" width="500">
 
 Generally, the order logic works as follows: 
 1. User enters an input which is received in the *ui* and parsed by the `Parser`. 
@@ -138,42 +138,36 @@ Generally, the order logic works as follows:
 4. Control is passed to other sections of the code
 
 **View Menu** <br>
-
 Within the construct of the order logic, the menu can be accessed for viewing in order to select items from 
 available menus. This is carried out with the `view menu` command.
 
 **View Items**  
-
 Within `OrderLogic`, a list containing all the items that have been added to the current active order can be viewed by executing
 the `view item` command.
 
 **Add**  
-
 Inside `OrderLogic`, items from the menu can be added into the current active order.
 This is carried out using the `add -item <item_id> -quantity <quantity_of_item>` command,
 where `<item_id>` is an integer corresponding to the item's id in the menu,
 and `<quantity_of_item>` is an integer of the amount of that item to be added.
 
 **Delete**  
-
 In `OrderLogic`, items from the current order can be removed via the
 `delete -item <item_id> -quantity <quantity_of_item>` command. `<item_id>`
 and `<quantity_of_item>` are the same type of parameters as the ones specified
 in the `Add` command class.
 
 **Complete**  
-
 In `OrderLogic`, once the order is finished, it can be completed and closed
 by executing the `complete` command. This marks the current order as completed
 and the program returns back to `MainLogic` for subsequent command executions.
 
-**Cancel**
-
+**Cancel**  
 In "OrderLogic", the user can cancel the current order by executing the `cancel` command.
 This will abort the current order created and return to the main menu.
 
 ### `MenuLogic`
-![MenuLogic Diagram](images/MenuLogicSequenceDiagram.png)
+<img src="images/MenuLogicSequenceDiagram.png" width="500">
 Generally, the menu logic works similar to order logic:
 1. User enters an input which is received in the *ui* and parsed by the `Parser`.
 2. The `Parser` classifies the command based on `CommandType`
@@ -181,29 +175,25 @@ Generally, the menu logic works similar to order logic:
 4. Control is passed to other sections of the code
 
 **View Items**  
-
 Within `MenuLogic`, a list containing all the items that have been added to the current active order can be viewed by executing
 the `view item` command.
 
-**Add**
-
+**Add**  
 Inside `MenuLogic`, items from the menu can be added into the current active order.
 This is carried out using the `add -item <item_name> -price <price_of_item>` command,
 where `<item_name>` is a string represent the name of the MenuItem,
 and `<price_of_item>` is a double of the price of that item to be added.
 
-**Delete**
-
+**Delete**  
 In `MenuLogic`, items from the current order can be removed via the
 `delete -item <item_id>` command. `<item_id>` is the index of the item in the menu.
 
-**Complete**
-
+**Complete**  
 Inside `MenuLogic`, once the order is finished, it can be completed and closed
 by executing the `complete` command. This marks the current Menu as completed
 and the program returns back to `MainLogic` for subsequent command executions.
 
-**Cancel**
+**Cancel**  
 In `MenuLogic`, the user can cancel the current menu by executing the `cancel` command.
 This will abort the current menu created and return to the main menu.
 
@@ -217,7 +207,7 @@ This will abort the current menu created and return to the main menu.
         System.out.println("\tquit - return to main interface");
 -->
 ### `StatsLogic`
-![StatsLogic Diagram](images/StatsLogicSequenceDiagram.png)
+<img src="images/StatsLogicSequenceDiagram.png" width="500">
 
 Generally, the stats logic works similar to order logic:
 1. User enters an input which is received in the *ui* and parsed by the `Parser`.
