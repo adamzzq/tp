@@ -28,15 +28,15 @@ public class Storage {
      * @return true if a new restaurant needs to be created, false otherwise
      * @throws IOException If an I/O error occurs while creating or reading the restaurant file
      */
-    public static boolean checkNewRestaurant(Restaurant restaurant) throws IOException{
+    public static boolean checkRestaurantData(Restaurant restaurant) throws IOException{
         File restaurantFile = new File(RESTAURANT_FILEPATH);
         restaurantFile.getParentFile().mkdirs();
         restaurantFile.createNewFile();
         try {
             loadRestaurant(restaurant);
-            return false;
-        } catch (ArrayIndexOutOfBoundsException | FileNotFoundException | NoSuchElementException e) {
             return true;
+        } catch (ArrayIndexOutOfBoundsException | FileNotFoundException | NoSuchElementException e) {
+            return false;
         }
     }
 
@@ -173,7 +173,7 @@ public class Storage {
             fw.write(restaurantDetails);
             fw.close();
         } catch (IOException e) {
-            System.out.println("Error saving restaurant details.");
+            System.out.println("Error saving restaurant data.");
         }
     }
 
@@ -206,7 +206,7 @@ public class Storage {
             fw.write("-\n");
             fw.close();
         } catch (IOException e) {
-            System.out.println("Error.");
+            System.out.println("Error saving order data.");
         }
     }
 
@@ -227,7 +227,7 @@ public class Storage {
             fw.write("-\n");
             fw.close();
         } catch (IOException e) {
-            System.out.println("Error.");
+            System.out.println("Error saving menu data.");
         }
     }
 

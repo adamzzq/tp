@@ -12,11 +12,22 @@ Participant ":Model" as model MODEL_COLOR
 Participant ":Storage" as storage STORAGE_COLOR
 
 activate mainLogic MAIN_LOGIC_COLOR
-mainLogic -> storage : loadRestaurant(...)
+mainLogic -> storage : checkRestaurantData(...)
 activate storage STORAGE_COLOR
-storage --> mainLogic
+storage --> mainLogic : isRestaurantLoaded
 deactivate storage
 
+alt isRestaurantLoaded == false
+    mainLogic -> model : initRestaurant(...)
+    activate model MODEL_COLOR
+    model --> mainLogic
+    deactivate model
+    mainLogic -> storage : saveRestaurant(...)
+    activate storage STORAGE_COLOR
+    storage --> mainLogic
+    deactivate storage
+    deactivate model
+end
 mainLogic -> storage : loadData(...)
 activate storage STORAGE_COLOR
 storage --> mainLogic

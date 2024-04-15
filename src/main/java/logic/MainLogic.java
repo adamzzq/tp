@@ -42,21 +42,18 @@ public class MainLogic {
         ArrayList<Order> ordersList = new ArrayList<>();
         ArrayList<Menu> menusList = new ArrayList<>();
 
-        boolean isNewRestaurant = true;
-
+        boolean isRestaurantLoaded = false;
         try {
-            isNewRestaurant = Storage.checkNewRestaurant(restaurant);
+            isRestaurantLoaded = Storage.checkRestaurantData(restaurant);
         } catch (IOException | SecurityException e) {
-            System.out.println("Error creating save files.");
-            System.exit(0);
+            System.out.println("Error creating save files, data might not be saved.");
         }
 
-        if (isNewRestaurant) {
+        if (!isRestaurantLoaded) {
             restaurant.initRestaurant();
             Storage.saveRestaurant(restaurant);
-        } else {
-            Storage.loadData(ordersList, menusList);
         }
+        Storage.loadData(ordersList, menusList);
 
         boolean isValidUser = false;
 

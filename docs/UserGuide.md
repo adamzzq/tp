@@ -218,13 +218,14 @@ changes the data. There is no need to save manually.
 ### Editing the data file
 Data for restaurant information, orders, and menus are saved automatically in 3 separate text files `restaurant.txt`,
 `orders.txt`, and `menus.txt`. These 3 files are located in `[JAR file location]/data/*.txt` (where `*.txt` represents
-the name of the data file).
+the name of the data file). **ONLY** edit the data files directly **if** you are an advanced user.
 > [!CAUTION]
 > * If your changes to the data files makes its format invalid, our application will discard the files that have been
     corrupted and start with the respective empty data files at the next run. Therefore, it is recommended to make a
     backup of your data files before editing it.
-> * Additionally, some edits can cause DinEz to behave in unexpected ways (e.g., if order ID is changed to a string).
-    Hence, only edit the data files if you are confident that you can update it correctly.
+> * Additionally, some edits can cause DinEz to behave in unexpected ways (e.g., if order ID is changed to a string,
+    multiple orders have the same order ID, multiple menus have the same menu ID etc.). Hence, only edit the data files
+    if you are confident that you can update it correctly.
 
 ## Features in Menu interface
 
