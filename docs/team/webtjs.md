@@ -6,7 +6,7 @@
 
 DinEz is a Command Line Interface (CLI) application used for managing various aspects of restaurant management such as
 order taking, menu management, and order statistics. This app is designed for users who are familiar with CLI and can
-type quickly. It is written in Java and has about 4 kLoC.  
+type quickly. It is written in Java and has about 5 kLoC.  
 
 ### Summary of contributions
 
