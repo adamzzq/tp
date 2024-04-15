@@ -57,6 +57,7 @@ It is written in Java and has about 4kLoC.
 - Developer Guide:
   * Added `UI` component description in the architecture section
   * Added descriptions and sequence diagram for the `StatsLogic` component
+  * Added some user stories about the `Statistics`, `Menu`, and `Order` features
 
 #### **Community**:
 - Reviewed other team's DG and UG to give constructive feedback and suggestions
