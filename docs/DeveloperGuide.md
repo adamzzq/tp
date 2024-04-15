@@ -32,14 +32,14 @@ the command `create order -menu 1`, `add -item 1` and `complete`.
 
 ### UI Component
 The UI component is responsible for parsing user input into commands that can be executed by the logic component.
-There is a `analyzeInput` method in the `Parser` class that interprets the user input and classifies 
+There is an `analyzeInput` method in the `Parser` class that interprets the user input and classifies 
 it into a `CommandType` enum.<br>
 The `splitInput` method is used to split the user input into an array of strings, according to the command type.
 It returns an array containing any arguments that are needed to execute the command.
 
 ### Logic Component
 The logic component consists of classes that handle the logic of the application. The logic component is divided into
-`MainLogic` and `SubLogic` which consists of `OrderLogic`, `MenuLogic` and `StatsLogic`.
+`MainLogic` and `SubLogic` which consist of `OrderLogic`, `MenuLogic` and `StatsLogic`.
 
 * [**`MainLogic`**](#model-component): A class to handle the first level commands, and pass the user input to corresponding
 classes for analysis and execution.
@@ -66,7 +66,7 @@ represent food items on the menu.
   <br><br />
 * **`Menu`**: A class representing the menu(s) of the restaurant, where each contains menuItem(s)
  that can be ordered. Multiple menus can exist and each has a unique ID. <br><br />
-* **`MenuItem`**: A class inheriting item, and represents a food item on the menu. <br><br />
+* **`MenuItem`**: A class inheriting from `Item`, and represents a food item on the menu. <br><br />
 * **`Order`**: A class representing an order to be entered into the system to be kept track of. Each 
   order has a unique ID generated from the time of order.<br><br />
 * **`Restaurant`**: A class representing the restaurant which stores the restaurant information such as name and
@@ -175,7 +175,7 @@ This will abort the current order created and return to the main menu.
 ### `MenuLogic`
 ![MenuLogic sequence diagram](images/MenuLogicSequenceDiagram.png)
 
-Generally, the menu logic works similar to order logic:
+Generally, the menu logic works similarly to order logic:
 1. User enters an input which is received in the *ui* and parsed by the `Parser`.
 2. The `Parser` classifies the command based on `CommandType`
 3. Within `MenuLogic`, `execute` is called on the corresponding class
@@ -188,7 +188,7 @@ the `view item` command.
 **Add**  
 Inside `MenuLogic`, items from the menu can be added into the current active order.
 This is carried out using the `add -item <item_name> -price <price_of_item>` command,
-where `<item_name>` is a string represent the name of the MenuItem,
+where `<item_name>` is a string representing the name of the MenuItem,
 and `<price_of_item>` is a double of the price of that item to be added.
 
 **Delete**  
@@ -218,7 +218,7 @@ This will abort the current menu created and return to the main menu.
 ### `StatsLogic`
 ![Statistics sequence diagram](images/StatsLogicSequenceDiagram.png)
 
-Generally, the stats logic works similar to order logic:
+Generally, the stats logic works similarly to order logic:
 1. User enters an input which is received in the *ui* and parsed by the `Parser`.
 2. The `Parser` classifies the command based on `CommandType`
 3. Within `StatsLogic`, `execute` is called on the corresponding class
@@ -262,8 +262,8 @@ In `StatsLogic`, the user can return to the main interface by executing the `qui
 * has a need to manage orders in a restaurant
 * has a need to manage menus in a restaurant
 * has a need to manage cashiering duty in a restaurant
-* has a need to check the restaurant's daily performance
-* prefer CLI apps than GUI apps
+* has a need to check the restaurant's performance
+* prefers CLI apps to GUI apps
 * can type fast
 
 
@@ -274,15 +274,26 @@ In `StatsLogic`, the user can return to the main interface by executing the `qui
 
 ## User Stories
 
-| Priority | As a ...         | I want to ...                             | So that I can ...                                               |
-|----------|------------------|-------------------------------------------|-----------------------------------------------------------------|
-| `* * *`  | restaurant owner | Add dishes to order/menu                  | easily refer and calculate the total price                      |
-| `* * *`  | restaurant owner | Delete dishes to order/menu               | remove the dishes that the customers do not want                |
-| `*   *`  | restaurant owner | view the order receipt                    | check the order details and the total price                     |
-| `* * *`  | restaurant owner | manage cashiering duties in my restaurant | keep track of the money that comes in and out of the restaurant |
-| `*   *`  | restaurant owner | manage menus in my restaurant             | keep track of the dishes that are available in the restaurant   |
-| `*    `  | restaurant owner | view the order/menu                       | check the dishes that are available in the restaurant           |
-| `*    `  | restaurant owner | view the performance of the restaurant    | know which dishes are popular among the customers               |
+| Priority   | As a ...         | I want to ...                             | So that I can ...                                                |
+|------------|------------------|-------------------------------------------|------------------------------------------------------------------|
+| `* * *`    | restaurant owner | add dishes to an order                    | easily refer and calculate the total price                       |
+| `* * *`    | restaurant owner | delete dishes from an order               | remove the dishes that the customers do not want                 |
+| `*   *`    | restaurant owner | view the order receipt                    | check the order details and the total price                      |
+| `* * *`    | restaurant owner | manage cashiering duties in my restaurant | keep track of the money that comes in and out of the restaurant  |
+| `*   *`    | restaurant owner | manage menus in my restaurant             | keep track of the dishes that are available in the restaurant    |
+| `*   *`    | restaurant owner | add new items to a menu                   | adjust menu offerings to customer demand                         |
+| `*   *`    | restaurant owner | delete items from a menu                  | remove items that are no longer available                        |
+| `*   *`    | restaurant owner | delete menus                              | remove menus that are no longer needed                           |
+| `*   *`    | restaurant owner | cancel editing a menu                     | discard changes made to the menu                                 |
+| `*   *`    | restaurant owner | complete editing a menu                   | save the changes made to the menu                                |
+| `*    `    | restaurant owner | view the menus                            | check the dishes that are available in the restaurant            |
+| `*    `    | restaurant owner | know the most popular dishes              | prepare more raw materials accordingly                           |
+| `*    `    | restaurant owner | know the total number of orders           | hire the right number of staff                                   |
+| `*    `    | restaurant owner | know the total revenue                    | know the restaurant's daily performance                          |
+| `*    `    | restaurant owner | indicate cashier's name on the receipt    | know who is the cashier that served the customer                 |
+| `*   *`    | advanced user    | change restaurant name and address        | update the restaurant's information                              |
+| `* * *`    | user             | quit the application                      | exit the and save the data                                       |
+
 
 ## Non-Functional Requirements
 
@@ -412,11 +423,11 @@ In the data folder, create a file named `menus.txt` and enter the following data
 ```
 > [!NOTE]
 > * There **must** be a newline after the `-` which indicates the end of the menu. If the newline is omitted and the user
-> uses program to create new menus, it will result in the **LOSS OF MENU DATA** the next time the program is launched.
+> uses the program to create new menus, it will result in the **LOSS OF MENU DATA** the next time the program is launched.
 
 #### View loaded data
 Launch the application by running the `DinEz.jar` file which is in the same directory as the data file. The application
-should load the data from the save files and the user should see the following:
+should load the data from the saved files and the user should see the following:
 ```
 Hello from DinEz
 Enter user name: 
@@ -505,7 +516,7 @@ order type (dine in/takeaway). Enter the following commands in sequence inside t
 when the confirmation message appears. The completed order is then automatically saved in the `orders.txt` file inside
 the data folder. The user should see the following:
 > [!NOTE]
-> * `order_id` is just a placeholder for the actual ID of the order depends on the time the user creates the order and
+> * `order_id` is just a placeholder for the actual ID of the order depending on the time the user creates the order and
 > differs from order to order.
 > * `...` represents abbreviated messages to shorten the example output
 
