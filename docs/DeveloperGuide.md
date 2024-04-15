@@ -18,7 +18,7 @@ The app's work is done by the following components:
 
 * [**`UI`**](#UI-component): The parser that parses user input to command.
 * [**`MainLogic`**](#logic-component): The main logic command executor.
-* [**`SubLogic`**](#logic-component): The sub logics(i.e. **`MenuLogic`**, **`OrderLogic`**, **`StatsLogic`**) command executor.
+* [**`SubLogic`**](#logic-component): The sub-logic (i.e. **`MenuLogic`**, **`OrderLogic`**, **`StatsLogic`**) command executor.
 * [**`Model`**](#model-component): The data model that stores the data.
 * [**`Command`**](#command-component): Represents a command that the user can execute.
 * [**`Storage`**](#storage-component): Reads data from and writes data to the save data file.
@@ -51,7 +51,7 @@ The command component consists of Four different command interfaces: `MainComman
 interface is for the various command classes that are used in the `MainLogic`, while the `OrderCommand` interface is for
 command classes used in `OrderLogic`, and the `MenuCommand` interface is for command classes used in `MenuLogic`. The `StatsCommand` interface is for command classes used in `StatsLogic`.
 
-based on what command the user has inputted(e.g., `MainHelpCommand` object is created when the user inputs the `help`
+Based on the command entered by the user (e.g., `MainHelpCommand` object is created when the user inputs the `help`
 command). The `execute()` method of the `Command` object is then called to execute the command, which may require
 certain arguments based on the type of command.
 
@@ -92,7 +92,7 @@ save file.
 `menus.txt` into the application. If `Storage` detects that the save files are corrupted, the corresponding save file
 will be deleted from the data folder.
 
-When new orders and menus have been created and completed, once control is passed back from `SubLogic` to `MainLogic`,
+When new orders and menus have been created and completed, and once control is passed back from `SubLogic` to `MainLogic`,
 `MainLogic` will then call either `saveOrder()` or `saveMenu()` depending on what was created. The newly created
 order/menu will then be saved into their respective save file.
 
@@ -123,7 +123,7 @@ Generally, the main logic works as follows:
 in `ViewOrderCommand` class.
 
 **View all orders** <br>
-`Mainlogic` takes in the command and calls the `ViewOrdersSummaryCommand` class to execute the command
+`Mainlogic` takes in the command and calls the `ViewOrdersSummaryCommand` class to execute the command 
 by querying the orderList.
 
 **View Receipt** <br>
@@ -189,7 +189,7 @@ the `view item` command.
 Inside `MenuLogic`, items from the menu can be added into the current active order.
 This is carried out using the `add -item <item_name> -price <price_of_item>` command,
 where `<item_name>` is a string representing the name of the MenuItem,
-and `<price_of_item>` is a double of the price of that item to be added.
+and `<price_of_item>` is a double representing the price of that item to be added.
 
 **Delete**  
 In `MenuLogic`, items from the current order can be removed via the
@@ -299,7 +299,7 @@ In `StatsLogic`, the user can return to the main interface by executing the `qui
 
 * Should Work on any mainstream OS as long as it has Java 11 or above installed.
 * Should be able to handle and save a large number of orders and menus for restaurant's daily operations.
-* Faster type can use the CLI app more efficiently than GUI app
+* Faster typist can use the CLI app more efficiently than GUI app
 
 ## Glossary
 

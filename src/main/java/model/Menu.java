@@ -3,11 +3,7 @@ package model;
 import java.util.ArrayList;
 
 import java.util.Optional;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.Level;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
-import java.util.logging.FileHandler;
+
 
 public class Menu implements ItemManager {
     private static final int NAME_MAX_LENGTH = 22;
@@ -17,12 +13,12 @@ public class Menu implements ItemManager {
             ROW_DELIMITER +
             "| ID   |         Name          | Price     |\n" +
             ROW_DELIMITER;
-    private static final Logger logr = Logger.getLogger("MenuLogger");
+    //private static final Logger logr = Logger.getLogger("MenuLogger");
     private final ArrayList<MenuItem> menuItemList = new ArrayList<>();
     private final String menuID;
 
     public Menu(String menuID) {
-        Menu.setupLogger();
+        //Menu.setupLogger();
         this.menuID = menuID;
     }
 
@@ -111,11 +107,12 @@ public class Menu implements ItemManager {
         return menuString.toString();
     }
 
-    /**
+    /*
      * Set up logger for this class. It has two handlers, one FileHandler and one ConsoleHandler
      * FileHandler records log messages from FINE and above
      * ConsoleHandler only records SEVERE messages
-     */
+
+
     private static void setupLogger() {
         LogManager.getLogManager().reset();
         logr.setLevel(Level.ALL);
@@ -131,5 +128,5 @@ public class Menu implements ItemManager {
         } catch (java.io.IOException e) {
             logr.log(Level.SEVERE, "File logger not working.", e);
         }
-    }
+    }*/
 }
