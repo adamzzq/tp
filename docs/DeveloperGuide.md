@@ -97,7 +97,7 @@ order/menu will then be saved into their respective save file.
 After the user edits a menu and completes it with the `complete` command, the `execute()` method of the `Command` object
 created by `MainLogic` will then call the `updateMenus()` method in `Storage`. This will save all the changes made to
 the menu into the `menus.txt` save file. The `execute()` method then returns to `MainLogic` for further commands.
-<div class="pagebreak"> </div>
+<div style="page-break-after: always;"></div>
 
 The following _sequence diagram_ shows an example of how `Storage` interacts with the other components as described
 above.
@@ -166,6 +166,7 @@ and the program returns back to `MainLogic` for subsequent command executions.
 **Cancel**  
 In "OrderLogic", the user can cancel the current order by executing the `cancel` command.
 This will abort the current order created and return to the main menu.
+<div style="page-break-after: always;"></div>
 
 ### `MenuLogic`
 <img src="images/MenuLogicSequenceDiagram.png" width="600">
@@ -208,7 +209,7 @@ This will abort the current menu created and return to the main menu.
         System.out.println("\tview profit -cost <cost> - View the profit based on the cost");
         System.out.println("\tquit - return to main interface");
 -->
-<div class="pagebreak"> </div>
+<div style="page-break-after: always;"></div>
 
 ### `StatsLogic`
 ![Statistics sequence diagram](images/StatsLogicSequenceDiagram.png)
