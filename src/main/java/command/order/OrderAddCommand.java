@@ -54,11 +54,11 @@ public class OrderAddCommand implements OrderCommand {
         }
     }
 
-    /**
-     * Sets up the logger for the OrderAddCommand class.
-     */
-
     /*
+     * Sets up the logger for the OrderAddCommand class.
+
+
+
     private static void setUpLogger() {
         LogManager.getLogManager().reset();
         logr.setLevel(Level.INFO);

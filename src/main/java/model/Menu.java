@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import java.util.Optional;
 
-import java.util.logging.FileHandler;
 
 public class Menu implements ItemManager {
     private static final int NAME_MAX_LENGTH = 22;
@@ -108,12 +107,12 @@ public class Menu implements ItemManager {
         return menuString.toString();
     }
 
-    /**
+    /*
      * Set up logger for this class. It has two handlers, one FileHandler and one ConsoleHandler
      * FileHandler records log messages from FINE and above
      * ConsoleHandler only records SEVERE messages
-     */
-    /*
+
+
     private static void setupLogger() {
         LogManager.getLogManager().reset();
         logr.setLevel(Level.ALL);
