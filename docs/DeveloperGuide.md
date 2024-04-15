@@ -117,11 +117,11 @@ Generally, the main logic works as follows:
 `Mainlogic` takes user input and creates an `Order` class , then passes it to `OrderLogic` to execute the command.
 
 **View Order by ID** <br>
-`Mainlogic` takes in the command and the order ID, execute the `view order` command by calling a static method<br>
+`Mainlogic` takes in the command and the order ID, execute the `view order` command by calling a static method
 in `ViewOrderCommand` class.
 
 **View all orders** <br>
-`Mainlogic` takes in the command and calls the `ViewOrdersSummaryCommand` class to execute the command<br>    
+`Mainlogic` takes in the command and calls the `ViewOrdersSummaryCommand` class to execute the command
 by querying the orderList.
 
 **View Receipt** <br>
