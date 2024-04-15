@@ -28,15 +28,15 @@ public class Storage {
      * @return true if a new restaurant needs to be created, false otherwise
      * @throws IOException If an I/O error occurs while creating or reading the restaurant file
      */
-    public static boolean checkNewRestaurant(Restaurant restaurant) throws IOException{
+    public static boolean checkRestaurantData(Restaurant restaurant) throws IOException{
         File restaurantFile = new File(RESTAURANT_FILEPATH);
         restaurantFile.getParentFile().mkdirs();
         restaurantFile.createNewFile();
         try {
             loadRestaurant(restaurant);
-            return false;
-        } catch (ArrayIndexOutOfBoundsException | FileNotFoundException | NoSuchElementException e) {
             return true;
+        } catch (ArrayIndexOutOfBoundsException | FileNotFoundException | NoSuchElementException e) {
+            return false;
         }
     }
 
@@ -87,7 +87,11 @@ public class Storage {
             try {
                 String[] restaurantDetails = ordersScanner.nextLine().split(" \\| ");
                 String[] orderDetails = ordersScanner.nextLine().split(" \\| ");
-                Order order = new Order(restaurantDetails[0], restaurantDetails[1], orderDetails[1], orderDetails[2]);
+                String orderType = orderDetails[2];
+                if (!orderType.equals("Takeaway") && !orderType.equals("Dine in")) {
+                    throw new IllegalArgumentException("Invalid order type");
+                }
+                Order order = new Order(restaurantDetails[0], restaurantDetails[1], orderDetails[1], orderType);
                 order.setOrderID(orderDetails[0]);
                 while (ordersScanner.hasNext()) {
                     String line = ordersScanner.nextLine();
@@ -95,13 +99,18 @@ public class Storage {
                         break;
                     }
                     String[] itemDetails = line.split(" \\| ");
-                    MenuItem item = new MenuItem(itemDetails[0], itemDetails[1], Double.parseDouble(itemDetails[2]));
+                    int itemID = Integer.parseInt(itemDetails[0]);
+                    double itemPrice = Double.parseDouble(itemDetails[2]);
+                    if (itemID <= 0 || itemPrice <= 0) {
+                        throw new IllegalArgumentException("Negative number received");
+                    }
+                    MenuItem item = new MenuItem(itemDetails[0], itemDetails[1], itemPrice);
                     for (int i = 0; i < Integer.parseInt(itemDetails[3]); i++) {
                         order.add(item);
                     }
                 }
                 ordersList.add(order);
-            } catch (NumberFormatException | ArrayIndexOutOfBoundsException | NullPointerException e) {
+            } catch (IllegalArgumentException | ArrayIndexOutOfBoundsException | NullPointerException e) {
                 ordersScanner.close();
                 System.out.println("Order data corrupted, erasing data...");
                 ordersFile.delete();
@@ -134,9 +143,14 @@ public class Storage {
                 }
                 String[] itemDetails = line.split(" \\| ");
                 try {
-                    MenuItem item = new MenuItem(itemDetails[0], itemDetails[1], Double.parseDouble(itemDetails[2]));
+                    int itemID = Integer.parseInt(itemDetails[0]);
+                    double itemPrice = Double.parseDouble(itemDetails[2]);
+                    if (itemID <= 0 || itemPrice <= 0) {
+                        throw new IllegalArgumentException("Negative number received");
+                    }
+                    MenuItem item = new MenuItem(itemDetails[0], itemDetails[1], itemPrice);
                     menu.add(item);
-                } catch (NumberFormatException | ArrayIndexOutOfBoundsException | NullPointerException e) {
+                } catch (IllegalArgumentException | ArrayIndexOutOfBoundsException | NullPointerException e) {
                     menusScanner.close();
                     System.out.println("Menu data corrupted, erasing data...");
                     menusFile.delete();
@@ -159,7 +173,7 @@ public class Storage {
             fw.write(restaurantDetails);
             fw.close();
         } catch (IOException e) {
-            System.out.println("Error saving restaurant details.");
+            System.out.println("Error saving restaurant data.");
         }
     }
 
@@ -192,7 +206,7 @@ public class Storage {
             fw.write("-\n");
             fw.close();
         } catch (IOException e) {
-            System.out.println("Error.");
+            System.out.println("Error saving order data.");
         }
     }
 
@@ -213,7 +227,7 @@ public class Storage {
             fw.write("-\n");
             fw.close();
         } catch (IOException e) {
-            System.out.println("Error.");
+            System.out.println("Error saving menu data.");
         }
     }
 

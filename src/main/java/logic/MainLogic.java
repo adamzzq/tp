@@ -14,7 +14,6 @@ import command.main.MainEditRestaurantInfoCommand;
 
 
 import model.Menu;
-import model.MenuItem;
 import model.Order;
 import model.Restaurant;
 import storage.Storage;
@@ -29,6 +28,7 @@ import java.util.Optional;
 import java.util.Scanner;
 
 public class MainLogic {
+    private static final int MAX_NAME_LENGTH = 50;
     private static String userName;
 
     public static void main(String[] args) {
@@ -42,35 +42,24 @@ public class MainLogic {
         ArrayList<Order> ordersList = new ArrayList<>();
         ArrayList<Menu> menusList = new ArrayList<>();
 
-        boolean isNewRestaurant = true;
+        boolean isRestaurantLoaded = false;
         try {
-            isNewRestaurant = Storage.checkNewRestaurant(restaurant);
+            isRestaurantLoaded = Storage.checkRestaurantData(restaurant);
         } catch (IOException | SecurityException e) {
-            System.out.println("Error creating save files.");
-            System.exit(0);
+            System.out.println("Error creating save files, data might not be saved.");
         }
 
-        if (isNewRestaurant) {
+        if (!isRestaurantLoaded) {
             restaurant.initRestaurant();
             Storage.saveRestaurant(restaurant);
-        } else {
-            Storage.loadData(ordersList, menusList);
         }
+        Storage.loadData(ordersList, menusList);
 
-        //initialization
         boolean isValidUser = false;
 
         while (!isValidUser) {
             isValidUser = initializeUser();
         }
-
-
-
-        //testing
-        initMenu(menusList);
-        System.out.println("current menu ID: " + menusList.get(0).getId());
-        testOrderAddAndRemove(ordersList);
-        testOrderAddAndRemove(ordersList);
 
         MainHelpCommand.execute();
         boolean isExit = false;
@@ -149,11 +138,15 @@ public class MainLogic {
      * @return true if the input was valid, false otherwise
      */
     private static boolean initializeUser() {
-
         System.out.println("Enter user name: ");
 
         Scanner input = new Scanner(System.in);
         String inputString= input.nextLine();
+        int length = inputString.length();
+        if (length > MAX_NAME_LENGTH) {
+            System.out.println("Name is too long! Please enter a name with less than 50 characters.");
+            return false;
+        }
 
         if (inputString.isBlank() || inputString.isEmpty()) {
             System.out.println("Input cannot be empty!");
@@ -162,46 +155,5 @@ public class MainLogic {
             userName = inputString;
             return true;
         }
-    }
-
-    private static void initMenu(ArrayList<Menu> menusList) {
-        MenuItem dish01 = new MenuItem("1", "Chicken Rice", 3.50);
-        MenuItem dish02 = new MenuItem("2", "Nasi Lemak", 3.00);
-        MenuItem dish03 = new MenuItem("3", "Hokkien Mee", 4.00);
-        MenuItem dish04 = new MenuItem("4", "Mee Siam", 3.50);
-        MenuItem dish05 = new MenuItem("5", "Fishball Noodles", 3.00);
-        MenuItem dish06 = new MenuItem("6", "Chicken Curry Rice", 5.00);
-        MenuItem dish07 = new MenuItem("7", "Seafood Fried Rice", 5.50);
-        MenuItem dish08 = new MenuItem("8", "Roasted delight set", 6.50);
-        MenuItem dish09 = new MenuItem("9", "Hotplate beef set", 7.00);
-        MenuItem dish10 = new MenuItem("10", "Kimchi noodles", 4.00);
-
-        Menu menuV1 = new Menu("01");
-        menuV1.add(dish01);
-        menuV1.add(dish02);
-        menuV1.add(dish03);
-        menuV1.add(dish04);
-        menuV1.add(dish05);
-        menuV1.add(dish06);
-        menuV1.add(dish07);
-        menuV1.add(dish08);
-        menuV1.add(dish09);
-        menuV1.add(dish10);
-        menusList.add(menuV1);
-
-    }
-
-    public static void testOrderAddAndRemove(ArrayList<Order> ordersList) {
-        MenuItem dish01 = new MenuItem("D01", "Chicken Rice", 3.50);
-        MenuItem dish02 = new MenuItem("D02", "Nasi Lemak", 3.00);
-        MenuItem dish04 = new MenuItem("D04", "Mee Siam", 3.50);
-        MenuItem dish05 = new MenuItem("D04", "Mee Siam", 3.50);
-        Order order = new Order("Happy Hawker", "Street 123", "Tom",
-                "Dine in");
-        order.add(dish01);
-        order.add(dish02);
-        order.add(dish04);
-        order.add(dish05);
-        ordersList.add(order);
     }
 }

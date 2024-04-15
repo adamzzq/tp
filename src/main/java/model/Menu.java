@@ -31,7 +31,7 @@ public class Menu implements ItemManager {
     }
 
     public Optional<MenuItem> getItemByName(String itemName) {
-        return menuItemList.stream().filter(x -> x.getName().equals(itemName)).findAny();
+        return menuItemList.stream().filter(x -> x.getName().compareToIgnoreCase(itemName) == 0).findAny();
     }
 
     public ArrayList<MenuItem> getMenuItemList() {
@@ -77,7 +77,7 @@ public class Menu implements ItemManager {
     }
 
     public String getMenuSummary() {
-        return this.menuID + " menu with " + this.menuItemList.size() + " items";
+        return String.format("Menu ID: %s, Number of items: %d", this.menuID, this.menuItemList.size());
     }
 
     @Override

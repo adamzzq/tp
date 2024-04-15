@@ -20,9 +20,20 @@ public class MenuAddCommand implements MenuCommand {
         String itemPrice = indexString[1];
         Optional<MenuItem> itemByName = newMenu.getItemByName(itemName);
 
+        // limit price range to 0.01 - 9999.99
+        if (Double.parseDouble(itemPrice) < 0.01 || Double.parseDouble(itemPrice) > 9999.99) {
+            System.out.println("Price must be between 0 and 10000 (both exclusive)");
+            return;
+        }
+
+        if (itemName.isEmpty()) {
+            System.out.println("Item name cannot be empty");
+            return;
+        }
+
         if (itemByName.isPresent()) {
             System.out.println("Item already in menu. It has ID: "
-                    + itemByName.get().getID() + " and Name: " + itemName);
+                    + itemByName.get().getID() + " and Name: " + itemByName.get().getName());
         } else {
             newMenu.add(new MenuItem(itemID, itemName, Double.parseDouble(itemPrice)));
             System.out.println("Item successfully added to menu!");

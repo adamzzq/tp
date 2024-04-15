@@ -2,10 +2,10 @@
 
 ## Overview
 
-### Project: DinEZ
+### Project: DinEz
 
 DinEz is a CLI application intended to help someone manage the menus and orders of a restaurant.
-It is written in Java and has about 2kLoC.
+It is written in Java and has about 4kLoC.
 
 ### Summary of Contributions
 
@@ -29,7 +29,7 @@ It is written in Java and has about 2kLoC.
     [RepoSense link](https://nus-cs2113-ay2324s2.github.io/tp-dashboard/?search=&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2024-02-23&tabOpen=true&tabType=authorship&tabAuthor=Zhengwinter&tabRepo=AY2324S2-CS2113-F14-2%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code&authorshipIsBinaryFileTypeChecked=false&authorshipIsIgnoredFilesChecked=false)
  * **Project Management**: Assisted in managing `v1.0` and `v2.1`
  * **Enhancement to existing feature**: Modified Menu class and MenuLogic (Pull requests [#74](https://github.com/AY2324S2-CS2113-F14-2/tp/pull/74))
- * **Testing**: Wrote test cases for `Menu` and `MenuCommand`
+ * **Testing**: Wrote test cases for `Menu`, `MenuCommand` and `OrderCommand`
  * **Issues**: Raised issues (non-trivial and aesthetics) and found potential bugs: 
                [#158](https://github.com/AY2324S2-CS2113-F14-2/tp/issues/158)
                [#159](https://github.com/AY2324S2-CS2113-F14-2/tp/issues/159)
@@ -38,11 +38,15 @@ It is written in Java and has about 2kLoC.
      * **Developer Guide**: 
        * Added documentation for all the model components including `ItemManager`, `Menuitem`, `Menu`, `Order`
      * **Model Diagram**: Included a class diagram for the model components
-     * **User guide**: Added FAQ to justify why edit order is not implemented
+     * **User guide**: 
+        * Added FAQ to justify why edit order is not implemented
+        * Reiterate difference between net revenue and profit in FAQ
+        * Update command summary
  
 * **Community**: 
      * PR reviewed (with no trivial review comments): [#143](https://github.com/AY2324S2-CS2113-F14-2/tp/pull/143),
-                                                    [#144](https://github.com/AY2324S2-CS2113-F14-2/tp/pull/144)
+                                                    [#144](https://github.com/AY2324S2-CS2113-F14-2/tp/pull/144),
+                                                    [#168](https://github.com/AY2324S2-CS2113-F14-2/tp/pull/168)
      * Provided detailed explanation and justification for the majority of PRs (a few examples shown below):
         [#72](https://github.com/AY2324S2-CS2113-F14-2/tp/pull/72), 
         [#85](https://github.com/AY2324S2-CS2113-F14-2/tp/pull/85), 

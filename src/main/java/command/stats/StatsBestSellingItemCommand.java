@@ -12,8 +12,13 @@ public class StatsBestSellingItemCommand implements StatsCommand {
      * @param stats OrderStatistics object containing the statistics
      */
     public static void execute(OrderStatistics stats) {
-        System.out.println("Best selling item(s):");
         List<Item> bestSellingItems = stats.getBestSellingItems();
+        if (bestSellingItems.isEmpty()) {
+            System.out.println("Make some orders to see the best selling items!");
+            return;
+        }
+
+        System.out.println("Best selling item(s):");
         for (int i = 0; i < bestSellingItems.size(); i++) {
             System.out.println((i + 1) + ". " + bestSellingItems.get(i).getName());
             if (i > 3) {

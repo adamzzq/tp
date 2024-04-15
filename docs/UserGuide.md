@@ -6,7 +6,7 @@ DinEz is an integrated system solution which aims to address certain aspects of 
 the daily operation of a restaurant in a digitalised way, including order taking, menu management and order statistics.
 
 If you are well-versed with CLI and can type fast, DinEz can help to coordinate the various tasks and allow you to
-access all the necessary information in one application. The CLI is also reliable and simpler to operate than a
+access all the necessary information in one application. The CLI is also more reliable and simpler to operate than a
 traditional GUI.
 
 * [Quick start](#quick-start)
@@ -28,7 +28,7 @@ traditional GUI.
   * [Menu help guide: `help`](#menu-help-guide-help)
   * [Add items: `add`](#add-items-add)
   * [Delete items: `delete`](#delete-items-delete)
-  * [Check menu items: `view item`](#check-menu-items-view-item)
+  * [Check menu items: `view items`](#check-menu-items-view-items)
   * [Complete current menu: `complete`](#complete-current-menu-complete)
   * [Abort current menu: `cancel`](#abort-current-menu-cancel)
 * [Features in Order Interface](#features-in-order-interface)
@@ -36,15 +36,14 @@ traditional GUI.
   * [Add items: `add`](#add-items-add-1)
   * [Delete items: `delete`](#delete-items-delete-1)
   * [Check menu items: `view menu`](#check-menu-items-view-menu)
-  * [Check order items: `view item`](#check-order-items-view-item)
+  * [Check order items: `view items`](#check-order-items-view-items)
   * [Complete current order: `complete`](#complete-current-order-complete)
   * [Abort current order: `cancel`](#abort-current-order-cancel)
 * [Features in Statistics interface](#features-in-statistics-interface)
   * [Bestselling item: `bestselling`](#find-bestselling-items-bestselling)
   * [Total orders: `total orders`](#get-total-orders-count-total-orders)
-  * [Gross revenue: `revenue gross`](#calculate-gross-revenue-revenue--gross)
-  * [Net revenue: `revenue net`](#calculate-net-revenue-revenue--net)
-  * [View profit: `view profit cost <cost>`](#calculate-profit-view-profit-cost-cost)
+  * [Calculate gross or net revenue: `revenue`](#calculate-gross-or-net-revenue-revenue)
+  * [View profit: `view profit`](#calculate-profit-view-profit)
   * [Return to main interface: `quit`](#return-to-main-interface-quit)
 * [FAQ](#faq)
 * [Command summary](#command-summary)
@@ -66,7 +65,6 @@ traditional GUI.
     Avenue 0
     Enter user name:
     Tom
-    current menu ID: 01
     Here are the list of available commands:
     help: Shows all the commands that can be used.
     create order -menu <menu_id>: Creates a new order using the specified menu.
@@ -80,19 +78,19 @@ traditional GUI.
     view performance: Enters the order statistics interface.
     bye: Quits the program.
    ```
-6. **IMPORTANT!!!** Our application consists of **three interfaces**(i.e. main,order and menu) which consists of
-   different commands. `create order` enters order interface, `create menu` enters menu interface. Type `help` to check
-   available commands at current interface.
-7. Type the command in the CLI and press Enter to execute it e.g. typing `help` then pressing
+6. Type the command in the CLI and press Enter to execute it e.g. typing `help` then pressing
    Enter will display the help menu.
    Here are some example commands you can try:
-- `help`: Displays all the commands that can be used
-- `create order -menu 01`: Creates a new order which uses the menu of ID `01`
-  and navigates to the order interface to perform sub-commands
-- `view -menu -all`: Shows a brief summary of all the created menus
-- `bye`: Exits from the program
-
-8. Refer to the [Features](#features) below for details of each command
+    - `help`: Displays all the commands that can be used
+    - `create order -menu 1`: Creates a new order which uses the menu of ID `1`
+      and navigates to the order interface to perform sub-commands
+    - `view -menu -all`: Shows a brief summary of all the created menus
+    - `bye`: Exits from the program
+7. **IMPORTANT!!!** Our application consists of **four interfaces**(i.e. main, order, menu and statistics) with different
+   commands available. Remember to type `help` to check available commands at current interface.
+8. Do note that by default, no menu is present and a menu has to be created before the items on the menu
+   can be added to an order.
+9. Refer to the [Features](#features) below for details of each command
 
 
 > [!NOTE]
@@ -102,17 +100,17 @@ traditional GUI.
 
 
 Accepted formats examples:<br>
-`create order -menu 01`
-`create order-menu01`
-`createorder-menu01`
-`CREATE ORDER -MENU 01`
-`Createorder -menu 01`(Non-exhaustive list)
+`create order -menu 1`
+`create order-menu1`
+`createorder-menu1`
+`CREATE ORDER -MENU 1`
+`Createorder -menu 1`(Non-exhaustive list)
 
 
 ## Features
 
 ### User help guide: `help`
-Shows all the commands that can be used.
+Shows all the commands that can be used, including their format and their expected purpose.
 
 Format: `help`
 
@@ -133,9 +131,12 @@ Format: `edit -menu <menu_id>`
 
 Example of usage:
 
-`edit -menu 01`
+`edit -menu 1`
 
 ### Create new order: `create order`
+
+*NOTE: A menu has to be present before an order can be created. For a first-time user, a menu should be created first.*
+
 Creates a new order with a specified menu and goes to the order interface to perform sub-commands. (Refer to
 [Features for Order interface](#features-in-order-interface) for the sub-commands)
 
@@ -146,10 +147,11 @@ Format: `create order -menu <menu_id>`
 
 Example of usage:
 
-`create order -menu 01`
+`create order -menu 1`
+`create order -menu 23`
 
 ### Check orders: `view order`
-Shows all the contents of a specified order, or shows the brief summary of all orders.
+Shows all the contents of a specified order, or shows a brief summary of all orders.
 
 Format: `view -order <order_id>` and `view -order -all`
 
@@ -179,14 +181,14 @@ Shows all the contents of a specified menu, or shows the brief summary of all me
 
 Format: `view -menu <menu_id>` and `view -menu -all`
 
-* The `<menu_id>` is a unique number representing the menu. This ID can be obtained from the
-  `view -menu -all` command.
+* The `<menu_id>` is a unique number representing a selected menu. 
+This ID can be obtained from the `view -menu -all` command.
 
 Example of usage:
 
 `view -menu -all`
 
-`view -menu 02`
+`view -menu 2`
 
 ### Check restaurant info: `view restaurant`
 Shows the restaurant name and address currently in use.
@@ -216,13 +218,14 @@ changes the data. There is no need to save manually.
 ### Editing the data file
 Data for restaurant information, orders, and menus are saved automatically in 3 separate text files `restaurant.txt`,
 `orders.txt`, and `menus.txt`. These 3 files are located in `[JAR file location]/data/*.txt` (where `*.txt` represents
-the name of the data file).
+the name of the data file). **ONLY** edit the data files directly **if** you are an advanced user.
 > [!CAUTION]
 > * If your changes to the data files makes its format invalid, our application will discard the files that have been
     corrupted and start with the respective empty data files at the next run. Therefore, it is recommended to make a
     backup of your data files before editing it.
-> * Additionally, some edits can cause DinEz to behave in unexpected ways (e.g., if order ID is changed to a string).
-    Hence, only edit the data files if you are confident that you can update it correctly.
+> * Additionally, some edits can cause DinEz to behave in unexpected ways (e.g., if order ID is changed to a string,
+    multiple orders have the same order ID, multiple menus have the same menu ID etc.). Hence, only edit the data files
+    if you are confident that you can update it correctly.
 
 ## Features in Menu interface
 
@@ -236,9 +239,8 @@ Adds an item with specified ID, name, and price to the current menu.
 
 Format: `add -item <item_name> -price <price_of_item>`
 
-* The `<item_id>` is unique a number to identify the item. You cannot add two items with the same ID.
-* The `<item_name>` should contain English alphabets and spaces only.
-* The `<price_of_item>` should be the price of the item without the `$` symbol.
+* The `<item_name>` should contain **English alphabets and spaces** only.
+* The `<price_of_item>` should be the price of the item without the `$` symbol between 0 and 10000(both exclusive).
 
 Example of usage:
 
@@ -251,17 +253,17 @@ Deletes an item of a specified ID from the current menu.
 
 Format: `delete -item <item_id>`
 
-* The `<item_id>` is a number representing the menu item. You can obtain this ID with the help of the `view item`
+* The `<item_id>` is a number representing the menu item. You can obtain this ID with the help of the `view items`
   command.
 
 Example of usage:
 
-`delete -item 001`
+`delete -item 1`
 
-### Check menu items: `view item`
+### Check menu items: `view items`
 Shows all the items in the current menu.
 
-Format: `view item`
+Format: `view items`
 
 ### Complete current menu: `complete`
 Marks the current menu as completed and returns to the main interface.
@@ -294,7 +296,7 @@ Format: ` add -item <item_id> -quantity <quantity_of_item>`
 
 Example of usage:
 
-`add -item 001 -quantity 2`
+`add -item 1 -quantity 2`
 
 ### Delete items: `delete`
 Deletes a specified quantity of a specified item in the order.
@@ -306,24 +308,26 @@ Format: `delete -item <item_id> -quantity <quantity_of_item>`
 
 Example of usage:
 
-`delete -item 001 -quantity 1`
+`delete -item 1 -quantity 1`
 
 ### Check menu items: `view menu`
 Shows the menu used by the current order.
 
 Format: `view menu`
 
-### Check order items: `view item`
+### Check order items: `view items`
 Shows all the items in the current order.
 
-Format: `view item`
+Format: `view items`
 
 ### Complete current order: `complete`
 Marks the current order as completed and returns to the main interface.
 
-Format: `complete`
+Format: `complete` or `complete -discount <discount>`
 
 * The `complete` command cannot be used on an empty order. You will be prompted to add items to the order.
+* The `<discount>` is a number representing the discount percentage. It should be an integer without the `%`
+  symbol, ranging from 0 to 99.
 
 ### Abort current order: `cancel`
 Cancels the current order's creation and returns to the main interface.
@@ -346,7 +350,7 @@ Format: `cancel`
 ### Find bestselling items: `bestselling`
 Shows the best-selling item(s) in the restaurant of all time.
 The best-selling item is defined as the item with the highest quantity sold. If there are multiple items with the same
-highest quantity sold, the top 3 items will be displayed.
+highest quantity sold, up to 3 of the best-selling items will be displayed (based on the natural order of their Id).
 
 Format: `bestselling`
 
@@ -355,18 +359,18 @@ Shows the total number of orders that have been created.
 
 Format: `total orders`
 
-### Calculate Gross revenue: `revenue -gross`
-Shows the gross revenue of the restaurant. (i.e. total revenue before deducting costs and taxes)
+### Calculate gross or net revenue: `revenue`
+Shows the gross revenue of the restaurant. (i.e. total revenue before deducting costs and taxes),
+or shows the net revenue of the restaurant. (i.e. total revenue after deducting taxes)
 
-Format: `revenue -gross`
+Format: `revenue -gross` or `revenue -net`
 
-### Calculate Net revenue: `revenue -net`
-Shows the net revenue of the restaurant. (i.e. total revenue after deducting taxes)
 
-Format: `revenue -net`
-
-### Calculate profit: `view profit cost <cost>`
-Shows the profit based on the cost of the items in the restaurant. (i.e. total revenue after deducting costs and taxes)
+### Calculate profit: `view profit`
+Shows the profit based on the operating costs in the restaurant as provided by the user.
+(i.e. total revenue after deducting costs and taxes) <br><br>
+The cost here is intended as the total cost of operations, which can include
+production, rental and supply costs.
 
 Format: `view profit -cost <cost>`
 
@@ -375,6 +379,7 @@ Format: `view profit -cost <cost>`
 
 Example of usage:
 `view profit -cost 150`
+`view profit -cost 20000`
 
 ### Return to main interface: `quit`
 Returns to the main interface from the statistics interface.
@@ -409,6 +414,10 @@ as they are important for the restaurant's records.
 **A**: To preserve the integrity of the generated orders, we do not offer a feature to edit orders that have been 
 entered. A confirmation message is hence present for the user to verify that their inputs are correct.
 
+**Q**: What is the difference between net revenue and profit?
+
+**A**: As mentioned in the user guide for those features, the difference between net revenue and profit is that the 
+former includes costs of production, but the latter excludes it.
 
 
 ## Command Summary
@@ -429,7 +438,7 @@ entered. A confirmation message is hence present for the user to verify that the
 ### Menu interface sub-commands
   * Add items `add -item <item_name> -price <price_of_item>`
   * Delete items `delete -item <item_id>`
-  * Check menu items `view item`
+  * Check menu items `view items`
   * Complete current menu `complete`
   * Abort current menu `cancel` <br>
 
@@ -438,7 +447,7 @@ entered. A confirmation message is hence present for the user to verify that the
   * Delete items `delete -item <item_id> -quantity <quantity_of_item>`
   * Check menu items `view menu`
   * Check order items `view item`
-  * Complete current order `complete`
+  * Complete current order `complete` or `complete -discount <discount>`
   * Abort current order `cancel`
 
 ### Statistics interface sub-commands

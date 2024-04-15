@@ -23,9 +23,8 @@ public class OrderAddCommand implements OrderCommand {
      * @param newOrder    the order to add the item to
      * @param inputText   the string containing details of item to be added
      * @param menu        the menu with the item to be added
-     * @return            always returns false, as order is not completed
      */
-    public static Order execute(Order newOrder, String inputText, Menu menu) {
+    public static void execute(Order newOrder, String inputText, Menu menu) {
         OrderAddCommand.setUpLogger();
 
         logr.info("Adding new item to order");
@@ -33,15 +32,22 @@ public class OrderAddCommand implements OrderCommand {
         String itemID = indexString[0];
         String itemQuantity = indexString[1];
         Optional<MenuItem> item = menu.getItemById(itemID);
+
+        // limit quantity to 1 - 9999
+        if (Integer.parseInt(itemQuantity) < 1 || Integer.parseInt(itemQuantity) > 9999) {
+            logr.warning("Quantity of item is out of range");
+            System.out.println("Quantity must be between 0 and 10000 (both exclusive)");
+            return;
+        }
         if (item.isPresent()) {
             try {
                 for (int i = 0; i < Integer.parseInt(itemQuantity); i++) {
                     newOrder.add(item.get());
                 }
-            } catch (NumberFormatException e) {
-                logr.warning("Quantity of item is too large");
-                System.out.println("Please enter a smaller number.");
-                return newOrder;
+            } catch (IllegalArgumentException e) {
+                logr.warning("Item count already at maximum");
+                System.out.println(e.getMessage());
+                return;
             }
             logr.info("Item successfully added to order");
             System.out.println(itemQuantity + " " + item.get().getName() + " is added to order");
@@ -49,8 +55,6 @@ public class OrderAddCommand implements OrderCommand {
             logr.warning("Item not in menu, not added to order");
             System.out.println("Item not found in menu");
         }
-
-        return newOrder;
     }
 
     /**

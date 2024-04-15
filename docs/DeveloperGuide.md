@@ -1,13 +1,9 @@
 # Developer Guide
 
-## Acknowledgements
-
-{list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
-
 ## Design
 
 ### Architecture
-![Architecture](images\Architecture.png)
+![Architecture](images/Architecture.png)
 
 The **Architecture diagram** given above shows the high-level design of the application.
 
@@ -20,19 +16,19 @@ Given below is a quick overview of main components and how they interact with ea
 
 The app's work is done by the following components:
 
-* [**`MainLogic`**](#sublogic-component): The main logic command executor.
-* [**`SubLogic`**](#sublogic-component): The sub logics(i.e. **`MenuLogic`**, **`OrderLogic`**) command executor.
-* [**`Parser`**](#parser-component): The parser that parses user input to command.
+* [**`UI`**](#UI-component): The parser that parses user input to command.
+* [**`MainLogic`**](#logic-component): The main logic command executor.
+* [**`SubLogic`**](#logic-component): The sub logics(i.e. **`MenuLogic`**, **`OrderLogic`**, **`StatsLogic`**) command executor.
 * [**`Model`**](#model-component): The data model that stores the data.
 * [**`Command`**](#command-component): Represents a command that the user can execute.
-* [**`Storage`**](#storage-component): Reads data from, and writes data.
+* [**`Storage`**](#storage-component): Reads data from and writes data to the save data file.
 
 **How the architecture components interact with each other**
 
 The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues 
-the command `create order -menu 01`, `add -item 001` and `complete`.
+the command `create order -menu 1`, `add -item 1` and `complete`.
 
-![Sequence Diagram](images\ArchitectureSequenceDiagram.png)
+![Sequence Diagram](images/ArchitectureSequenceDiagram.png ) 
 
 ### UI Component
 The UI component is responsible for parsing user input into commands that can be executed by the logic component.
@@ -43,19 +39,18 @@ It returns an array containing any arguments that are needed to execute the comm
 
 ### Logic Component
 The logic component consists of classes that handle the logic of the application. The logic component is divided into
-`MainLogic` and `SubLogic` which consists of `OrderLogic` and `MenuLogic`.
+`MainLogic` and `SubLogic` which consists of `OrderLogic`, `MenuLogic` and `StatsLogic`.
 
 * [**`MainLogic`**](#model-component): A class to handle the first level commands, and pass the user input to corresponding
 classes for analysis and execution.
-* [**`OrderLogic`**](#model-component) and [**`MenuLogic`**](#model-component): A class to handle the second level commands,
+* [**`OrderLogic`**](#model-component),[**`MenuLogic`**](#model-component) and [**`StatsLogic`**](#model-component): A class to handle the second level commands,
 and pass the user input to corresponding classes for analysis and execution.
 
 ### Command Component
-The command component consists of two different command interfaces: `MainCommand` and `OrderCommand`. The `MainCommand`
+The command component consists of Four different command interfaces: `MainCommand`, `OrderCommand`, `MenuCommand` and `StatsCommand`. The `MainCommand`
 interface is for the various command classes that are used in the `MainLogic`, while the `OrderCommand` interface is for
-command classes used in `OrderLogic`.  
+command classes used in `OrderLogic`, and the `MenuCommand` interface is for command classes used in `MenuLogic`. The `StatsCommand` interface is for command classes used in `StatsLogic`.
 
-A `Command` object will be created in either the `MainLogic` or `OrderLogic`
 based on what command the user has inputted(e.g., `MainHelpCommand` object is created when the user inputs the `help`
 command). The `execute()` method of the `Command` object is then called to execute the command, which may require
 certain arguments based on the type of command.
@@ -65,22 +60,49 @@ The model consists of classes describing the objects used in this application.
 The general structure is that menu and order are separate, but they both work with `menuItem(s)`, which 
 represent food items on the menu.
 
-* [**`ItemManager`**](#model-component): An interface containing methods representing operations common to **`Menu`** 
+* **`ItemManager`**: An interface containing methods representing operations common to **`Menu`** 
   and **`Order`**. <br><br />
-* [**`Item`**](#model-component): An abstract class representing a food item. It should be implemented by **`MenuItem`**.
+* **`Item`**: An abstract class representing a food item. It should be implemented by **`MenuItem`**.
   <br><br />
-* [**`Menu`**](#model-component): A class representing the menu(s) of the restaurant, where each contains menuItem(s)
+* **`Menu`**: A class representing the menu(s) of the restaurant, where each contains menuItem(s)
  that can be ordered. Multiple menus can exist and each has a unique ID. <br><br />
-* [**`MenuItem`**](#model-component): A class inheriting item, and represents a food item on the menu. <br><br />
-* [**`Order`**](#model-component): A class representing an order to be entered into the system to be kept track of. Each 
+* **`MenuItem`**: A class inheriting item, and represents a food item on the menu. <br><br />
+* **`Order`**: A class representing an order to be entered into the system to be kept track of. Each 
   order has a unique ID generated from the time of order.<br><br />
-* [**`SetMenu`**](#model-component): An enumeration representing the different types of set menus available, examples of
-  which includes *breakfast*, *lunch*, *dinner*.
 
 The *Class Diagram* below shows how the model components interact with each other, including interactions such as 
 dependencies, associations and inheritance.
 
 ![Class Diagram](images/modelcomponent.png)
+
+### Storage component
+The storage component consists of a `Storage` class with various static methods that will be called by `MainLogic` and
+the `Command` objects created in `MainLogic`. These methods will be called whenever restaurant information is updated,
+a new order or menu is completed, and when an existing menu is edited and completed. Restaurant information, orders,
+and menus are saved in three separate text files: `restaurant.txt`, `orders.txt`, and `menus.txt`.
+
+When the application is launched, `MainLogic` calls the `checkRestaurantData()` method in `Storage ` to check for an
+existing restaurant data file in the data folder and attempt to load its data. If the `restaurant.txt` file is missing
+or corrupted, the user will be prompted to enter a restaurant name and address, which is then automatically saved in the
+save file.
+
+`MainLogic` then calls the `loadData()` method in `Storage` to load existing order and menu data from `orders.txt` and
+`menus.txt` into the application. If `Storage` detects that the save files are corrupted, the corresponding save file
+will be deleted from the data folder.
+
+When new orders and menus have been created and completed, once control is passed back from `SubLogic` to `MainLogic`,
+`MainLogic` will then call either `saveOrder()` or `saveMenu()` depending on what was created. The newly created
+order/menu will then be saved into their respective save file.
+
+After the user edits a menu and completes it with the `complete` command, the `execute()` method of the `Command` object
+created by `MainLogic` will then call the `updateMenus()` method in `Storage`. This will save all the changes made to
+the menu into the `menus.txt` save file. The `execute()` method then returns to `MainLogic` for further commands.
+<div style="page-break-after: always;"></div>
+
+The following _sequence diagram_ shows an example of how `Storage` interacts with the other components as described
+above.
+
+![Storage sequence diagram](images/Storage.png)
 
 ## Implementation
 
@@ -95,18 +117,20 @@ Generally, the main logic works as follows:
 `Mainlogic` takes user input and creates an `Order` class , then passes it to `OrderLogic` to execute the command.
 
 **View Order by ID** <br>
-`Mainlogic` takes in the command and the order ID, execute the `view order` command by calling a static method<br>
+`Mainlogic` takes in the command and the order ID, execute the `view order` command by calling a static method
 in `ViewOrderCommand` class.
 
 **View all orders** <br>
-`Mainlogic` takes in the command and calls the `ViewOrdersSummaryCommand` class to execute the command<br>    
+`Mainlogic` takes in the command and calls the `ViewOrdersSummaryCommand` class to execute the command
 by querying the orderList.
 
 **View Receipt** <br>
 `Mainlogic` takes in the command and calls the `ViewReceiptCommand` class to execute the command
 
+<div style="page-break-after: always;"></div>
+
 ### `OrderLogic`
-The following *sequence diagram* shows an example of how the user's input is proccessed by `OrderLogic`.
+The following *sequence diagram* shows an example of how the user's input is processed by `OrderLogic`.
 
 ![OrderLogic sequence diagram](images/OrderLogicSequenceDiagram.png)
 
@@ -117,74 +141,118 @@ Generally, the order logic works as follows:
 4. Control is passed to other sections of the code
 
 **View Menu** <br>
-
 Within the construct of the order logic, the menu can be accessed for viewing in order to select items from 
 available menus. This is carried out with the `view menu` command.
 
-**View Item**  
-
+**View Items**  
 Within `OrderLogic`, a list containing all the items that have been added to the current active order can be viewed by executing
 the `view item` command.
 
 **Add**  
-
 Inside `OrderLogic`, items from the menu can be added into the current active order.
 This is carried out using the `add -item <item_id> -quantity <quantity_of_item>` command,
 where `<item_id>` is an integer corresponding to the item's id in the menu,
 and `<quantity_of_item>` is an integer of the amount of that item to be added.
 
 **Delete**  
-
 In `OrderLogic`, items from the current order can be removed via the
 `delete -item <item_id> -quantity <quantity_of_item>` command. `<item_id>`
 and `<quantity_of_item>` are the same type of parameters as the ones specified
 in the `Add` command class.
 
 **Complete**  
-
 In `OrderLogic`, once the order is finished, it can be completed and closed
 by executing the `complete` command. This marks the current order as completed
 and the program returns back to `MainLogic` for subsequent command executions.
 
-**Cancel**
-
+**Cancel**  
 In "OrderLogic", the user can cancel the current order by executing the `cancel` command.
 This will abort the current order created and return to the main menu.
+<div style="page-break-after: always;"></div>
 
 ### `MenuLogic`
-![MenuLogic Diagram](images/MenuLogicSequenceDiagram.png)
+![MenuLogic sequence diagram](images/MenuLogicSequenceDiagram.png)
+
 Generally, the menu logic works similar to order logic:
 1. User enters an input which is received in the *ui* and parsed by the `Parser`.
 2. The `Parser` classifies the command based on `CommandType`
 3. Within `MenuLogic`, `execute` is called on the corresponding class
 4. Control is passed to other sections of the code
 
-**View Item**  
-
+**View Items**  
 Within `MenuLogic`, a list containing all the items that have been added to the current active order can be viewed by executing
 the `view item` command.
 
-**Add**
-
+**Add**  
 Inside `MenuLogic`, items from the menu can be added into the current active order.
 This is carried out using the `add -item <item_name> -price <price_of_item>` command,
 where `<item_name>` is a string represent the name of the MenuItem,
 and `<price_of_item>` is a double of the price of that item to be added.
 
-**Delete**
-
+**Delete**  
 In `MenuLogic`, items from the current order can be removed via the
 `delete -item <item_id>` command. `<item_id>` is the index of the item in the menu.
 
-**Complete**
-
+**Complete**  
 Inside `MenuLogic`, once the order is finished, it can be completed and closed
 by executing the `complete` command. This marks the current Menu as completed
 and the program returns back to `MainLogic` for subsequent command executions.
 
-**Cancel**
+**Cancel**  
 In `MenuLogic`, the user can cancel the current menu by executing the `cancel` command.
 This will abort the current menu created and return to the main menu.
+
+<!-- for reference in stats feature
+        System.out.println("Available commands:");
+        System.out.println("\tbestselling - View the best selling item(s)");
+        System.out.println("\ttotal orders - View the total number of orders");
+        System.out.println("\trevenue -gross - View the gross revenue");
+        System.out.println("\trevenue -net - View the net revenue");
+        System.out.println("\tview profit -cost <cost> - View the profit based on the cost");
+        System.out.println("\tquit - return to main interface");
+-->
+<div style="page-break-after: always;"></div>
+
+### `StatsLogic`
+![Statistics sequence diagram](images/StatsLogicSequenceDiagram.png)
+
+Generally, the stats logic works similar to order logic:
+1. User enters an input which is received in the *ui* and parsed by the `Parser`.
+2. The `Parser` classifies the command based on `CommandType`
+3. Within `StatsLogic`, `execute` is called on the corresponding class
+4. Control is passed to OrderStatistics class to calculate the performance statistics
+
+**Bestselling** <br>
+In `StatsLogic`, the best-selling item(s) can be viewed by executing the `bestselling` command.
+It calls the `getBestSellingItem()` method from an `OrderStatistics` instance to calculate the best-selling item(s)
+based on the total count of the items in the ordersList. The ordersList is stored in an ArrayList in MainLogic.
+
+**Total Orders** <br>
+In `StatsLogic`, the total number of orders can be viewed by executing the `total orders` command.
+It calls the `getOrderCount()` method from an `OrderStatistics` instance,
+which will iterate through the orders in the ArrayList stored in MainLogic to count the total number of orders.
+
+**Revenue - Gross** <br>
+In `StatsLogic`, the gross revenue can be viewed by executing the `revenue -gross` command.
+It calls the `getGrossRevenue()` method from an `OrderStatistics` instance, which will iterate through the orders in the ArrayList
+stored in MainLogic and aggregate the total revenue of each order by calling the `getTotalPrice()` method in the Order class.
+
+**Revenue - Net** <br>
+In `StatsLogic`, the net revenue can be viewed by executing the `revenue -net` command.
+It calls the `getNetRevenue()` method from an `OrderStatistics` instance, which will iterate through the orders in the ArrayList
+stored in MainLogic and aggregate the total revenue of each order by calling the `getTotalPrice()` method in the Order class.
+The net revenue is calculated by subtracting the total revenue from the total service charge and GST.
+
+**View Profit - Cost** <br>
+In `StatsLogic`, the profit can be viewed by executing the `view profit -cost <cost>` command.
+It calls the `getProfit()` method from an `OrderStatistics` instance, which will iterate through the orders in the ArrayList
+stored in MainLogic and aggregate the total revenue of each order by calling the `getTotalPrice()` method in the Order class.
+The profit is calculated by subtracting the total revenue from the total service charge and GST, and then subtracting the cost
+of the items sold.
+
+**Quit** <br>
+In `StatsLogic`, the user can return to the main interface by executing the `quit` command.
+
 
 ## Product scope
 ### Target user profile
@@ -192,13 +260,15 @@ This will abort the current menu created and return to the main menu.
 * has a need to manage orders in a restaurant
 * has a need to manage menus in a restaurant
 * has a need to manage cashiering duty in a restaurant
+* has a need to check the restaurant's daily performance
 * prefer CLI apps than GUI apps
 * can type fast
 
 
 ### Value proposition
 
-Manage orders and menus faster and more efficiently than traditional GUI applications for faster typers.
+* Manage orders and menus faster and more efficiently than traditional GUI applications for faster typers.
+* Keep track of the restaurant's daily performance with the stats feature.
 
 ## User Stories
 
@@ -210,7 +280,7 @@ Manage orders and menus faster and more efficiently than traditional GUI applica
 | `* * *`  | restaurant owner | manage cashiering duties in my restaurant | keep track of the money that comes in and out of the restaurant |
 | `*   *`  | restaurant owner | manage menus in my restaurant             | keep track of the dishes that are available in the restaurant   |
 | `*    `  | restaurant owner | view the order/menu                       | check the dishes that are available in the restaurant           |
-
+| `*    `  | restaurant owner | view the performance of the restaurant    | know which dishes are popular among the customers               |
 
 ## Non-Functional Requirements
 
@@ -220,7 +290,7 @@ Manage orders and menus faster and more efficiently than traditional GUI applica
 
 ## Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, MacOS.
+* **Mainstream OS**: Windows, Linux, macOS.
 
 
 ## Instructions for manual testing
@@ -232,11 +302,11 @@ Written below are instructions to test the app manually.
   2. Open a terminal and navigate to the folder containing the jar file
   3. Run the command `java -jar DinEz.jar` to launch the application
 * Shutdown
-  1. Type `exit` and press enter to shutdown the application
+  1. Type `exit` and press enter to shut down the application
 
 ### Add item to a menu
 * Adding an item to a menu
-  1. Prerequesite: Type `create menu` in the Main interface to go into the Menu interface.
+  1. Prerequisite: Type `create menu` in the Main interface to go into the Menu interface.
   2. Test case: `add -item Beef noodles -price 6`  
      Expected: A new item with the name `Beef noodles` and a price of `$6.00` is added to the menu. A success message
      should also appear.
@@ -261,14 +331,14 @@ Written below are instructions to test the app manually.
 
 ### Create order and add/delete/view item
 * To create an order
-  1. Prerequisite: Have already created one menu. Type `create order -menu 01` in Main interface to enter the Order
-     interface, 01 is the ID of the previously created menu.
+  1. Prerequisite: Have already created one menu. Type `create order -menu 1` in Main interface to enter the Order
+     interface, 1 is the ID of the previously created menu.
   2. Test Case: `Add -item 1 -quantity 2`  
-     Expected: Item 001 is added to the order with quantity 2
+     Expected: Item 1 is added to the order with quantity 2
   3. Test Case: `View item`  
-     Expected: Item 001 is displayed with quantity 2
-  3. Test Case: `Delete -item 1 -quantity 1`  
-     Expected: Item 001 is removed from the order with quantity 1
+     Expected: Item 1 is displayed with quantity 2
+  4. Test Case: `Delete -item 1 -quantity 1`  
+     Expected: Item 1 is removed from the order with quantity 1
 
 ### View created orders
 * To view all orders or details of a specific order that has been created
@@ -289,7 +359,7 @@ Written below are instructions to test the app manually.
   1. Prerequisite: Must have already created and completed menus.
   2. Test case: `view -menu -all`  
      Expected: A list of menu IDs should appear with their corresponding amount of items that the menu contains
-  3. Test case: `view -menu 01`  
+  3. Test case: `view -menu 1`  
      Expected: Details of the menu should appear which includes the ID, name and price of every item in the menu.
   4. Test case: `view -menu abc`  
      Expected: Error message appears asking users to check if they have entered the necessary parameters correctly.
@@ -305,9 +375,6 @@ In the data folder, create a file named `restaurant.txt` and enter the following
 ```
 Techno Edge | 2 Engineering Drive 4
 ```
-> [!NOTE]
-> * If the `restaurant.txt` file is not present in the data folder when the program is run, it assumes the user is a
-> first-time user and will not load data from `orders.txt` and `menus.txt` if present.
 
 #### Load order data
 In the data folder, create a file named `orders.txt` and enter the following data:
@@ -327,17 +394,17 @@ Techno Edge | 2 Engineering Drive 4
 #### Load menu data
 In the data folder, create a file named `menus.txt` and enter the following data:
 ```
-01
-001 | Chicken Rice | 3.5
-002 | Nasi Lemak | 3.0
-003 | Hokkien Mee | 4.0
-004 | Mee Siam | 3.5
-005 | Fishball Noodles | 3.0
-006 | Chicken Curry Rice | 5.0
-007 | Seafood Fried Rice | 5.5
-008 | Roasted delight set | 6.5
-009 | Hotplate beef set | 7.0
-010 | Kimchi noodles | 4.0
+1
+1 | Chicken Rice | 3.5
+2 | Nasi Lemak | 3.0
+3 | Hokkien Mee | 4.0
+4 | Mee Siam | 3.5
+5 | Fishball Noodles | 3.0
+6 | Chicken Curry Rice | 5.0
+7 | Seafood Fried Rice | 5.5
+8 | Roasted delight set | 6.5
+9 | Hotplate beef set | 7.0
+10 | Kimchi noodles | 4.0
 -
 
 ```
@@ -389,7 +456,7 @@ in the main interface:
 
 ```
 
-The user should see the following when `view -menu 01` is entered in the main
+The user should see the following when `view -menu 1` is entered in the main
 interface:
 ```
 +------------------------------------------+
@@ -430,9 +497,9 @@ Restaurant info has been updated.
 ```
 
 #### Saving orders
-After launching the application, enter `create order -menu 01` in the main interface. Enter `1` when prompted for the
+After launching the application, enter `create order -menu 1` in the main interface. Enter `1` when prompted for the
 order type (dine in/takeaway). Enter the following commands in sequence inside the order interface:
-`add -item 2 -quantity 3`, `add -item 4 -quantity 1`. Afterwards, enter `complete`in the order interface and type `y`
+`add -item 2 -quantity 3`, `add -item 4 -quantity 1`. Afterwards, enter `complete` in the order interface and type `y`
 when the confirmation message appears. The completed order is then automatically saved in the `orders.txt` file inside
 the data folder. The user should see the following:
 > [!NOTE]
@@ -441,7 +508,7 @@ the data folder. The user should see the following:
 > * `...` represents abbreviated messages to shorten the example output
 
 ```
-[Main interface] >>> create order -menu 01
+[Main interface] >>> create order -menu 1
 Would you like your order to be
     1) dine in
     2) takeaway
@@ -452,11 +519,11 @@ Here are the list of available commands:
     help: Shows all the commands that can be used.
     ...
     cancel: Aborts the current order and returns to the main menu.
-[Order: order_id] [Menu: 01] >>> add -item 2 -quantity 3
+[Order: order_id] [Menu: 1] >>> add -item 2 -quantity 3
 3 Nasi Lemak is added to order
-[Order: order_id] [Menu: 01] >>> add -item 4 -quantity 1
+[Order: order_id] [Menu: 1] >>> add -item 4 -quantity 1
 1 Mee Siam is added to order
-[Order: order_id] [Menu: 01] >>> complete
+[Order: order_id] [Menu: 1] >>> complete
 ...
 WARNING: Once an order is completed, you are NOT ALLOWED to edit or delete it.
 Do you want to complete the order? (type 'y' to complete, anything else to cancel)
@@ -475,12 +542,12 @@ folder. The user should see the following:
 
 ```
 [Main interface] >>> create menu
-Initializing menu 02...
+Initializing menu 2...
 Here are the list of available commands:
     help: Shows all the commands that can be used.
     ...
     cancel: Aborts the current menu and returns to the main menu.
-[Menu: 02] >>> add -item Beef noodles -price 6
+[Menu: 2] >>> add -item Beef noodles -price 6
 Item successfully added to menu!
 +------------------------------------------+
 |                   MENU                   |
@@ -490,7 +557,7 @@ Item successfully added to menu!
 | 1    | Beef noodles          | $6.00     |
 +------+-----------------------------------+
 
-[Menu: 02] >>> add -item Prawn noodles -price 5
+[Menu: 2] >>> add -item Prawn noodles -price 5
 Item successfully added to menu!
 +------------------------------------------+
 |                   MENU                   |
@@ -501,8 +568,8 @@ Item successfully added to menu!
 | 2    | Prawn noodles         | $5.00     |
 +------+-----------------------------------+
 
-[Menu: 02] >>> complete
-Menu 02 has been saved!
+[Menu: 2] >>> complete
+Menu 2 has been saved!
 [Main interface] >>> 
 ```
 
@@ -527,19 +594,19 @@ Fine Food | Avenue 0
 ```
 Inside the data folder, open `menus.txt`. It should be populated with the following data:
 ```
-01
-001 | Chicken Rice | 3.5
-002 | Nasi Lemak | 3.0
-003 | Hokkien Mee | 4.0
-004 | Mee Siam | 3.5
-005 | Fishball Noodles | 3.0
-006 | Chicken Curry Rice | 5.0
-007 | Seafood Fried Rice | 5.5
-008 | Roasted delight set | 6.5
-009 | Hotplate beef set | 7.0
-010 | Kimchi noodles | 4.0
+1
+1 | Chicken Rice | 3.5
+2 | Nasi Lemak | 3.0
+3 | Hokkien Mee | 4.0
+4 | Mee Siam | 3.5
+5 | Fishball Noodles | 3.0
+6 | Chicken Curry Rice | 5.0
+7 | Seafood Fried Rice | 5.5
+8 | Roasted delight set | 6.5
+9 | Hotplate beef set | 7.0
+10 | Kimchi noodles | 4.0
 -
-02
+2
 1 | Beef noodles | 6.0
 2 | Prawn noodles | 5.0
 -
