@@ -55,7 +55,7 @@ type quickly. It is written in Java and has about 5 kLoC.
     * Added implementation details and sequence diagram for `OrderLogic`. (Pull request [#161](https://github.com/AY2324S2-CS2113-F14-2/tp/pull/161))
     * Added manual testing instructions for viewing created menus and orders. (Pull request [#161](https://github.com/AY2324S2-CS2113-F14-2/tp/pull/161))
     * Added manual testing instructions for saving data, loading data, and corrupting data. (Pull request [#161](https://github.com/AY2324S2-CS2113-F14-2/tp/pull/161))
-    * Added implemenation details and sequence diagram for `Storage`. (Pull requests [#185](https://github.com/AY2324S2-CS2113-F14-2/tp/pull/185), [#189](https://github.com/AY2324S2-CS2113-F14-2/tp/pull/189/files))
+    * Added implemenation details and sequence diagram for `Storage`. (Pull requests [#185](https://github.com/AY2324S2-CS2113-F14-2/tp/pull/185), [#189](https://github.com/AY2324S2-CS2113-F14-2/tp/pull/189))
 
 * **Community**:
   * Assisted in resolving forum issues(e.g. [forum issue #38](https://github.com/nus-cs2113-AY2324S2/forum/issues/38#issuecomment-2049258461))
