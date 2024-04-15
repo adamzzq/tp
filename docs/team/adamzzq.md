@@ -2,7 +2,7 @@
 ## Project: DinEZ
 ### Overview
 DinEz is a CLI application designed for restaurant managers to manage menus, orders, and statistics.
-It is written in Java and has about 4kLoC.
+It is written in Java and has about 5kLoC.
 
 ### Summary of contribution
 #### **Code contributed**: [RepoSense link](https://nus-cs2113-ay2324s2.github.io/tp-dashboard/?search=&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2024-02-23&tabOpen=true&tabType=authorship&tabAuthor=adamzzq&tabRepo=AY2324S2-CS2113-F14-2%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=functional-code~test-code&authorshipIsBinaryFileTypeChecked=false&authorshipIsIgnoredFilesChecked=false)
